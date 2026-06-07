@@ -38,14 +38,7 @@
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 input, textarea, select, button { font-family: var(--font); }
 button { cursor: pointer; }
-
-/* ─── Header ─── */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-}
+.header { position: sticky; top: 0; z-index: 100; background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
 [data-theme="light"] .header { background: rgba(244,245,247,0.9); }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
 .logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0a0b0d; flex-shrink: 0; }
@@ -53,17 +46,8 @@ button { cursor: pointer; }
 .admin-badge { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,0.2); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .theme-toggle { background: none; border: 1px solid var(--border2); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition); }
 .theme-toggle:hover { background: var(--surface); }
-
-/* ─── Main ─── */
 .main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
-
-/* ─── Event Header ─── */
-.event-header-card {
-  background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%);
-  border: 1px solid var(--border); border-radius: var(--radius2);
-  padding: 24px 28px; margin-bottom: 24px; position: relative; overflow: hidden;
-  animation: fadeInDown 0.4s ease both;
-}
+.event-header-card { background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%); border: 1px solid var(--border); border-radius: var(--radius2); padding: 24px 28px; margin-bottom: 24px; position: relative; overflow: hidden; animation: fadeInDown 0.4s ease both; }
 .event-header-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--purple)); }
 .event-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .event-title-area { flex: 1; }
@@ -75,67 +59,35 @@ button { cursor: pointer; }
 .event-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
 .event-meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text2); }
 .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-/* ─── Stats Grid ─── */
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
 @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-.stat-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2);
-  padding: 18px 20px; animation: fadeInUp 0.4s ease both;
-}
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 18px 20px; animation: fadeInUp 0.4s ease both; }
 .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); margin-bottom: 8px; }
 .stat-value { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
 .stat-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
-
-/* ─── Cards ─── */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 24px; margin-bottom: 16px; animation: fadeInUp 0.4s ease both; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .card-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
 .card-icon { width: 28px; height: 28px; background: var(--accent-dim); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-
-/* ─── Candidate Result Rows ─── */
-.result-row {
-  display: grid; grid-template-columns: 1fr auto auto auto auto auto;
-  gap: 8px; align-items: center;
-  padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius);
-  background: var(--bg3); margin-bottom: 6px; transition: var(--transition);
-  animation: fadeInUp 0.3s ease both;
-}
+.result-row { display: grid; grid-template-columns: 1fr auto auto auto auto auto; gap: 8px; align-items: center; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--bg3); margin-bottom: 6px; transition: var(--transition); animation: fadeInUp 0.3s ease both; }
 @media (max-width: 600px) { .result-row { grid-template-columns: 1fr; } }
 .result-row:hover { border-color: var(--border2); background: var(--surface2); }
 .result-row.top-candidate { border-color: var(--accent); background: var(--accent-dim2); }
 .result-row.top-candidate .recommend-tag { display: inline-flex; }
-.recommend-tag {
-  display: none; align-items: center; gap: 4px;
-  background: var(--accent); color: #0a0b0d;
-  padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; white-space: nowrap;
-}
+.recommend-tag { display: none; align-items: center; gap: 4px; background: var(--accent); color: #0a0b0d; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; white-space: nowrap; }
 .result-datetime { font-size: 14px; font-weight: 500; }
 .result-datetime-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-.result-score {
-  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
-  font-family: var(--mono);
-}
+.result-score { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; font-family: var(--mono); }
 .result-counts { display: flex; align-items: center; gap: 6px; }
 .count-badge { display: flex; align-items: center; gap: 3px; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: 600; }
 .count-circle { background: var(--green-dim); color: var(--green); }
 .count-triangle { background: var(--yellow-dim); color: var(--yellow); }
 .count-cross { background: var(--red-dim); color: var(--red); }
-
-/* ─── Score Bar ─── */
 .score-bar-wrap { width: 120px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .score-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
 @media (max-width: 600px) { .score-bar-wrap { width: 100%; } }
-
-/* ─── Confirm Button ─── */
-.btn-confirm-date {
-  background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25);
-  padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
-  transition: var(--transition); white-space: nowrap;
-}
+.btn-confirm-date { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; transition: var(--transition); white-space: nowrap; }
 .btn-confirm-date:hover { background: rgba(34,197,94,0.2); border-color: rgba(34,197,94,0.4); }
-
-/* ─── Participant Table ─── */
 .participant-table { width: 100%; border-collapse: collapse; }
 .participant-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
 .participant-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -143,25 +95,18 @@ button { cursor: pointer; }
 .participant-table tr:hover td { background: var(--surface2); }
 .p-replied { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
 .p-replied.yes { background: var(--green-dim); color: var(--green); }
-.p-replied.no { background: var(--red-dim); color: var(--red); }
-
-/* ─── Votes Detail ─── */
+.p-replied.no  { background: var(--red-dim);   color: var(--red);   }
 .votes-detail-grid { display: flex; flex-direction: column; gap: 8px; }
-.vote-detail-row {
-  background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 12px 16px;
-}
+.vote-detail-row { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; }
 .vote-detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .vote-detail-name { font-size: 14px; font-weight: 600; }
 .vote-detail-time { font-size: 11px; color: var(--text3); font-family: var(--mono); }
 .vote-answers { display: flex; flex-wrap: wrap; gap: 6px; }
 .vote-answer-chip { display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-size: 12px; border: 1px solid; }
-.answer-circle { background: var(--green-dim); color: var(--green); border-color: rgba(34,197,94,0.2); }
+.answer-circle   { background: var(--green-dim);  color: var(--green);  border-color: rgba(34,197,94,0.2); }
 .answer-triangle { background: var(--yellow-dim); color: var(--yellow); border-color: rgba(234,179,8,0.2); }
-.answer-cross { background: var(--red-dim); color: var(--red); border-color: rgba(239,68,68,0.2); }
+.answer-cross    { background: var(--red-dim);    color: var(--red);    border-color: rgba(239,68,68,0.2); }
 .vote-condition { font-size: 12px; color: var(--text3); margin-top: 4px; padding-left: 4px; border-left: 2px solid var(--yellow); }
-
-/* ─── Buttons ─── */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: var(--radius); border: none; transition: var(--transition); white-space: nowrap; }
 .btn-primary { background: var(--accent); color: #0a0b0d; }
 .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(240,165,0,0.3); }
@@ -171,46 +116,27 @@ button { cursor: pointer; }
 .btn-danger:hover { background: rgba(239,68,68,0.2); }
 .btn-sm { padding: 7px 12px; font-size: 13px; border-radius: 8px; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-
-/* ─── Confirm Modal ─── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-  align-items: center; justify-content: center; padding: 20px;
-  animation: fadeIn 0.2s ease;
-}
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.visible { display: flex; }
-.modal {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2);
-  padding: 28px; max-width: 480px; width: 100%;
-  animation: popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275) both;
-}
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 28px; max-width: 480px; width: 100%; animation: popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275) both; }
 .modal-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
 .modal-desc { font-size: 14px; color: var(--text2); margin-bottom: 24px; line-height: 1.6; }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 .modal-date-preview { background: var(--bg3); border: 1px solid var(--accent); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 20px; font-weight: 600; font-size: 16px; color: var(--accent); }
-
-/* ─── Section Tabs ─── */
 .tabs { display: flex; gap: 2px; background: var(--bg3); border-radius: var(--radius); padding: 4px; margin-bottom: 20px; }
 .tab-btn { flex: 1; padding: 8px 12px; border-radius: 7px; border: none; background: none; color: var(--text2); font-size: 13px; font-weight: 500; transition: var(--transition); cursor: pointer; }
 .tab-btn.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
-
-/* ─── Loading/Error ─── */
 .loading-state { text-align: center; padding: 80px 20px; }
 .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
 .error-state { text-align: center; padding: 60px 20px; }
-
-/* ─── Toast ─── */
 .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
 .toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); animation: toastIn 0.3s ease both; pointer-events: all; max-width: 320px; }
 .toast.success { border-color: var(--green); }
-.toast.error { border-color: var(--red); }
+.toast.error   { border-color: var(--red);   }
 .toast-out { animation: toastOut 0.3s ease forwards; }
-
-/* ─── Spinner ─── */
 .spinner { width: 14px; height: 14px; border: 2px solid rgba(10,11,13,0.3); border-top-color: #0a0b0d; border-radius: 50%; animation: spin 0.7s linear infinite; }
-.spinner-dark { border: 2px solid var(--border); border-top-color: var(--accent); }
-
+.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 14px; }
+.empty-state { text-align: center; padding: 40px; color: var(--text3); font-size: 14px; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
@@ -218,8 +144,6 @@ button { cursor: pointer; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
 @keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
-.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 14px; }
-.empty-state { text-align: center; padding: 40px; color: var(--text3); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -236,7 +160,7 @@ button { cursor: pointer; }
 </header>
 
 <main class="main" id="mainContent">
-  <div class="loading-state" id="loadingState">
+  <div class="loading-state">
     <div class="loading-spinner"></div>
     <div style="color:var(--text3);font-size:14px">読み込み中...</div>
   </div>
@@ -247,7 +171,7 @@ button { cursor: pointer; }
   <div class="modal">
     <div class="modal-title">📅 この日程で確定しますか？</div>
     <div class="modal-date-preview" id="confirmDatePreview">—</div>
-    <div class="modal-desc" id="confirmModalDesc">確定後、通知設定がONの場合は参加者全員へ確定メールが送信されます。この操作は取り消せません。</div>
+    <div class="modal-desc">確定後、通知設定がONの場合は参加者全員へ確定メールが送信されます。この操作は取り消せません。</div>
     <div class="modal-actions">
       <button class="btn btn-secondary btn-sm" onclick="closeModal()">キャンセル</button>
       <button class="btn btn-primary btn-sm" id="doConfirmBtn" onclick="doConfirm()">
@@ -262,52 +186,49 @@ button { cursor: pointer; }
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",
-  authDomain: "schedly-2d50c.firebaseapp.com",
-  projectId: "schedly-2d50c",
-  storageBucket: "schedly-2d50c.firebasestorage.app",
-  messagingSenderId: "703737030595",
-  appId: "1:703737030595:web:a7e350361aa790e749ff76"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
-let db;
 try {
   const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  window._db = db;
-  window._fsDoc = doc;
-  window._fsGetDoc = getDoc;
-  window._fsSetDoc = setDoc;
-  window._fsUpdateDoc = updateDoc;
-  window._fsCollection = collection;
-  window._fsGetDocs = getDocs;
-  window._fsServerTimestamp = serverTimestamp;
+  window._db = getFirestore(app);
 } catch(e) { console.warn('Firebase init error:', e); }
 </script>
 
+<!-- EmailJS アカウントB（確定・リマインド） ※明日差し替え -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script>
-const EMAILJS_CONFIG = {
-  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
-  serviceId: "YOUR_SERVICE_ID",
-  confirmTemplateId: "YOUR_CONFIRM_TEMPLATE_ID",
-  reminderTemplateId: "YOUR_REMINDER_TEMPLATE_ID"
+// ======================================================
+// EmailJS アカウントB設定（確定・リマインドメール）
+// ※明日設定値が届いたらここを差し替えてください
+// ======================================================
+const EMAILJS_B = {
+  publicKey:          'YOUR_ACCOUNTB_PUBLIC_KEY',
+  serviceId:          'YOUR_ACCOUNTB_SERVICE_ID',
+  confirmTemplateId:  'YOUR_CONFIRM_TEMPLATE_ID',
+  reminderTemplateId: 'YOUR_REMINDER_TEMPLATE_ID'
 };
-try { emailjs.init(EMAILJS_CONFIG.publicKey); } catch(e) {}
+// ======================================================
+
+try { emailjs.init(EMAILJS_B.publicKey); } catch(e) {}
 
 // ─── State ───
-const params = new URLSearchParams(location.search);
-const eventId = params.get('id');
+const params     = new URLSearchParams(location.search);
+const eventId    = params.get('id');
 const adminToken = params.get('token');
-let eventData = null;
-let votes = {};
+let eventData    = null;
+let votes        = {};
 let participants = [];
 let pendingConfirmDate = null;
-let activeTab = 'results';
+let activeTab    = 'results';
 
 // ─── Theme ───
 const themeToggle = document.getElementById('themeToggle');
@@ -316,8 +237,7 @@ const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 themeToggle.onclick = () => {
-  const c = html.getAttribute('data-theme');
-  const n = c === 'dark' ? 'light' : 'dark';
+  const n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', n);
   localStorage.setItem('schedlyTheme', n);
   themeToggle.textContent = n === 'dark' ? '☀️' : '🌙';
@@ -333,29 +253,28 @@ async function loadData() {
   try {
     const db = window._db;
     if (db) {
-      const snap = await window._fsGetDoc(window._fsDoc(db, 'events', eventId));
+      const { doc, getDoc, collection, getDocs } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      const snap = await getDoc(doc(db, 'events', eventId));
       if (!snap.exists()) { showError('イベントが見つかりません'); return; }
       eventData = { id: eventId, ...snap.data() };
 
       if (adminToken && eventData.adminToken !== adminToken) {
-        showError('アクセス権限がありません', 'このページは管理者専用です');
-        return;
+        showError('アクセス権限がありません', 'このページは管理者専用です'); return;
       }
 
-      const votesSnap = await window._fsGetDocs(window._fsCollection(db, 'events', eventId, 'votes'));
+      const votesSnap = await getDocs(collection(db, 'events', eventId, 'votes'));
       votesSnap.forEach(d => { votes[d.id] = d.data(); });
 
-      const partSnap = await window._fsGetDocs(window._fsCollection(db, 'events', eventId, 'participants'));
+      const partSnap = await getDocs(collection(db, 'events', eventId, 'participants'));
       partSnap.forEach(d => { participants.push(d.data()); });
     } else {
-      // Demo: localStorage
       const stored = localStorage.getItem(`schedly_event_${eventId}`);
       if (!stored) { showError('イベントが見つかりません'); return; }
       eventData = JSON.parse(stored);
-      if (adminToken && eventData.adminToken !== adminToken) {
-        showError('アクセス権限がありません'); return;
-      }
-      votes = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`) || '{}');
+      if (adminToken && eventData.adminToken !== adminToken) { showError('アクセス権限がありません'); return; }
+      votes        = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`)        || '{}');
       participants = JSON.parse(localStorage.getItem(`schedly_participants_${eventId}`) || '[]');
     }
     renderPage();
@@ -370,19 +289,17 @@ function computeResults() {
   const voteArr = Object.values(votes);
   const dateMap = {};
   (eventData.dates || []).forEach(d => {
-    dateMap[d.datetime] = { ...d, circle: 0, triangle: 0, cross: 0, score: 0, unanswered: voteArr.length };
+    dateMap[d.datetime] = { ...d, circle:0, triangle:0, cross:0, score:0 };
   });
   voteArr.forEach(v => {
     Object.entries(v.answers || {}).forEach(([dateKey, type]) => {
       if (!dateMap[dateKey]) return;
-      if (type === 'circle') { dateMap[dateKey].circle++; dateMap[dateKey].score += 2; }
+      if (type === 'circle')   { dateMap[dateKey].circle++;   dateMap[dateKey].score += 2; }
       if (type === 'triangle') { dateMap[dateKey].triangle++; dateMap[dateKey].score += 1; }
-      if (type === 'cross') { dateMap[dateKey].cross++; }
-      dateMap[dateKey].unanswered = Math.max(0, dateMap[dateKey].unanswered - 1);
+      if (type === 'cross')    { dateMap[dateKey].cross++; }
     });
   });
-  const results = Object.values(dateMap);
-  results.sort((a, b) => b.score - a.score);
+  const results  = Object.values(dateMap).sort((a,b) => b.score - a.score);
   const maxScore = results[0]?.score || 0;
   results.forEach(r => r.isTop = r.score === maxScore && maxScore > 0);
   return results;
@@ -390,35 +307,28 @@ function computeResults() {
 
 // ─── Render Page ───
 function renderPage() {
-  const voteArr = Object.values(votes);
-  const partCount = participants.length;
+  const voteArr      = Object.values(votes);
   const repliedCount = voteArr.length;
-  const unrespondedCount = eventData.mode === 'closed' ? Math.max(0, partCount - repliedCount) : 0;
-  const results = computeResults();
-  const maxScore = results[0]?.score || 0;
-
-  const deadline = eventData.deadline ? new Date(eventData.deadline) : null;
-  const deadlineStr = deadline ? deadline.toLocaleDateString('ja-JP', { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' }) : '—';
-  const isConfirmed = eventData.status === 'confirmed';
-
-  const statusLabel = { open: '受付中', confirmed: '日程確定済', closed: '締切済' };
-  const statusClass = { open: 'status-open', confirmed: 'status-confirmed', closed: 'status-closed' };
-
-  const eventUrl = `${location.origin}${location.pathname.replace('admin.html', '')}event.html?id=${eventId}`;
+  const results      = computeResults();
+  const maxScore     = results[0]?.score || 0;
+  const isConfirmed  = eventData.status === 'confirmed';
+  const deadline     = eventData.deadline ? new Date(eventData.deadline) : null;
+  const deadlineStr  = deadline ? deadline.toLocaleDateString('ja-JP', { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' }) : '—';
+  const statusLabel  = { open:'受付中', confirmed:'日程確定済', closed:'締切済' };
+  const statusClass  = { open:'status-open', confirmed:'status-confirmed', closed:'status-closed' };
+  const eventUrl     = `${location.origin}${location.pathname.replace('admin.html','')}event.html?id=${eventId}`;
+  const unrespondedCount = eventData.mode === 'closed' ? Math.max(0, participants.length - repliedCount) : 0;
 
   document.getElementById('mainContent').innerHTML = `
-    <!-- Event Header -->
     <div class="event-header-card">
       <div class="event-header-top">
         <div class="event-title-area">
-          <span class="event-status-badge ${statusClass[eventData.status] || 'status-open'}">
-            ${statusLabel[eventData.status] || '受付中'}
-          </span>
+          <span class="event-status-badge ${statusClass[eventData.status]||'status-open'}">${statusLabel[eventData.status]||'受付中'}</span>
           <div class="event-title">${escHtml(eventData.title)}</div>
           <div class="event-meta">
             ${eventData.location ? `<div class="event-meta-item">📍 ${escHtml(eventData.location)}</div>` : ''}
             <div class="event-meta-item">⏰ 締切: ${deadlineStr}</div>
-            <div class="event-meta-item">${eventData.mode === 'closed' ? '🔒 クローズド' : '🌐 オープン'}</div>
+            <div class="event-meta-item">${eventData.mode==='closed'?'🔒 クローズド':'🌐 オープン'}</div>
           </div>
         </div>
         <div class="header-actions">
@@ -429,12 +339,10 @@ function renderPage() {
       ${isConfirmed && eventData.confirmedDate ? `
         <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
           <div style="font-size:12px;color:var(--text3);margin-bottom:4px">確定日程</div>
-          <div style="font-size:18px;font-weight:700;color:var(--accent)">${formatDatetime(eventData.confirmedDate.datetime || eventData.confirmedDate)}</div>
-        </div>
-      ` : ''}
+          <div style="font-size:18px;font-weight:700;color:var(--accent)">${formatDatetime(eventData.confirmedDate.datetime||eventData.confirmedDate)}</div>
+        </div>` : ''}
     </div>
 
-    <!-- Stats -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">回答数</div>
@@ -446,7 +354,7 @@ function renderPage() {
         <div class="stat-value" style="color:var(--blue)">${(eventData.dates||[]).length}</div>
         <div class="stat-sub">候補</div>
       </div>
-      ${eventData.mode === 'closed' ? `
+      ${eventData.mode==='closed' ? `
       <div class="stat-card">
         <div class="stat-label">未回答</div>
         <div class="stat-value" style="color:var(--red)">${unrespondedCount}</div>
@@ -459,40 +367,33 @@ function renderPage() {
       </div>`}
       <div class="stat-card">
         <div class="stat-label">ステータス</div>
-        <div class="stat-value" style="font-size:18px;font-weight:600">${statusLabel[eventData.status] || '受付中'}</div>
+        <div class="stat-value" style="font-size:18px;font-weight:600">${statusLabel[eventData.status]||'受付中'}</div>
         <div class="stat-sub">&nbsp;</div>
       </div>
     </div>
 
-    <!-- Tabs -->
     <div class="tabs">
-      <button class="tab-btn ${activeTab === 'results' ? 'active' : ''}" onclick="switchTab('results')">📊 集計・確定</button>
-      <button class="tab-btn ${activeTab === 'votes' ? 'active' : ''}" onclick="switchTab('votes')">📝 回答詳細</button>
-      ${eventData.mode === 'closed' ? `<button class="tab-btn ${activeTab === 'participants' ? 'active' : ''}" onclick="switchTab('participants')">👥 参加者管理</button>` : ''}
+      <button class="tab-btn ${activeTab==='results'?'active':''}"      onclick="switchTab('results',event)">📊 集計・確定</button>
+      <button class="tab-btn ${activeTab==='votes'?'active':''}"        onclick="switchTab('votes',event)">📝 回答詳細</button>
+      ${eventData.mode==='closed'?`<button class="tab-btn ${activeTab==='participants'?'active':''}" onclick="switchTab('participants',event)">👥 参加者管理</button>`:''}
     </div>
 
-    <!-- Tab Content -->
-    <div id="tabContent">
-      ${renderTabContent()}
-    </div>
+    <div id="tabContent">${renderTabContent()}</div>
   `;
 }
 
 function renderTabContent() {
-  if (activeTab === 'results') return renderResultsTab();
-  if (activeTab === 'votes') return renderVotesTab();
+  if (activeTab === 'results')      return renderResultsTab();
+  if (activeTab === 'votes')        return renderVotesTab();
   if (activeTab === 'participants') return renderParticipantsTab();
   return '';
 }
 
 function renderResultsTab() {
-  const results = computeResults();
-  const maxScore = results[0]?.score || 0;
+  const results     = computeResults();
+  const maxScore    = results[0]?.score || 0;
   const isConfirmed = eventData.status === 'confirmed';
-
-  if (results.length === 0) {
-    return `<div class="card"><div class="empty-state">📅 候補日時がありません</div></div>`;
-  }
+  if (results.length === 0) return `<div class="card"><div class="empty-state">📅 候補日時がありません</div></div>`;
 
   return `
     <div class="card">
@@ -500,17 +401,15 @@ function renderResultsTab() {
         <div class="card-title"><div class="card-icon">🏆</div>候補日時の集計</div>
         <div style="font-size:12px;color:var(--text3)">◎=2点 △=1点 ✕=0点</div>
       </div>
-
-      ${results.map((r, i) => {
-        const d = new Date(r.datetime);
+      ${results.map(r => {
+        const d       = new Date(r.datetime);
         const dateStr = d.toLocaleDateString('ja-JP', { month:'long', day:'numeric', weekday:'short' });
         const timeStr = d.toLocaleTimeString('ja-JP', { hour:'2-digit', minute:'2-digit' });
-        const totalVoters = Object.values(votes).length;
-        const pct = maxScore > 0 ? Math.round((r.score / maxScore) * 100) : 0;
+        const pct     = maxScore > 0 ? Math.round((r.score / maxScore) * 100) : 0;
         return `
           <div class="result-row ${r.isTop && !isConfirmed ? 'top-candidate' : ''}">
             <div>
-              <div class="result-datetime">${dateStr} ${timeStr}${r.duration ? ' ・' + r.duration : ''}</div>
+              <div class="result-datetime">${dateStr} ${timeStr}${r.duration?' ・'+r.duration:''}</div>
               <div class="result-datetime-sub">${r.datetime}</div>
               ${r.isTop && !isConfirmed ? '<span class="recommend-tag">⭐ おすすめ</span>' : ''}
             </div>
@@ -519,76 +418,63 @@ function renderResultsTab() {
               <span class="count-badge count-triangle">△ ${r.triangle}</span>
               <span class="count-badge count-cross">✕ ${r.cross}</span>
             </div>
-            <div>
-              <div class="result-score" style="color:${r.isTop ? 'var(--accent)' : 'var(--text)'}">${r.score}pt</div>
-            </div>
-            <div>
-              <div class="score-bar-wrap">
-                <div class="score-bar" style="width:${pct}%"></div>
-              </div>
-            </div>
+            <div><div class="result-score" style="color:${r.isTop?'var(--accent)':'var(--text)'}">${r.score}pt</div></div>
+            <div><div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%"></div></div></div>
             ${!isConfirmed ? `
-              <button class="btn-confirm-date" onclick="openConfirmModal('${r.datetime}', '${escHtml(r.label || dateStr + ' ' + timeStr)}', '${r.duration || ''}')">
+              <button class="btn-confirm-date" onclick="openConfirmModal('${r.datetime}','${escHtml(r.label||dateStr+' '+timeStr)}','${r.duration||''}')">
                 ✓ この日で確定
-              </button>
-            ` : (eventData.confirmedDate?.datetime === r.datetime ? '<span style="color:var(--accent);font-size:12px;font-weight:600">✓ 確定済</span>' : '')}
-          </div>
-        `;
+              </button>` :
+              (eventData.confirmedDate?.datetime === r.datetime ? '<span style="color:var(--accent);font-size:12px;font-weight:600">✓ 確定済</span>' : '')}
+          </div>`;
       }).join('')}
-    </div>
-  `;
+    </div>`;
 }
 
 function renderVotesTab() {
   const voteArr = Object.values(votes);
-  if (voteArr.length === 0) {
-    return `<div class="card"><div class="empty-state">📝 まだ回答がありません</div></div>`;
-  }
+  if (voteArr.length === 0) return `<div class="card"><div class="empty-state">📝 まだ回答がありません</div></div>`;
   return `
     <div class="card">
       <div class="card-header">
         <div class="card-title"><div class="card-icon">📝</div>回答一覧 <span style="font-size:12px;color:var(--text3);font-weight:400">${voteArr.length}名</span></div>
-        ${eventData.mode === 'closed' ? `<button class="btn btn-secondary btn-sm" onclick="sendReminder()">📧 未回答者にリマインド</button>` : ''}
+        ${eventData.mode==='closed'?`<button class="btn btn-secondary btn-sm" onclick="sendReminder()">📧 未回答者にリマインド</button>`:''}
       </div>
       <div class="votes-detail-grid">
         ${voteArr.map(v => {
-          const updatedAt = v.updatedAt ? new Date(v.updatedAt).toLocaleDateString('ja-JP', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
+          const updatedAt = v.updatedAt ? new Date(v.updatedAt).toLocaleDateString('ja-JP',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
           return `
             <div class="vote-detail-row">
               <div class="vote-detail-header">
-                <div class="vote-detail-name">${escHtml(v.name || '匿名')}</div>
+                <div class="vote-detail-name">${escHtml(v.name||'匿名')}</div>
                 <div class="vote-detail-time">${updatedAt}</div>
               </div>
               <div class="vote-answers">
-                ${(eventData.dates || []).map(d => {
-                  const type = (v.answers || {})[d.datetime];
+                ${(eventData.dates||[]).map(d => {
+                  const type = (v.answers||{})[d.datetime];
                   if (!type) return '';
-                  const sym = { circle: '◎', triangle: '△', cross: '✕' };
-                  const cls = { circle: 'answer-circle', triangle: 'answer-triangle', cross: 'answer-cross' };
+                  const sym = {circle:'◎',triangle:'△',cross:'✕'};
+                  const cls = {circle:'answer-circle',triangle:'answer-triangle',cross:'answer-cross'};
                   const date = new Date(d.datetime);
-                  const label = date.toLocaleDateString('ja-JP', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
-                  const cond = (v.comments || {})[d.datetime];
+                  const label = date.toLocaleDateString('ja-JP',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+                  const cond  = (v.comments||{})[d.datetime];
                   return `
                     <div>
                       <span class="vote-answer-chip ${cls[type]}">${sym[type]} ${label}</span>
-                      ${cond ? `<div class="vote-condition">${escHtml(cond)}</div>` : ''}
-                    </div>
-                  `;
+                      ${cond?`<div class="vote-condition">${escHtml(cond)}</div>`:''}
+                    </div>`;
                 }).join('')}
               </div>
-            </div>
-          `;
+            </div>`;
         }).join('')}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderParticipantsTab() {
-  const voteArr = Object.values(votes);
+  const voteArr       = Object.values(votes);
   const emailsReplied = new Set(voteArr.map(v => v.name));
-  const unreplied = participants.filter(p => !p.replied && !emailsReplied.has(p.email));
-  const replied = participants.filter(p => p.replied || emailsReplied.has(p.email));
+  const unreplied     = participants.filter(p => !p.replied && !emailsReplied.has(p.email));
+  const baseUrl       = location.origin + location.pathname.replace('admin.html','');
 
   return `
     <div class="card">
@@ -598,50 +484,37 @@ function renderParticipantsTab() {
           📧 未回答者にリマインド (${unreplied.length}名)
         </button>
       </div>
-
       ${participants.length === 0 ? `<div class="empty-state">参加者が登録されていません</div>` : `
         <table class="participant-table">
-          <thead>
-            <tr>
-              <th>メールアドレス</th>
-              <th>回答状況</th>
-              <th>回答内容</th>
-            </tr>
-          </thead>
+          <thead><tr><th>メールアドレス</th><th>回答状況</th><th>回答内容</th></tr></thead>
           <tbody>
             ${participants.map(p => {
-              const vote = voteArr.find(v => v.name === p.email || v.token === p.token);
+              const vote       = voteArr.find(v => v.name === p.email || v.token === p.token);
               const hasReplied = p.replied || !!vote;
-              const baseUrl = location.origin + location.pathname.replace('admin.html', '');
-              const pUrl = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
+              const pUrl       = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
               return `
                 <tr>
                   <td><a href="${pUrl}" target="_blank" style="color:var(--blue);text-decoration:none">${escHtml(p.email)}</a></td>
-                  <td><span class="p-replied ${hasReplied ? 'yes' : 'no'}">${hasReplied ? '✓ 回答済' : '✕ 未回答'}</span></td>
-                  <td>
-                    ${vote ? `
-                      <span style="font-size:12px;color:var(--text2)">
-                        ◎${Object.values(vote.answers||{}).filter(a=>a==='circle').length}
-                        △${Object.values(vote.answers||{}).filter(a=>a==='triangle').length}
-                        ✕${Object.values(vote.answers||{}).filter(a=>a==='cross').length}
-                      </span>
-                    ` : '<span style="font-size:12px;color:var(--text3)">—</span>'}
+                  <td><span class="p-replied ${hasReplied?'yes':'no'}">${hasReplied?'✓ 回答済':'✕ 未回答'}</span></td>
+                  <td>${vote ? `
+                    <span style="font-size:12px;color:var(--text2)">
+                      ◎${Object.values(vote.answers||{}).filter(a=>a==='circle').length}
+                      △${Object.values(vote.answers||{}).filter(a=>a==='triangle').length}
+                      ✕${Object.values(vote.answers||{}).filter(a=>a==='cross').length}
+                    </span>` : '<span style="font-size:12px;color:var(--text3)">—</span>'}
                   </td>
-                </tr>
-              `;
+                </tr>`;
             }).join('')}
           </tbody>
-        </table>
-      `}
-    </div>
-  `;
+        </table>`}
+    </div>`;
 }
 
 // ─── Tabs ───
-function switchTab(tab) {
+function switchTab(tab, e) {
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  if (e?.target) e.target.classList.add('active');
   document.getElementById('tabContent').innerHTML = renderTabContent();
 }
 
@@ -650,7 +523,7 @@ function openConfirmModal(datetime, label, duration) {
   pendingConfirmDate = { datetime, label, duration };
   const d = new Date(datetime);
   document.getElementById('confirmDatePreview').textContent =
-    d.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', weekday:'long', hour:'2-digit', minute:'2-digit' }) +
+    d.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long',hour:'2-digit',minute:'2-digit'}) +
     (duration ? ` (${duration})` : '');
   document.getElementById('confirmModal').classList.add('visible');
 }
@@ -667,14 +540,12 @@ async function doConfirm() {
   document.getElementById('doConfirmText').innerHTML = '<div class="spinner"></div> 処理中...';
 
   try {
-    const updateData = {
-      status: 'confirmed',
-      confirmedDate: pendingConfirmDate
-    };
-
+    const updateData = { status:'confirmed', confirmedDate: pendingConfirmDate };
     const db = window._db;
     if (db) {
-      await window._fsUpdateDoc(window._fsDoc(db, 'events', eventId), updateData);
+      const { doc, updateDoc } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      await updateDoc(doc(db, 'events', eventId), updateData);
     } else {
       const stored = JSON.parse(localStorage.getItem(`schedly_event_${eventId}`) || '{}');
       Object.assign(stored, updateData);
@@ -682,7 +553,6 @@ async function doConfirm() {
     }
     eventData = { ...eventData, ...updateData };
 
-    // Send confirmation emails
     if (eventData.settings?.notifyConfirm) {
       await sendConfirmationEmails();
     }
@@ -701,43 +571,38 @@ async function doConfirm() {
 async function sendConfirmationEmails() {
   const cd = pendingConfirmDate || eventData.confirmedDate;
   if (!cd) return;
-  const d = new Date(cd.datetime);
-  const dateStr = d.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', weekday:'long', hour:'2-digit', minute:'2-digit' });
-
+  const d       = new Date(cd.datetime);
+  const dateStr = d.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long',hour:'2-digit',minute:'2-digit'});
   const gcalUrl = makeGCalUrl(cd.datetime);
-
   const targets = eventData.mode === 'closed'
     ? participants.map(p => p.email)
     : [...new Set(Object.values(votes).map(v => v.name).filter(n => n && n.includes('@')))];
 
   for (const email of targets) {
     try {
-      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.confirmTemplateId, {
-        to_email: email,
-        event_title: eventData.title,
-        confirmed_date: dateStr,
-        event_location: eventData.location || '未定',
+      await emailjs.send(EMAILJS_B.serviceId, EMAILJS_B.confirmTemplateId, {
+        to_email:          email,
+        event_title:       eventData.title,
+        confirmed_date:    dateStr,
+        event_location:    eventData.location    || '未定',
         event_description: eventData.description || '',
-        gcal_url: gcalUrl,
-        from_name: 'Schedly'
-      });
-    } catch(e) { console.warn('Confirm email failed for', email, e); }
+        gcal_url:          gcalUrl,
+        from_name:         'Schedly'
+      }, EMAILJS_B.publicKey);
+    } catch(e) { console.warn('確定メール送信失敗:', email, e); }
   }
 }
 
 function makeGCalUrl(datetime) {
   try {
     const start = new Date(datetime);
-    const end = new Date(start.getTime() + 60 * 60 * 1000);
-    const fmt = d => d.toISOString().replace(/[-:]/g,'').replace('.000','');
-    const p = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: eventData.title,
-      dates: `${fmt(start)}/${fmt(end)}`,
-      details: eventData.description || '',
-      location: eventData.location || ''
+    const end   = new Date(start.getTime() + 60 * 60 * 1000);
+    const fmt   = d => d.toISOString().replace(/[-:]/g,'').replace('.000','');
+    return `https://calendar.google.com/calendar/render?` + new URLSearchParams({
+      action:'TEMPLATE', text:eventData.title,
+      dates:`${fmt(start)}/${fmt(end)}`,
+      details:eventData.description||'', location:eventData.location||''
     });
-    return `https://calendar.google.com/calendar/render?${p}`;
   } catch(e) { return ''; }
 }
 
@@ -747,7 +612,9 @@ async function closeEvent() {
   try {
     const db = window._db;
     if (db) {
-      await window._fsUpdateDoc(window._fsDoc(db, 'events', eventId), { status: 'closed' });
+      const { doc, updateDoc } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      await updateDoc(doc(db, 'events', eventId), { status:'closed' });
     } else {
       const stored = JSON.parse(localStorage.getItem(`schedly_event_${eventId}`) || '{}');
       stored.status = 'closed';
@@ -756,48 +623,44 @@ async function closeEvent() {
     eventData.status = 'closed';
     showToast('受付を終了しました', 'success');
     renderPage();
-  } catch(e) {
-    showToast('エラー: ' + e.message, 'error');
-  }
+  } catch(e) { showToast('エラー: ' + e.message, 'error'); }
 }
 
 // ─── Send Reminder ───
 async function sendReminder() {
-  const voteArr = Object.values(votes);
+  const voteArr       = Object.values(votes);
   const emailsReplied = new Set(voteArr.map(v => v.name));
-  const unreplied = participants.filter(p => !p.replied && !emailsReplied.has(p.email));
+  const unreplied     = participants.filter(p => !p.replied && !emailsReplied.has(p.email));
 
-  if (unreplied.length === 0) {
-    showToast('未回答者はいません', 'info');
-    return;
-  }
-
+  if (unreplied.length === 0) { showToast('未回答者はいません', 'info'); return; }
   if (!confirm(`${unreplied.length}名にリマインドを送信しますか？`)) return;
 
-  const baseUrl = location.origin + location.pathname.replace('admin.html', '');
+  const baseUrl = location.origin + location.pathname.replace('admin.html','');
+  const deadline = eventData.deadline
+    ? new Date(eventData.deadline).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})
+    : '—';
   let sent = 0;
+
   for (const p of unreplied) {
-    const eventUrl = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
-    const deadline = eventData.deadline ? new Date(eventData.deadline).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
+    const answerUrl = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
     try {
-      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.reminderTemplateId, {
-        to_email: p.email,
+      await emailjs.send(EMAILJS_B.serviceId, EMAILJS_B.reminderTemplateId, {
+        to_email:    p.email,
         event_title: eventData.title,
         deadline,
-        answer_url: eventUrl,
-        from_name: 'Schedly'
-      });
+        answer_url:  answerUrl,
+        from_name:   'Schedly'
+      }, EMAILJS_B.publicKey);
       sent++;
-    } catch(e) { console.warn('Reminder failed for', p.email, e); }
+    } catch(e) { console.warn('リマインド送信失敗:', p.email, e); }
   }
   showToast(`${sent}名にリマインドを送信しました`, 'success');
 }
 
 // ─── Helpers ───
 function formatDatetime(datetime) {
-  try {
-    return new Date(datetime).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', weekday:'long', hour:'2-digit', minute:'2-digit' });
-  } catch(e) { return datetime; }
+  try { return new Date(datetime).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long',hour:'2-digit',minute:'2-digit'}); }
+  catch(e) { return datetime; }
 }
 
 function showError(title, desc = '') {
@@ -805,18 +668,17 @@ function showError(title, desc = '') {
     <div class="error-state">
       <div style="font-size:48px;margin-bottom:16px">❌</div>
       <div style="font-size:20px;font-weight:600;margin-bottom:8px">${title}</div>
-      ${desc ? `<div style="color:var(--text2);font-size:14px;margin-bottom:24px">${desc}</div>` : ''}
+      ${desc?`<div style="color:var(--text2);font-size:14px;margin-bottom:24px">${desc}</div>`:''}
       <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:var(--radius);font-size:14px;text-decoration:none">← 新しいイベントを作成</a>
-    </div>
-  `;
+    </div>`;
 }
 
 function showToast(msg, type = 'info') {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  toast.innerHTML = `<span>${icons[type] || '•'}</span><span>${msg}</span>`;
+  const icons = { success:'✓', error:'✕', info:'ℹ' };
+  toast.innerHTML = `<span>${icons[type]||'•'}</span><span>${msg}</span>`;
   container.appendChild(toast);
   setTimeout(() => { toast.classList.add('toast-out'); setTimeout(() => toast.remove(), 300); }, 3500);
 }
@@ -826,12 +688,12 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-window.switchTab = switchTab;
+window.switchTab        = switchTab;
 window.openConfirmModal = openConfirmModal;
-window.closeModal = closeModal;
-window.doConfirm = doConfirm;
-window.closeEvent = closeEvent;
-window.sendReminder = sendReminder;
+window.closeModal       = closeModal;
+window.doConfirm        = doConfirm;
+window.closeEvent       = closeEvent;
+window.sendReminder     = sendReminder;
 </script>
 </body>
 </html>
