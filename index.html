@@ -552,113 +552,92 @@ function generateId(len = 20) {
 
 // ─── Create Event ───
 async function createEvent() {
+  // ── デバッグ表示 ──
+  const showDebug = (msg, color='white') => {
+    let dbg = document.getElementById('debugBox');
+    if (!dbg) {
+      dbg = document.createElement('div');
+      dbg.id = 'debugBox';
+      dbg.style.cssText = 'position:fixed;top:10px;left:10px;right:10px;background:#111;color:white;padding:12px;border-radius:8px;font-size:12px;font-family:monospace;z-index:9999;white-space:pre-wrap;max-height:60vh;overflow:auto;border:1px solid #444';
+      document.body.appendChild(dbg);
+    }
+    dbg.innerHTML += `<span style="color:${color}">[${new Date().toLocaleTimeString()}] ${msg}</span>\n`;
+  };
+
+  showDebug('createEvent 開始');
+  showDebug('db = ' + (window._db ? 'OK' : 'NULL/UNDEFINED'), window._db ? 'lime' : 'red');
+
   const title    = document.getElementById('eventTitle').value.trim();
-  const desc     = document.getElementById('eventDesc').value.trim();
-  const location = document.getElementById('eventLocation').value.trim();
   const deadline = document.getElementById('eventDeadline').value;
   const mode     = document.querySelector('input[name="mode"]:checked').value;
 
-  if (!title)    { showToast('タイトルを入力してください', 'error'); document.getElementById('eventTitle').focus(); return; }
+  showDebug('title = "' + title + '"');
+  showDebug('deadline = "' + deadline + '"');
+  showDebug('candidates = ' + candidates.length + '件');
+
+  if (!title)    { showToast('タイトルを入力してください', 'error'); return; }
   if (!deadline) { showToast('締切日時を設定してください', 'error'); return; }
   if (candidates.length === 0) { showToast('候補日時を1つ以上追加してください', 'error'); return; }
-  if (mode === 'closed' && participants.length === 0) { showToast('クローズドモードでは参加者を追加してください', 'error'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 作成中...';
 
-  const eventId    = generateId(20);
-  const adminToken = generateId(32);
-
-  const eventData = {
-    title,
-    description: desc,
-    location,
-    deadline: new Date(deadline).toISOString(),
-    mode,
-    status: 'open',
-    adminToken,
-    settings: {
-      notifyReminder: mode === 'closed' ? document.getElementById('notifyReminder').checked : false,
-      notifyDeadline: mode === 'closed' ? document.getElementById('notifyDeadline').checked : false,
-      notifyConfirm:  mode === 'closed' ? document.getElementById('notifyConfirm').checked  : false,
-      notifyDayBefore:mode === 'closed' ? document.getElementById('notifyDayBefore').checked: false,
-      notifyDayOf:    mode === 'closed' ? document.getElementById('notifyDayOf').checked    : false,
-    },
-    dates: candidates,
-    createdAt: new Date().toISOString()
-  };
-
-  const participantData = mode === 'closed' ? participants.map(email => ({
-    email,
-    token: generateId(24),
-    replied: false
-  })) : [];
-
   try {
-    const db = window._db;
+    showDebug('Firestore import 開始...');
+    const { doc, setDoc, serverTimestamp } =
+      await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    showDebug('Firestore import 完了', 'lime');
 
-    if (db) {
-      // ── Firestore に直接 import して書き込み（バグ修正済み）──
-      const { doc, setDoc, serverTimestamp } =
-        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const eventId    = generateId(20);
+    const adminToken = generateId(32);
+    showDebug('eventId = ' + eventId);
 
-      await setDoc(doc(db, 'events', eventId), {
-        ...eventData,
-        createdAt: serverTimestamp()
+    const eventData = {
+      title,
+      description: document.getElementById('eventDesc').value.trim(),
+      location:    document.getElementById('eventLocation').value.trim(),
+      deadline:    new Date(deadline).toISOString(),
+      mode, status: 'open', adminToken,
+      settings: {
+        notifyReminder:  mode==='closed' ? document.getElementById('notifyReminder').checked  : false,
+        notifyDeadline:  mode==='closed' ? document.getElementById('notifyDeadline').checked  : false,
+        notifyConfirm:   mode==='closed' ? document.getElementById('notifyConfirm').checked   : false,
+        notifyDayBefore: mode==='closed' ? document.getElementById('notifyDayBefore').checked : false,
+        notifyDayOf:     mode==='closed' ? document.getElementById('notifyDayOf').checked     : false,
+      },
+      dates: candidates,
+      createdAt: new Date().toISOString()
+    };
+
+    if (window._db) {
+      showDebug('Firestore 書き込み開始...');
+      await setDoc(doc(window._db, 'events', eventId), {
+        ...eventData, createdAt: serverTimestamp()
       });
-
-      for (const p of participantData) {
-        const key = p.email.replace(/[^a-zA-Z0-9]/g, '_');
-        await setDoc(doc(db, 'events', eventId, 'participants', key), p);
-      }
+      showDebug('Firestore 書き込み完了！', 'lime');
     } else {
-      // Demo: localStorage fallback
+      showDebug('db が null のため localStorage に保存', 'orange');
       localStorage.setItem(`schedly_event_${eventId}`, JSON.stringify({ ...eventData, id: eventId }));
-      localStorage.setItem(`schedly_participants_${eventId}`, JSON.stringify(participantData));
     }
 
-    // 招待メール送信（クローズドモードのみ）
-    if (mode === 'closed') {
-      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
-      for (const p of participantData) {
-        const answerUrl = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
-        try {
-          await emailjs.send(EMAILJS_A.serviceId, EMAILJS_A.inviteTemplateId, {
-            to_email:          p.email,
-            event_title:       title,
-            event_description: desc     || '—',
-            event_location:    location || '未定',
-            deadline:          new Date(deadline).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }),
-            answer_url:        answerUrl,
-            from_name:         'Schedly'
-          }, EMAILJS_A.publicKey);
-        } catch(e) {
-          console.warn('招待メール送信失敗:', p.email, e);
-        }
-      }
-    }
-
-    // 成功表示
-    const baseUrl      = window.location.origin + window.location.pathname.replace('index.html', '');
+    const baseUrl      = window.location.origin + window.location.pathname.replace('index.html','');
     const eventPageUrl = `${baseUrl}event.html?id=${eventId}`;
     const adminPageUrl = `${baseUrl}admin.html?id=${eventId}&token=${adminToken}`;
 
     document.getElementById('mainContent').style.display = 'none';
     const overlay = document.getElementById('successOverlay');
     overlay.style.display = 'flex';
-    document.getElementById('eventUrl').value  = eventPageUrl;
-    document.getElementById('adminUrl').value  = adminPageUrl;
-    document.getElementById('goEventLink').href = eventPageUrl;
-    document.getElementById('goAdminLink').href = adminPageUrl;
+    document.getElementById('eventUrl').value   = eventPageUrl;
+    document.getElementById('adminUrl').value   = adminPageUrl;
+    document.getElementById('goEventLink').href  = eventPageUrl;
+    document.getElementById('goAdminLink').href  = adminPageUrl;
 
-    if (mode === 'closed') {
-      document.getElementById('successDesc').textContent =
-        `${participants.length}名の参加者へ招待メールを送信しました。管理URLを大切に保管してください。`;
-    }
+    showDebug('完了！成功画面を表示', 'lime');
 
   } catch(e) {
-    console.error('createEvent error:', e);
+    showDebug('エラー発生: ' + e.message, 'red');
+    showDebug('スタック: ' + e.stack, 'red');
     showToast('作成に失敗しました: ' + e.message, 'error');
     btn.disabled = false;
     document.getElementById('submitBtnText').textContent = '🚀 イベントを作成する';
