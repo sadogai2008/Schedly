@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedly — 日程調整をスマートに</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── CSS Variables ─── */
+:root {
+  --bg: #0a0b0d;
+  --bg2: #111318;
+  --bg3: #181c22;
+  --surface: #1e232c;
+  --surface2: #252b36;
+  --border: #2a3040;
+  --border2: #333d4f;
+  --text: #e8eaf0;
+  --text2: #9aa3b2;
+  --text3: #5c6a80;
+  --accent: #f0a500;
+  --accent2: #e8920a;
+  --accent-dim: rgba(240,165,0,0.12);
+  --accent-dim2: rgba(240,165,0,0.06);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.12);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.12);
+  --radius: 10px;
+  --radius2: 14px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow2: 0 8px 40px rgba(0,0,0,0.5);
+  --font: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+  --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg: #f4f5f7;
+  --bg2: #ffffff;
+  --bg3: #f0f1f4;
+  --surface: #ffffff;
+  --surface2: #f8f9fb;
+  --border: #e2e5ea;
+  --border2: #cdd0d8;
+  --text: #0f1117;
+  --text2: #4a5468;
+  --text3: #8a94a6;
+  --accent: #d4890a;
+  --accent2: #b87209;
+  --accent-dim: rgba(212,137,10,0.1);
+  --accent-dim2: rgba(212,137,10,0.05);
+  --shadow: 0 2px 16px rgba(0,0,0,0.08);
+  --shadow2: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+input, textarea, select, button { font-family: var(--font); }
+button { cursor: pointer; }
+a { color: var(--accent); text-decoration: none; }
+
+/* ─── Layout ─── */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ─── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,11,13,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .header {
+  background: rgba(244,245,247,0.9);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0a0b0d;
+  flex-shrink: 0;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.theme-toggle:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border2);
+}
+
+/* ─── Main Container ─── */
+.main {
+  flex: 1;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ─── Page Hero ─── */
+.page-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeInDown 0.5s ease both;
+}
+.page-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid rgba(240,165,0,0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.page-hero h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.page-hero h1 span { color: var(--accent); }
+.page-hero p {
+  color: var(--text2);
+  font-size: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ─── Card ─── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 28px;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.4s ease both;
+}
+.card:nth-child(2) { animation-delay: 0.05s; }
+.card:nth-child(3) { animation-delay: 0.1s; }
+.card:nth-child(4) { animation-delay: 0.15s; }
+.card:nth-child(5) { animation-delay: 0.2s; }
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.card-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--accent-dim);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── Form Elements ─── */
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group:last-child { margin-bottom: 0; }
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 7px;
+}
+.form-label .required {
+  color: var(--accent);
+  font-size: 11px;
+}
+.form-label .optional {
+  color: var(--text3);
+  font-size: 11px;
+  font-weight: 400;
+}
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 14px;
+  padding: 10px 14px;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+  background: var(--bg2);
+}
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--text3);
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ─── Mode Selector ─── */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mode-option {
+  position: relative;
+}
+.mode-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.mode-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.mode-option input:checked + .mode-label {
+  border-color: var(--accent);
+  background: var(--accent-dim2);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.mode-label:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+}
+.mode-title {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mode-desc {
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* ─── Candidates ─── */
+.candidates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.candidate-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  animation: slideIn 0.2s ease both;
+}
+.candidate-datetime {
+  flex: 1;
+  font-size: 13px;
+  font-family: var(--mono);
+  color: var(--text);
+}
+.candidate-duration {
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--surface);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.btn-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.btn-icon.danger {
+  background: var(--red-dim);
+  color: var(--red);
+}
+.btn-icon.danger:hover { background: rgba(239,68,68,0.25); }
+
+.add-candidate-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 8px;
+  align-items: end;
+}
+@media (max-width: 540px) {
+  .add-candidate-row { grid-template-columns: 1fr 1fr; }
+  .add-candidate-row .btn-add { grid-column: 1/-1; }
+}
+
+/* ─── Participants (Closed Mode) ─── */
+.participants-section {
+  display: none;
+}
+.participants-section.visible { display: block; }
+.participant-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  min-height: 32px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-dim);
+  border: 1px solid rgba(59,130,246,0.2);
+  color: var(--blue);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  animation: chipIn 0.15s ease both;
+}
+.chip-remove {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+.chip-remove:hover { opacity: 1; }
+.add-email-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* ─── Toggle Switch ─── */
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toggle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: background var(--transition);
+}
+.toggle-item:hover { background: var(--surface2); }
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toggle-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.toggle-hint {
+  font-size: 11px;
+  color: var(--text3);
+}
+.toggle-switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border2);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.toggle-slider::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--accent);
+}
+.toggle-switch input:checked + .toggle-slider::after {
+  transform: translateX(18px);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #0a0b0d;
+}
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(240,165,0,0.3);
+}
+.btn-primary:active { transform: none; box-shadow: none; }
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--border2);
+}
+.btn-ghost {
+  background: none;
+  color: var(--text2);
+  border: 1px dashed var(--border2);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim2);
+}
+.btn-lg {
+  padding: 13px 28px;
+  font-size: 15px;
+  border-radius: var(--radius2);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.btn-add {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(34,197,94,0.2);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-add:hover {
+  background: rgba(34,197,94,0.2);
+  border-color: rgba(34,197,94,0.4);
+}
+
+/* ─── Submit Area ─── */
+.submit-area {
+  margin-top: 32px;
+  animation: fadeInUp 0.4s 0.3s ease both;
+}
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: var(--radius2);
+  background: var(--accent);
+  color: #0a0b0d;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.submit-btn:hover:not(:disabled) {
+  background: var(--accent2);
+  box-shadow: 0 8px 24px rgba(240,165,0,0.35);
+  transform: translateY(-2px);
+}
+.submit-btn:active { transform: none; box-shadow: none; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.submit-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 12px;
+}
+
+/* ─── Loading Spinner ─── */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(10,11,13,0.3);
+  border-top-color: #0a0b0d;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ─── Success State ─── */
+.success-overlay {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  animation: fadeIn 0.4s ease;
+}
+.success-overlay.visible { display: flex; }
+.success-icon {
+  width: 72px;
+  height: 72px;
+  background: var(--green-dim);
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+.success-title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.success-desc {
+  color: var(--text2);
+  font-size: 14px;
+  max-width: 380px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.url-box {
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 8px;
+}
+.url-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  margin-bottom: 6px;
+  text-align: left;
+}
+.url-copy-row {
+  display: flex;
+  gap: 8px;
+}
+.url-input {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 13px;
+  font-family: var(--mono);
+  padding: 9px 12px;
+  outline: none;
+}
+.btn-copy {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-copy:hover { border-color: var(--accent); color: var(--accent); }
+.btn-copy.copied { border-color: var(--green); color: var(--green); }
+
+/* ─── Toast ─── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow);
+  animation: toastIn 0.3s ease both;
+  pointer-events: all;
+  max-width: 320px;
+}
+.toast.success { border-color: var(--green); }
+.toast.error { border-color: var(--red); }
+.toast-icon { font-size: 16px; flex-shrink: 0; }
+.toast-out { animation: toastOut 0.3s ease forwards; }
+
+/* ─── Animations ─── */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+@keyframes chipIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
+@keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
+
+/* ─── Helper ─── */
+.hidden { display: none !important; }
+.full-width { width: 100%; }
+.mt-2 { margin-top: 8px; }
+.hint {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+</style>
+</head>
+<body>
+<div class="app-wrapper">
+
+<!-- Header -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-mark">S</div>
+    Schedly
+  </div>
+  <div class="header-actions">
+    <button class="theme-toggle" id="themeToggle" title="テーマ切替">🌙</button>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main" id="mainContent">
+
+  <div class="page-hero">
+    <div class="page-hero-badge">✦ 日程調整</div>
+    <h1>スマートな<span>日程調整</span>を<br>一画面で</h1>
+    <p>招待・回答・集計・確定・通知まで、すべてSchedulyで完結。</p>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="card-icon">📋</div>
+        基本情報
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">タイトル <span class="required">必須</span></label>
+      <input type="text" class="form-input" id="eventTitle" placeholder="例：チームキックオフミーティング" maxlength="100">
+    </div>
+    <div class="form-group">
+      <label class="form-label">説明 <span class="optional">任意</span></label>
+      <textarea class="form-textarea" id="eventDesc" placeholder="アジェンダや事前準備など、参加者へのメッセージを入力"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">開催場所 <span class="optional">任意</span></label>
+        <input type="text" class="form-input" id="eventLocation" placeholder="オフィス / Zoom など">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">回答締切 <span class="required">必須</span></label>
+        <input type="datetime-local" class="form-input" id="eventDeadline">
+      </div>
+    </div>
+  </div>
+
+  <!-- 候補日時 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="card-icon">📅</div>
+        候補日時
+      </div>
+    </div>
+    <div class="candidates-list" id="candidatesList"></div>
+    <div class="add-candidate-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">日時</label>
+        <input type="datetime-local" class="form-input" id="newCandidateDate">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">所要時間</label>
+        <select class="form-select form-input" id="newCandidateDuration">
+          <option value="">未設定</option>
+          <option value="30分">30分</option>
+          <option value="1時間">1時間</option>
+          <option value="1.5時間">1.5時間</option>
+          <option value="2時間">2時間</option>
+          <option value="3時間">3時間</option>
+          <option value="半日">半日</option>
+          <option value="終日">終日</option>
+        </select>
+      </div>
+      <div style="padding-top:21px">
+        <button class="btn-add" onclick="addCandidate()">＋ 追加</button>
+      </div>
+    </div>
+    <div class="hint mt-2">💡 複数の候補日時を追加してください（最低1つ必要）</div>
+  </div>
+
+  <!-- モード選択 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="card-icon">🔐</div>
+        参加モード
+      </div>
+    </div>
+    <div class="mode-grid">
+      <label class="mode-option">
+        <input type="radio" name="mode" value="open" id="modeOpen" checked onchange="onModeChange()">
+        <div class="mode-label">
+          <div class="mode-title">🌐 オープン</div>
+          <div class="mode-desc">URLを知っている人なら誰でも回答可能</div>
+        </div>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mode" value="closed" id="modeClosed" onchange="onModeChange()">
+        <div class="mode-label">
+          <div class="mode-title">🔒 クローズド</div>
+          <div class="mode-desc">招待した参加者のみ回答可能</div>
+        </div>
+      </label>
+    </div>
+
+    <!-- クローズドモード用 参加者設定 -->
+    <div class="participants-section" id="participantsSection" style="margin-top:20px">
+      <div class="section-label">招待する参加者</div>
+      <div class="participant-chips" id="participantChips"></div>
+      <div class="add-email-row">
+        <input type="email" class="form-input" id="newParticipantEmail" placeholder="例：taro@example.com" onkeydown="if(event.key==='Enter')addParticipant()">
+        <button class="btn-add" onclick="addParticipant()">＋ 追加</button>
+      </div>
+      <div class="hint mt-2">📧 追加されたメールアドレスへ招待メールが送信されます</div>
+    </div>
+  </div>
+
+  <!-- 通知設定 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="card-icon">🔔</div>
+        通知設定
+      </div>
+    </div>
+    <div class="toggle-group">
+      <div class="toggle-item">
+        <div class="toggle-info">
+          <div class="toggle-name">未回答リマインド</div>
+          <div class="toggle-hint">未回答の参加者へ自動でリマインドを送信</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifyReminder" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-item">
+        <div class="toggle-info">
+          <div class="toggle-name">締切前通知</div>
+          <div class="toggle-hint">締切24時間前に参加者へ通知</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifyDeadline" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-item">
+        <div class="toggle-info">
+          <div class="toggle-name">日程確定通知</div>
+          <div class="toggle-hint">日程確定時に全参加者へ通知</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifyConfirm" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-item">
+        <div class="toggle-info">
+          <div class="toggle-name">前日通知</div>
+          <div class="toggle-hint">開催前日に参加者へリマインド</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifyDayBefore">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-item">
+        <div class="toggle-info">
+          <div class="toggle-name">当日通知</div>
+          <div class="toggle-hint">開催当日の朝に参加者へリマインド</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifyDayOf">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn" onclick="createEvent()">
+      <span id="submitBtnText">🚀 イベントを作成する</span>
+    </button>
+    <p class="submit-note">作成後、管理URLと回答URLが発行されます</p>
+  </div>
+
+</main>
+
+<!-- Success Overlay -->
+<div class="success-overlay card" id="successOverlay" style="display:none;">
+  <div class="success-icon">✓</div>
+  <div class="success-title">イベントを作成しました！</div>
+  <div class="success-desc" id="successDesc">参加者へ招待メールを送信しました。以下のURLを共有してください。</div>
+  <div class="url-box">
+    <div class="url-label">🔗 回答ページURL</div>
+    <div class="url-copy-row">
+      <input type="text" class="url-input" id="eventUrl" readonly>
+      <button class="btn-copy" onclick="copyUrl('eventUrl', this)">📋 コピー</button>
+    </div>
+  </div>
+  <div class="url-box">
+    <div class="url-label">⚙️ 管理ページURL</div>
+    <div class="url-copy-row">
+      <input type="text" class="url-input" id="adminUrl" readonly>
+      <button class="btn-copy" onclick="copyUrl('adminUrl', this)">📋 コピー</button>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:12px">
+    <a id="goEventLink" href="#" class="btn btn-secondary">回答ページを開く</a>
+    <a id="goAdminLink" href="#" class="btn btn-primary">管理ページを開く</a>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ======================================================
+// 🔧 Firebase設定 — ここにあなたのFirebase設定を入れてください
+// ======================================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+// ======================================================
+
+let db;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  window._db = db;
+  window._fsDoc = doc;
+  window._fsSetDoc = setDoc;
+  window._fsCollection = collection;
+  window._fsServerTimestamp = serverTimestamp;
+} catch(e) {
+  console.warn('Firebase init error:', e);
+}
+</script>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+// ======================================================
+// 🔧 EmailJS設定 — あなたのEmailJS設定を入れてください
+// ======================================================
+const EMAILJS_CONFIG = {
+  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
+  serviceId: "YOUR_SERVICE_ID",
+  inviteTemplateId: "YOUR_INVITE_TEMPLATE_ID",
+  confirmTemplateId: "YOUR_CONFIRM_TEMPLATE_ID"
+};
+// ======================================================
+
+// EmailJS初期化
+try {
+  emailjs.init(EMAILJS_CONFIG.publicKey);
+} catch(e) {
+  console.warn('EmailJS init error:', e);
+}
+
+// ─── State ───
+let candidates = [];
+let participants = [];
+
+// ─── Theme ───
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('schedlyTheme', next);
+  themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+// ─── Default Deadline (1 week from now) ───
+const defaultDeadline = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+defaultDeadline.setMinutes(0, 0, 0);
+document.getElementById('eventDeadline').value = defaultDeadline.toISOString().slice(0, 16);
+
+// ─── Mode Change ───
+function onModeChange() {
+  const isClosed = document.getElementById('modeClosed').checked;
+  const sec = document.getElementById('participantsSection');
+  sec.classList.toggle('visible', isClosed);
+}
+
+// ─── Candidates ───
+function addCandidate() {
+  const dateInput = document.getElementById('newCandidateDate');
+  const durInput = document.getElementById('newCandidateDuration');
+  const val = dateInput.value;
+  if (!val) { showToast('日時を選択してください', 'error'); return; }
+  const exists = candidates.some(c => c.datetime === val);
+  if (exists) { showToast('同じ日時が既に追加されています', 'error'); return; }
+
+  const d = new Date(val);
+  const label = d.toLocaleDateString('ja-JP', { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' });
+  candidates.push({ datetime: val, label, duration: durInput.value });
+  renderCandidates();
+  dateInput.value = '';
+  durInput.value = '';
+}
+
+function removeCandidate(idx) {
+  candidates.splice(idx, 1);
+  renderCandidates();
+}
+
+function renderCandidates() {
+  const list = document.getElementById('candidatesList');
+  if (candidates.length === 0) {
+    list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text3);font-size:13px;">候補日時がまだ追加されていません</div>';
+    return;
+  }
+  list.innerHTML = candidates.map((c, i) => `
+    <div class="candidate-item">
+      <span class="candidate-datetime">${c.label}</span>
+      ${c.duration ? `<span class="candidate-duration">${c.duration}</span>` : ''}
+      <button class="btn-icon danger" onclick="removeCandidate(${i})" title="削除">✕</button>
+    </div>
+  `).join('');
+}
+renderCandidates();
+
+// ─── Participants ───
+function addParticipant() {
+  const input = document.getElementById('newParticipantEmail');
+  const email = input.value.trim().toLowerCase();
+  if (!email) return;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('有効なメールアドレスを入力してください', 'error');
+    return;
+  }
+  if (participants.includes(email)) {
+    showToast('既に追加されています', 'error');
+    return;
+  }
+  participants.push(email);
+  renderParticipants();
+  input.value = '';
+}
+
+function removeParticipant(email) {
+  participants = participants.filter(e => e !== email);
+  renderParticipants();
+}
+
+function renderParticipants() {
+  const container = document.getElementById('participantChips');
+  if (participants.length === 0) {
+    container.innerHTML = '<span style="font-size:12px;color:var(--text3)">まだ追加されていません</span>';
+    return;
+  }
+  container.innerHTML = participants.map(e => `
+    <span class="chip">
+      ${e}
+      <button class="chip-remove" onclick="removeParticipant('${e}')">×</button>
+    </span>
+  `).join('');
+}
+renderParticipants();
+
+// ─── Generate ID ───
+function generateId(len = 20) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+
+// ─── Create Event ───
+async function createEvent() {
+  const title = document.getElementById('eventTitle').value.trim();
+  const desc = document.getElementById('eventDesc').value.trim();
+  const location = document.getElementById('eventLocation').value.trim();
+  const deadline = document.getElementById('eventDeadline').value;
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+
+  // Validation
+  if (!title) { showToast('タイトルを入力してください', 'error'); document.getElementById('eventTitle').focus(); return; }
+  if (!deadline) { showToast('締切日時を設定してください', 'error'); return; }
+  if (candidates.length === 0) { showToast('候補日時を1つ以上追加してください', 'error'); return; }
+  if (mode === 'closed' && participants.length === 0) { showToast('クローズドモードでは参加者を追加してください', 'error'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 作成中...';
+
+  const eventId = generateId(20);
+  const adminToken = generateId(32);
+
+  const eventData = {
+    title,
+    description: desc,
+    location,
+    deadline: new Date(deadline).toISOString(),
+    mode,
+    status: 'open',
+    adminToken,
+    settings: {
+      notifyReminder: document.getElementById('notifyReminder').checked,
+      notifyDeadline: document.getElementById('notifyDeadline').checked,
+      notifyConfirm: document.getElementById('notifyConfirm').checked,
+      notifyDayBefore: document.getElementById('notifyDayBefore').checked,
+      notifyDayOf: document.getElementById('notifyDayOf').checked,
+    },
+    dates: candidates,
+    createdAt: new Date().toISOString()
+  };
+
+  // Save participants for closed mode
+  const participantData = mode === 'closed' ? participants.map(email => ({
+    email,
+    token: generateId(24),
+    replied: false
+  })) : [];
+
+  try {
+    const db = window._db;
+
+    if (db) {
+      // Save to Firestore
+      const { doc: fsDoc, setDoc, collection, serverTimestamp } = { doc: window._fsDoc, setDoc: window._fsSetDoc, collection: window._fsCollection, serverTimestamp: window._fsServerTimestamp };
+      const { getFirestore } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      await setDoc(fsDoc(db, 'events', eventId), { ...eventData, createdAt: serverTimestamp() });
+
+      // Save participants
+      for (const p of participantData) {
+        await setDoc(fsDoc(db, 'events', eventId, 'participants', p.email.replace(/[^a-zA-Z0-9]/g, '_')), p);
+      }
+    } else {
+      // Demo mode: localStorage fallback
+      const stored = { ...eventData, id: eventId };
+      localStorage.setItem(`schedly_event_${eventId}`, JSON.stringify(stored));
+      localStorage.setItem(`schedly_participants_${eventId}`, JSON.stringify(participantData));
+    }
+
+    // Send invite emails (closed mode)
+    if (mode === 'closed') {
+      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+      for (const p of participantData) {
+        const eventUrl = `${baseUrl}event.html?id=${eventId}&token=${p.token}`;
+        try {
+          await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.inviteTemplateId, {
+            to_email: p.email,
+            event_title: title,
+            event_description: desc || '—',
+            event_location: location || '未定',
+            deadline: new Date(deadline).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }),
+            answer_url: eventUrl,
+            from_name: 'Schedly'
+          });
+        } catch(e) {
+          console.warn('Email send failed for', p.email, e);
+        }
+      }
+    }
+
+    // Show success
+    const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+    const eventPageUrl = `${baseUrl}event.html?id=${eventId}`;
+    const adminPageUrl = `${baseUrl}admin.html?id=${eventId}&token=${adminToken}`;
+
+    document.getElementById('mainContent').style.display = 'none';
+    const overlay = document.getElementById('successOverlay');
+    overlay.style.display = 'flex';
+    document.getElementById('eventUrl').value = eventPageUrl;
+    document.getElementById('adminUrl').value = adminPageUrl;
+    document.getElementById('goEventLink').href = eventPageUrl;
+    document.getElementById('goAdminLink').href = adminPageUrl;
+    if (mode === 'closed') {
+      document.getElementById('successDesc').textContent = `${participants.length}名の参加者へ招待メールを送信しました。管理URLを大切に保管してください。`;
+    }
+
+  } catch(e) {
+    console.error(e);
+    showToast('作成に失敗しました: ' + e.message, 'error');
+    btn.disabled = false;
+    document.getElementById('submitBtnText').textContent = '🚀 イベントを作成する';
+  }
+}
+
+// ─── Copy URL ───
+function copyUrl(inputId, btn) {
+  const input = document.getElementById(inputId);
+  input.select();
+  navigator.clipboard.writeText(input.value).then(() => {
+    btn.innerHTML = '✓ コピー済';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '📋 コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ─── Toast ───
+function showToast(msg, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const icons = { success: '✓', error: '✕', info: 'ℹ' };
+  toast.innerHTML = `<span class="toast-icon">${icons[type] || '•'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+// Expose globals
+window.addCandidate = addCandidate;
+window.removeCandidate = removeCandidate;
+window.addParticipant = addParticipant;
+window.removeParticipant = removeParticipant;
+window.createEvent = createEvent;
+window.copyUrl = copyUrl;
+window.onModeChange = onModeChange;
+</script>
+</body>
+</html>
