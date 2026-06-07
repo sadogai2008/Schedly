@@ -37,255 +37,79 @@
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 input, textarea, select, button { font-family: var(--font); }
 button { cursor: pointer; }
-
-/* ─── Header ─── */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,11,13,0.85);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-}
+.header { position: sticky; top: 0; z-index: 100; background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
 [data-theme="light"] .header { background: rgba(244,245,247,0.9); }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
 .logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0a0b0d; flex-shrink: 0; }
 .theme-toggle { background: none; border: 1px solid var(--border2); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition); }
 .theme-toggle:hover { background: var(--surface); color: var(--text); }
-
-/* ─── Main ─── */
 .main { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
-
-/* ─── Event Header Card ─── */
-.event-header-card {
-  background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius2);
-  padding: 28px;
-  margin-bottom: 20px;
-  position: relative;
-  overflow: hidden;
-  animation: fadeInDown 0.4s ease both;
-}
-.event-header-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-.event-status-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px;
-}
+.event-header-card { background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%); border: 1px solid var(--border); border-radius: var(--radius2); padding: 28px; margin-bottom: 20px; position: relative; overflow: hidden; animation: fadeInDown 0.4s ease both; }
+.event-header-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.event-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
 .status-open { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
 .status-closed { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
 .status-confirmed { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,165,0,0.2); }
 .event-title { font-size: clamp(20px, 4vw, 28px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
 .event-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
 .event-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text2); }
-.event-meta-icon { font-size: 14px; }
-.event-description {
-  margin-top: 14px; padding-top: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 14px; color: var(--text2); line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-/* ─── Confirmed Notice ─── */
-.confirmed-notice {
-  background: var(--accent-dim);
-  border: 1px solid rgba(240,165,0,0.25);
-  border-radius: var(--radius2);
-  padding: 20px 24px;
-  margin-bottom: 20px;
-  display: none;
-  animation: fadeInDown 0.4s ease both;
-}
+.event-description { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text2); line-height: 1.7; white-space: pre-wrap; }
+.confirmed-notice { background: var(--accent-dim); border: 1px solid rgba(240,165,0,0.25); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 20px; display: none; animation: fadeInDown 0.4s ease both; }
 .confirmed-notice.visible { display: block; }
 .confirmed-title { font-size: 16px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
 .confirmed-date { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; }
-.gcal-link {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: var(--surface); border: 1px solid var(--border);
-  color: var(--text); padding: 9px 14px; border-radius: var(--radius);
-  font-size: 13px; font-weight: 500; text-decoration: none; transition: var(--transition);
-}
+.gcal-link { display: inline-flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 9px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; text-decoration: none; transition: var(--transition); }
 .gcal-link:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ─── Answer Card ─── */
-.answer-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius2);
-  padding: 24px;
-  margin-bottom: 16px;
-  animation: fadeInUp 0.4s 0.1s ease both;
-}
-
-/* ─── Name Input (Open Mode) ─── */
+.answer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 24px; margin-bottom: 16px; animation: fadeInUp 0.4s 0.1s ease both; }
 .name-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
 .form-label { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 7px; display: block; }
 .form-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 14px; padding: 10px 14px; transition: border-color var(--transition), box-shadow var(--transition); outline: none; }
 .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: var(--bg2); }
 .form-input::placeholder { color: var(--text3); }
-
-/* ─── Votes Table ─── */
-.votes-header {
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: var(--radius);
-  background: var(--bg3);
-  margin-bottom: 2px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text3);
-}
-.vote-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: 8px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg3);
-  margin-bottom: 6px;
-  transition: var(--transition);
-  animation: slideIn 0.2s ease both;
-}
+.votes-header { display: grid; grid-template-columns: 1fr 44px 44px 44px; gap: 8px; padding: 10px 12px; border-radius: var(--radius); background: var(--bg3); margin-bottom: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); }
+.vote-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg3); margin-bottom: 6px; transition: var(--transition); animation: slideIn 0.2s ease both; }
 .vote-row:hover { border-color: var(--border2); background: var(--surface2); }
-.vote-date {
-  display: flex; flex-direction: column; gap: 2px;
-  font-size: 14px; font-weight: 500; color: var(--text);
-}
+.vote-date { display: flex; flex-direction: column; gap: 2px; font-size: 14px; font-weight: 500; color: var(--text); }
 .vote-date-label { font-size: 11px; color: var(--text3); font-family: var(--mono); }
 .vote-btns { display: flex; gap: 4px; align-items: center; }
-
-/* Vote buttons */
-.vote-btn {
-  width: 44px; height: 36px;
-  border-radius: 8px; border: 1.5px solid var(--border);
-  background: var(--bg); color: var(--text2);
-  font-size: 16px; font-weight: 600;
-  transition: var(--transition);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
+.vote-btn { width: 44px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--bg); color: var(--text2); font-size: 16px; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .vote-btn:hover { transform: translateY(-2px); }
-.vote-btn.circle-active { background: var(--green-dim); border-color: var(--green); color: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+.vote-btn.circle-active   { background: var(--green-dim);  border-color: var(--green);  color: var(--green);  box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
 .vote-btn.triangle-active { background: var(--yellow-dim); border-color: var(--yellow); color: var(--yellow); box-shadow: 0 0 0 3px rgba(234,179,8,0.15); }
-.vote-btn.cross-active { background: var(--red-dim); border-color: var(--red); color: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
-
-/* ─── Condition Input ─── */
-.condition-row {
-  display: none;
-  grid-column: 1 / -1;
-  margin-top: 6px;
-  animation: slideIn 0.2s ease both;
-}
+.vote-btn.cross-active    { background: var(--red-dim);    border-color: var(--red);    color: var(--red);    box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
+.condition-row { display: none; grid-column: 1 / -1; margin-top: 6px; animation: slideIn 0.2s ease both; }
 .condition-row.visible { display: block; }
-.condition-input {
-  width: 100%; background: var(--bg); border: 1px solid var(--yellow);
-  border-radius: var(--radius); color: var(--text); font-size: 13px;
-  padding: 8px 12px; outline: none;
-  box-shadow: 0 0 0 3px var(--yellow-dim);
-  transition: var(--transition);
-}
+.condition-input { width: 100%; background: var(--bg); border: 1px solid var(--yellow); border-radius: var(--radius); color: var(--text); font-size: 13px; padding: 8px 12px; outline: none; box-shadow: 0 0 0 3px var(--yellow-dim); transition: var(--transition); }
 .condition-input:focus { box-shadow: 0 0 0 4px rgba(234,179,8,0.2); }
 .condition-input::placeholder { color: var(--text3); }
-
-/* ─── Submit ─── */
 .submit-area { margin-top: 20px; }
-.submit-btn {
-  width: 100%; padding: 14px; font-size: 15px;
-  border-radius: var(--radius2); background: var(--accent);
-  color: #0a0b0d; font-weight: 600; border: none; cursor: pointer;
-  transition: var(--transition);
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.submit-btn:hover:not(:disabled) {
-  background: var(--accent2);
-  box-shadow: 0 6px 20px rgba(240,165,0,0.35); transform: translateY(-1px);
-}
+.submit-btn { width: 100%; padding: 14px; font-size: 15px; border-radius: var(--radius2); background: var(--accent); color: #0a0b0d; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.submit-btn:hover:not(:disabled) { background: var(--accent2); box-shadow: 0 6px 20px rgba(240,165,0,0.35); transform: translateY(-1px); }
 .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .spinner { width: 16px; height: 16px; border: 2px solid rgba(10,11,13,0.3); border-top-color: #0a0b0d; border-radius: 50%; animation: spin 0.7s linear infinite; }
-
-/* ─── Existing Answers Summary ─── */
-.summary-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius2); padding: 20px 24px;
-  margin-bottom: 16px; animation: fadeInUp 0.4s 0.2s ease both;
-}
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 16px; animation: fadeInUp 0.4s 0.2s ease both; }
 .summary-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.summary-row {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px;
-}
+.summary-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
 .summary-row:last-child { border-bottom: none; }
 .summary-name { font-weight: 500; flex: 1; }
-.vote-chip {
-  padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;
-  display: inline-flex; align-items: center; gap: 3px;
-}
-.vote-chip.ok { background: var(--green-dim); color: var(--green); }
-.vote-chip.maybe { background: var(--yellow-dim); color: var(--yellow); }
-.vote-chip.ng { background: var(--red-dim); color: var(--red); }
-
-/* ─── Auth Required ─── */
-.auth-required { text-align: center; padding: 60px 20px; }
-.auth-icon { font-size: 48px; margin-bottom: 16px; }
-.auth-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-.auth-desc { color: var(--text2); font-size: 14px; }
-
-/* ─── Success ─── */
-.success-banner {
-  background: var(--green-dim); border: 1px solid rgba(34,197,94,0.25);
-  border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 20px;
-  display: none; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both;
-}
+.success-banner { background: var(--green-dim); border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 20px; display: none; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both; }
 .success-banner.visible { display: flex; align-items: flex-start; gap: 14px; }
 .success-banner-icon { font-size: 28px; flex-shrink: 0; }
 .success-banner-title { font-size: 16px; font-weight: 600; color: var(--green); margin-bottom: 4px; }
 .success-banner-desc { font-size: 13px; color: var(--text2); }
 .edit-link-row { margin-top: 12px; }
-.edit-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 500; color: var(--accent);
-  background: var(--accent-dim2); border: 1px solid rgba(240,165,0,0.2);
-  padding: 7px 12px; border-radius: var(--radius); text-decoration: none; transition: var(--transition);
-}
+.edit-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-dim2); border: 1px solid rgba(240,165,0,0.2); padding: 7px 12px; border-radius: var(--radius); text-decoration: none; transition: var(--transition); }
 .edit-link:hover { background: var(--accent-dim); }
-
-/* ─── Loading State ─── */
 .loading-state { text-align: center; padding: 80px 20px; }
 .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-
-/* ─── Error State ─── */
 .error-state { text-align: center; padding: 80px 20px; }
-.error-icon { font-size: 48px; margin-bottom: 16px; }
-.error-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-.error-desc { color: var(--text2); font-size: 14px; margin-bottom: 24px; }
-
-/* ─── Toast ─── */
+.closed-mode-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(59,130,246,0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; margin-bottom: 16px; }
 .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
 .toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); animation: toastIn 0.3s ease both; pointer-events: all; max-width: 320px; }
 .toast.success { border-color: var(--green); }
 .toast.error { border-color: var(--red); }
 .toast-out { animation: toastOut 0.3s ease forwards; }
-
-/* ─── Closed Mode Info ─── */
-.closed-mode-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--blue-dim); color: var(--blue);
-  border: 1px solid rgba(59,130,246,0.2);
-  padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500;
-  margin-bottom: 16px;
-}
-
+.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 14px; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
@@ -294,9 +118,6 @@ button { cursor: pointer; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
 @keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
-
-.hidden { display: none !important; }
-.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 14px; }
 </style>
 </head>
 <body>
@@ -310,8 +131,7 @@ button { cursor: pointer; }
 </header>
 
 <main class="main" id="mainContent">
-  <!-- Content injected by JS -->
-  <div class="loading-state" id="loadingState">
+  <div class="loading-state">
     <div class="loading-spinner"></div>
     <div style="color:var(--text3);font-size:14px;">読み込み中...</div>
   </div>
@@ -322,11 +142,8 @@ button { cursor: pointer; }
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ======================================================
-// 🔧 Firebase設定
-// ======================================================
 const firebaseConfig = {
   apiKey: "AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",
   authDomain: "schedly-2d50c.firebaseapp.com",
@@ -336,41 +153,31 @@ const firebaseConfig = {
   appId: "1:703737030595:web:a7e350361aa790e749ff76"
 };
 
-let db;
 try {
   const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  window._db = db;
-  window._fsDoc = doc;
-  window._fsGetDoc = getDoc;
-  window._fsSetDoc = setDoc;
-  window._fsCollection = collection;
-  window._fsGetDocs = getDocs;
-  window._fsServerTimestamp = serverTimestamp;
-} catch(e) {
-  console.warn('Firebase init error:', e);
-}
+  window._db = getFirestore(app);
+} catch(e) { console.warn('Firebase init error:', e); }
 </script>
 
+<!-- EmailJS アカウントA（回答完了メール） -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script>
-const EMAILJS_CONFIG = {
-  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
-  serviceId: "YOUR_SERVICE_ID",
-  replyTemplateId: "YOUR_REPLY_TEMPLATE_ID"
+const EMAILJS_A = {
+  publicKey:       'JHdTPggzMXFZmBifV',
+  serviceId:       'service_ybx173k',
+  replyTemplateId: 'template_yv9pvc2'
 };
-try { emailjs.init(EMAILJS_CONFIG.publicKey); } catch(e) {}
+try { emailjs.init(EMAILJS_A.publicKey); } catch(e) {}
 
 // ─── State ───
-const params = new URLSearchParams(location.search);
-const eventId = params.get('id');
-const token   = params.get('token');
+const params   = new URLSearchParams(location.search);
+const eventId  = params.get('id');
+const token    = params.get('token');
 const editMode = params.get('edit') === '1';
-let eventData = null;
+let eventData      = null;
 let participantData = null;
-let existingVote = null;
-let answers = {};
+let existingVote   = null;
+let answers    = {};
 let conditions = {};
 
 // ─── Theme ───
@@ -380,8 +187,7 @@ const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 themeToggle.onclick = () => {
-  const c = html.getAttribute('data-theme');
-  const n = c === 'dark' ? 'light' : 'dark';
+  const n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', n);
   localStorage.setItem('schedlyTheme', n);
   themeToggle.textContent = n === 'dark' ? '☀️' : '🌙';
@@ -397,49 +203,42 @@ async function loadEvent() {
   try {
     const db = window._db;
     if (db) {
-      const snap = await window._fsGetDoc(window._fsDoc(db, 'events', eventId));
+      const { doc, getDoc, collection, getDocs } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      const snap = await getDoc(doc(db, 'events', eventId));
       if (!snap.exists()) { showError('イベントが見つかりません', 'URLを確認するか、主催者にお問い合わせください'); return; }
       eventData = { id: eventId, ...snap.data() };
 
-      // Load votes
-      const votesSnap = await window._fsGetDocs(window._fsCollection(db, 'events', eventId, 'votes'));
+      const votesSnap = await getDocs(collection(db, 'events', eventId, 'votes'));
       const votes = {};
       votesSnap.forEach(d => { votes[d.id] = d.data(); });
       window._votes = votes;
 
-      // Load participants for closed mode
       if (eventData.mode === 'closed') {
-        const partSnap = await window._fsGetDocs(window._fsCollection(db, 'events', eventId, 'participants'));
+        const partSnap = await getDocs(collection(db, 'events', eventId, 'participants'));
         partSnap.forEach(d => {
           const p = d.data();
           if (p.token === token) participantData = p;
         });
       }
 
-      // Check for existing vote
       if (token) {
-        Object.values(votes).forEach(v => {
-          if (v.token === token) existingVote = v;
-        });
+        Object.values(votes).forEach(v => { if (v.token === token) existingVote = v; });
       }
     } else {
-      // Demo: localStorage
       const stored = localStorage.getItem(`schedly_event_${eventId}`);
-      if (!stored) { showError('イベントが見つかりません', 'デモモードではlocalStorageを使用します'); return; }
+      if (!stored) { showError('イベントが見つかりません'); return; }
       eventData = JSON.parse(stored);
       window._votes = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`) || '{}');
-
       if (eventData.mode === 'closed') {
         const parts = JSON.parse(localStorage.getItem(`schedly_participants_${eventId}`) || '[]');
         participantData = parts.find(p => p.token === token) || null;
       }
       if (token) {
-        Object.values(window._votes).forEach(v => {
-          if (v.token === token) existingVote = v;
-        });
+        Object.values(window._votes).forEach(v => { if (v.token === token) existingVote = v; });
       }
     }
-
     renderPage();
   } catch(e) {
     console.error(e);
@@ -450,61 +249,44 @@ async function loadEvent() {
 function renderPage() {
   const main = document.getElementById('mainContent');
   const isDeadlinePassed = eventData.deadline && new Date(eventData.deadline) < new Date();
-  const isClosed = eventData.status === 'confirmed' || eventData.status === 'closed';
+  const isClosed    = eventData.status === 'confirmed' || eventData.status === 'closed';
   const isClosedMode = eventData.mode === 'closed';
 
-  // Auth check for closed mode
-  if (isClosedMode && !token) {
-    showError('🔒 このイベントは招待制です', '主催者から送られた招待リンクからアクセスしてください');
-    return;
-  }
-  if (isClosedMode && token && !participantData) {
-    showError('🔒 アクセスできません', 'このリンクは無効か、招待リストに含まれていません');
-    return;
-  }
+  if (isClosedMode && !token) { showError('🔒 このイベントは招待制です', '主催者から送られた招待リンクからアクセスしてください'); return; }
+  if (isClosedMode && token && !participantData) { showError('🔒 アクセスできません', 'このリンクは無効か、招待リストに含まれていません'); return; }
 
-  const deadline = eventData.deadline ? new Date(eventData.deadline) : null;
+  const deadline    = eventData.deadline ? new Date(eventData.deadline) : null;
   const deadlineStr = deadline ? deadline.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '設定なし';
-
-  // Determine answerer name
   const answererName = isClosedMode && participantData ? participantData.email : (existingVote ? existingVote.name : '');
 
-  // Pre-fill existing vote
-  if (existingVote) {
-    answers = { ...existingVote.answers };
-    conditions = { ...(existingVote.comments || {}) };
-  }
+  if (existingVote) { answers = { ...existingVote.answers }; conditions = { ...(existingVote.comments || {}) }; }
 
-  const statusLabel = { open: '受付中', confirmed: '日程確定済', closed: '締切済' };
-  const statusClass = { open: 'status-open', confirmed: 'status-confirmed', closed: 'status-closed' };
+  const statusLabel = { open:'受付中', confirmed:'日程確定済', closed:'締切済' };
+  const statusClass = { open:'status-open', confirmed:'status-confirmed', closed:'status-closed' };
 
   main.innerHTML = `
     ${existingVote && !editMode ? renderSuccessBanner() : ''}
     ${eventData.status === 'confirmed' ? renderConfirmedNotice() : ''}
-
     <div class="event-header-card">
       <span class="event-status-badge ${statusClass[eventData.status] || 'status-open'}">
         ${eventData.status === 'open' ? '● ' : ''}${statusLabel[eventData.status] || '受付中'}
       </span>
       <div class="event-title">${escHtml(eventData.title)}</div>
       <div class="event-meta">
-        ${eventData.location ? `<div class="event-meta-item"><span class="event-meta-icon">📍</span>${escHtml(eventData.location)}</div>` : ''}
-        <div class="event-meta-item"><span class="event-meta-icon">⏰</span>締切: ${deadlineStr}</div>
-        <div class="event-meta-item"><span class="event-meta-icon">${isClosedMode ? '🔒' : '🌐'}</span>${isClosedMode ? 'クローズドモード' : 'オープンモード'}</div>
+        ${eventData.location ? `<div class="event-meta-item">📍 ${escHtml(eventData.location)}</div>` : ''}
+        <div class="event-meta-item">⏰ 締切: ${deadlineStr}</div>
+        <div class="event-meta-item">${isClosedMode ? '🔒 クローズドモード' : '🌐 オープンモード'}</div>
       </div>
       ${eventData.description ? `<div class="event-description">${escHtml(eventData.description)}</div>` : ''}
     </div>
-
     ${renderAnswerSummary()}
-
     ${!isClosed && !isDeadlinePassed ? renderAnswerForm(isClosedMode, answererName) : renderClosedMessage(isDeadlinePassed)}
   `;
 
-  // Re-apply existing selections
   if (existingVote) {
     Object.entries(answers).forEach(([dateKey, val]) => {
-      const btn = document.querySelector(`.vote-btn[data-date="${CSS.escape(dateKey)}"][data-type="${val}"]`);
-      if (btn) btn.click();
+      const idx = (eventData.dates || []).findIndex(d => d.datetime === dateKey);
+      if (idx !== -1) selectVote(dateKey, val, idx);
     });
   }
 }
@@ -517,12 +299,9 @@ function renderSuccessBanner() {
       <div>
         <div class="success-banner-title">回答済みです</div>
         <div class="success-banner-desc">あなたの回答は受け付けられています。変更は以下のリンクから行えます。</div>
-        <div class="edit-link-row">
-          <a class="edit-link" href="${editUrl}">✏️ 回答を編集する</a>
-        </div>
+        <div class="edit-link-row"><a class="edit-link" href="${editUrl}">✏️ 回答を編集する</a></div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderConfirmedNotice() {
@@ -537,8 +316,7 @@ function renderConfirmedNotice() {
       <div class="confirmed-date">${dateStr}${confirmed.duration ? ' (' + confirmed.duration + ')' : ''}</div>
       ${eventData.location ? `<div style="font-size:13px;color:var(--text2);margin-bottom:12px">📍 ${escHtml(eventData.location)}</div>` : ''}
       ${gcalUrl ? `<a class="gcal-link" href="${gcalUrl}" target="_blank">📅 Googleカレンダーに追加</a>` : ''}
-    </div>
-  `;
+    </div>`;
 }
 
 function makeGCalUrl() {
@@ -546,47 +324,35 @@ function makeGCalUrl() {
   try {
     const cd = eventData.confirmedDate;
     const start = new Date(cd.datetime || cd);
-    const end = new Date(start.getTime() + 60 * 60 * 1000);
+    const end   = new Date(start.getTime() + 60 * 60 * 1000);
     const fmt = d => d.toISOString().replace(/[-:]/g,'').replace('.000','');
-    const params = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: eventData.title,
-      dates: `${fmt(start)}/${fmt(end)}`,
-      details: eventData.description || '',
-      location: eventData.location || ''
-    });
-    return `https://calendar.google.com/calendar/render?${params}`;
+    return `https://calendar.google.com/calendar/render?` + new URLSearchParams({ action:'TEMPLATE', text:eventData.title, dates:`${fmt(start)}/${fmt(end)}`, details:eventData.description||'', location:eventData.location||'' });
   } catch(e) { return ''; }
 }
 
 function renderAnswerSummary() {
-  const votes = window._votes || {};
-  const voteArr = Object.values(votes);
+  const voteArr = Object.values(window._votes || {});
   if (voteArr.length === 0) return '';
-
   return `
     <div class="summary-card">
       <div class="summary-title">📊 回答状況 <span style="font-size:12px;color:var(--text3);font-weight:400">${voteArr.length}名が回答済</span></div>
       ${voteArr.slice(0, 5).map(v => `
         <div class="summary-row">
-          <span class="summary-name">${escHtml(v.name || v.token?.slice(0,8) + '...' || '匿名')}</span>
+          <span class="summary-name">${escHtml(v.name || '匿名')}</span>
           <span style="font-size:12px;color:var(--text3)">
             ◎${Object.values(v.answers||{}).filter(a=>a==='circle').length}
             △${Object.values(v.answers||{}).filter(a=>a==='triangle').length}
             ✕${Object.values(v.answers||{}).filter(a=>a==='cross').length}
           </span>
-        </div>
-      `).join('')}
+        </div>`).join('')}
       ${voteArr.length > 5 ? `<div style="font-size:12px;color:var(--text3);text-align:center;padding-top:8px">他 ${voteArr.length - 5} 名</div>` : ''}
-    </div>
-  `;
+    </div>`;
 }
 
 function renderAnswerForm(isClosedMode, answererName) {
   return `
     <div class="answer-card">
       <div class="section-label">${existingVote && editMode ? '回答を編集' : '回答する'}</div>
-
       ${isClosedMode ? `
         <div class="closed-mode-badge">🔒 ${escHtml(answererName)} として回答</div>
       ` : `
@@ -595,48 +361,44 @@ function renderAnswerForm(isClosedMode, answererName) {
           <input type="text" class="form-input" id="answerName" placeholder="例：山田太郎" value="${escHtml(answererName)}" maxlength="50">
         </div>
       `}
-
-      <div class="votes-header" style="display:grid;grid-template-columns:1fr 44px 44px 44px;gap:8px;margin-bottom:8px">
+      <div class="votes-header">
         <div>候補日時</div>
         <div style="text-align:center">◎</div>
         <div style="text-align:center">△</div>
         <div style="text-align:center">✕</div>
       </div>
-
       <div id="voteRows">
         ${(eventData.dates || []).map((d, i) => renderVoteRow(d, i)).join('')}
       </div>
-
       <div class="submit-area">
         <button class="submit-btn" id="submitBtn" onclick="submitVote()">
           <span id="submitBtnText">${existingVote && editMode ? '✏️ 回答を更新する' : '📨 回答を送信する'}</span>
         </button>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderVoteRow(candidate, index) {
-  const dateKey = candidate.datetime;
   const d = new Date(candidate.datetime);
   const dateStr = d.toLocaleDateString('ja-JP', { month:'short', day:'numeric', weekday:'short' });
   const timeStr = d.toLocaleTimeString('ja-JP', { hour:'2-digit', minute:'2-digit' });
   return `
     <div class="vote-row" id="vrow_${index}">
-      <div class="vote-date">
-        <div>${dateStr} ${timeStr}</div>
-        ${candidate.duration ? `<div class="vote-date-label">${candidate.duration}</div>` : ''}
+      <div>
+        <div class="vote-date">
+          <div>${dateStr} ${timeStr}</div>
+          ${candidate.duration ? `<div class="vote-date-label">${candidate.duration}</div>` : ''}
+        </div>
+        <div class="condition-row" id="cond_${index}">
+          <input type="text" class="condition-input" id="condInput_${index}" data-date="${escHtml(candidate.datetime)}" placeholder="例：18時以降なら参加可能" maxlength="100" oninput="updateCondition(this)">
+        </div>
       </div>
       <div class="vote-btns">
-        <button class="vote-btn" data-date="${escHtml(dateKey)}" data-type="circle" onclick="selectVote('${escHtml(dateKey)}','circle',${index})" title="参加可能">◎</button>
-        <button class="vote-btn" data-date="${escHtml(dateKey)}" data-type="triangle" onclick="selectVote('${escHtml(dateKey)}','triangle',${index})" title="条件付き">△</button>
-        <button class="vote-btn" data-date="${escHtml(dateKey)}" data-type="cross" onclick="selectVote('${escHtml(dateKey)}','cross',${index})" title="参加不可">✕</button>
+        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="circle"   onclick="selectVote('${escHtml(candidate.datetime)}','circle',${index})"   title="参加可能">◎</button>
+        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="triangle" onclick="selectVote('${escHtml(candidate.datetime)}','triangle',${index})" title="条件付き">△</button>
+        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="cross"    onclick="selectVote('${escHtml(candidate.datetime)}','cross',${index})"    title="参加不可">✕</button>
       </div>
-      <div class="condition-row" id="cond_${index}">
-        <input type="text" class="condition-input" id="condInput_${index}" data-date="${escHtml(dateKey)}" placeholder="例：18時以降なら参加可能" maxlength="100" oninput="updateCondition(this)">
-      </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderClosedMessage(isDeadlinePassed) {
@@ -645,26 +407,23 @@ function renderClosedMessage(isDeadlinePassed) {
       <div style="font-size:40px;margin-bottom:16px">${isDeadlinePassed ? '⏰' : '🔒'}</div>
       <div style="font-size:18px;font-weight:600;margin-bottom:8px">${isDeadlinePassed ? '回答期限が終了しました' : '受付を終了しました'}</div>
       <div style="font-size:14px;color:var(--text2)">${isDeadlinePassed ? 'この日程調整の回答期限が過ぎています' : '管理者が回答受付を終了しました'}</div>
-    </div>
-  `;
+    </div>`;
 }
 
 // ─── Vote Selection ───
 function selectVote(dateKey, type, index) {
-  const types = { circle: 'circle-active', triangle: 'triangle-active', cross: 'cross-active' };
-  const row = document.getElementById(`vrow_${index}`);
-  const btns = row.querySelectorAll('.vote-btn');
-  btns.forEach(b => {
-    b.classList.remove('circle-active', 'triangle-active', 'cross-active');
-  });
-  const btn = row.querySelector(`.vote-btn[data-type="${type}"]`);
+  const types = { circle:'circle-active', triangle:'triangle-active', cross:'cross-active' };
+  const row  = document.getElementById(`vrow_${index}`);
+  if (!row) return;
+  row.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('circle-active','triangle-active','cross-active'));
+
   if (answers[dateKey] === type) {
     delete answers[dateKey];
     delete conditions[dateKey];
     document.getElementById(`cond_${index}`)?.classList.remove('visible');
   } else {
     answers[dateKey] = type;
-    btn?.classList.add(types[type]);
+    row.querySelector(`.vote-btn[data-type="${type}"]`)?.classList.add(types[type]);
     const condRow = document.getElementById(`cond_${index}`);
     if (type === 'triangle') {
       condRow?.classList.add('visible');
@@ -676,8 +435,7 @@ function selectVote(dateKey, type, index) {
 }
 
 function updateCondition(input) {
-  const dateKey = input.getAttribute('data-date');
-  conditions[dateKey] = input.value;
+  conditions[input.getAttribute('data-date')] = input.value;
 }
 
 // ─── Submit Vote ───
@@ -690,16 +448,16 @@ async function submitVote() {
     name = document.getElementById('answerName')?.value.trim();
     if (!name) { showToast('お名前を入力してください', 'error'); return; }
   }
-
-  if (Object.keys(answers).length === 0) {
-    showToast('少なくとも1つの候補に回答してください', 'error'); return;
-  }
+  if (Object.keys(answers).length === 0) { showToast('少なくとも1つの候補に回答してください', 'error'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 送信中...';
 
-  const voteId = isClosedMode ? (token || name.replace(/[^a-zA-Z0-9]/g, '_')) : (existingVote?.id || generateId(16));
+  const voteId = isClosedMode
+    ? (token || name.replace(/[^a-zA-Z0-9]/g, '_'))
+    : (existingVote?.id || generateId(16));
+
   const voteData = {
     id: voteId,
     name: isClosedMode ? (participantData?.email || token) : name,
@@ -712,10 +470,20 @@ async function submitVote() {
   try {
     const db = window._db;
     if (db) {
-      await window._fsSetDoc(window._fsDoc(db, 'events', eventId, 'votes', voteId), { ...voteData, updatedAt: window._fsServerTimestamp() });
+      const { doc, setDoc, serverTimestamp } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      await setDoc(doc(db, 'events', eventId, 'votes', voteId), {
+        ...voteData,
+        updatedAt: serverTimestamp()
+      });
+
       if (isClosedMode && participantData) {
         const emailKey = participantData.email.replace(/[^a-zA-Z0-9]/g, '_');
-        await window._fsSetDoc(window._fsDoc(db, 'events', eventId, 'participants', emailKey), { ...participantData, replied: true });
+        await setDoc(doc(db, 'events', eventId, 'participants', emailKey), {
+          ...participantData,
+          replied: true
+        });
       }
     } else {
       const votes = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`) || '{}');
@@ -723,29 +491,32 @@ async function submitVote() {
       localStorage.setItem(`schedly_votes_${eventId}`, JSON.stringify(votes));
     }
 
-    // Send confirmation email (open mode with email in name, or closed mode)
-    const emailTo = isClosedMode ? participantData?.email : (name.includes('@') ? name : null);
+    // 回答完了メール送信
+    const emailTo = isClosedMode
+      ? participantData?.email
+      : (name.includes('@') ? name : null);
+
     if (emailTo) {
       const editUrl = `${location.origin}${location.pathname}?id=${eventId}&token=${token || voteId}&edit=1`;
+      const answerSummary = Object.entries(answers).map(([k, v]) => {
+        const d   = new Date(k);
+        const sym = { circle:'◎', triangle:'△', cross:'✕' };
+        return `${d.toLocaleDateString('ja-JP', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} : ${sym[v]}`;
+      }).join('\n');
       try {
-        await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.replyTemplateId, {
-          to_email: emailTo,
-          event_title: eventData.title,
-          answer_summary: Object.entries(answers).map(([k, v]) => {
-            const d = new Date(k);
-            const sym = { circle: '◎', triangle: '△', cross: '✕' };
-            return `${d.toLocaleDateString('ja-JP', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} : ${sym[v]}`;
-          }).join('\n'),
-          edit_url: editUrl,
-          from_name: 'Schedly'
-        });
-      } catch(e) { console.warn('Reply email failed:', e); }
+        await emailjs.send(EMAILJS_A.serviceId, EMAILJS_A.replyTemplateId, {
+          to_email:       emailTo,
+          event_title:    eventData.title,
+          answer_summary: answerSummary,
+          edit_url:       editUrl,
+          from_name:      'Schedly'
+        }, EMAILJS_A.publicKey);
+      } catch(e) { console.warn('回答完了メール送信失敗:', e); }
     }
 
     showToast(editMode ? '回答を更新しました ✓' : '回答を送信しました ✓', 'success');
     setTimeout(() => {
-      const editUrl = `${location.origin}${location.pathname}?id=${eventId}&token=${token || voteId}`;
-      location.href = editUrl;
+      location.href = `${location.origin}${location.pathname}?id=${eventId}&token=${token || voteId}`;
     }, 1200);
 
   } catch(e) {
@@ -756,24 +527,22 @@ async function submitVote() {
   }
 }
 
-// ─── Helpers ───
-function showError(title, desc) {
+function showError(title, desc = '') {
   document.getElementById('mainContent').innerHTML = `
     <div class="error-state">
-      <div class="error-icon">❌</div>
-      <div class="error-title">${title}</div>
-      <div class="error-desc">${desc}</div>
+      <div style="font-size:48px;margin-bottom:16px">❌</div>
+      <div style="font-size:20px;font-weight:600;margin-bottom:8px">${title}</div>
+      ${desc ? `<div style="color:var(--text2);font-size:14px;margin-bottom:24px">${desc}</div>` : ''}
       <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:var(--radius);font-size:14px;text-decoration:none">← 新しいイベントを作成</a>
-    </div>
-  `;
+    </div>`;
 }
 
 function showToast(msg, type = 'info') {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  toast.innerHTML = `<span class="toast-icon">${icons[type] || '•'}</span><span>${msg}</span>`;
+  const icons = { success:'✓', error:'✕', info:'ℹ' };
+  toast.innerHTML = `<span>${icons[type]||'•'}</span><span>${msg}</span>`;
   container.appendChild(toast);
   setTimeout(() => { toast.classList.add('toast-out'); setTimeout(() => toast.remove(), 300); }, 3500);
 }
@@ -788,9 +557,9 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-window.selectVote = selectVote;
+window.selectVote     = selectVote;
 window.updateCondition = updateCondition;
-window.submitVote = submitVote;
+window.submitVote     = submitVote;
 </script>
 </body>
 </html>
