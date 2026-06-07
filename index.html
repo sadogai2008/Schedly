@@ -36,44 +36,22 @@
   --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
 }
 [data-theme="light"] {
-  --bg: #f4f5f7;
-  --bg2: #ffffff;
-  --bg3: #f0f1f4;
-  --surface: #ffffff;
-  --surface2: #f8f9fb;
-  --border: #e2e5ea;
-  --border2: #cdd0d8;
-  --text: #0f1117;
-  --text2: #4a5468;
-  --text3: #8a94a6;
-  --accent: #d4890a;
-  --accent2: #b87209;
-  --accent-dim: rgba(212,137,10,0.1);
-  --accent-dim2: rgba(212,137,10,0.05);
+  --bg: #f4f5f7; --bg2: #ffffff; --bg3: #f0f1f4;
+  --surface: #ffffff; --surface2: #f8f9fb;
+  --border: #e2e5ea; --border2: #cdd0d8;
+  --text: #0f1117; --text2: #4a5468; --text3: #8a94a6;
+  --accent: #d4890a; --accent2: #b87209;
+  --accent-dim: rgba(212,137,10,0.1); --accent-dim2: rgba(212,137,10,0.05);
   --shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 input, textarea, select, button { font-family: var(--font); }
 button { cursor: pointer; }
 a { color: var(--accent); text-decoration: none; }
 .app-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,11,13,0.85);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-}
+.header { position: sticky; top: 0; z-index: 100; background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
 [data-theme="light"] .header { background: rgba(244,245,247,0.9); }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--text); }
 .logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0a0b0d; flex-shrink: 0; }
@@ -100,12 +78,7 @@ a { color: var(--accent); text-decoration: none; }
 .form-label { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 7px; }
 .form-label .required { color: var(--accent); font-size: 11px; }
 .form-label .optional { color: var(--text3); font-size: 11px; font-weight: 400; }
-.form-input, .form-textarea, .form-select {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
-  color: var(--text); font-size: 14px; padding: 10px 14px;
-  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-  outline: none; -webkit-appearance: none; appearance: none;
-}
+.form-input, .form-textarea, .form-select { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 14px; padding: 10px 14px; transition: border-color var(--transition), box-shadow var(--transition), background var(--transition); outline: none; -webkit-appearance: none; appearance: none; }
 .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: var(--bg2); }
 .form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
 .form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
@@ -155,7 +128,6 @@ a { color: var(--accent); text-decoration: none; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 .btn-add { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); padding: 10px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; white-space: nowrap; transition: var(--transition); display: flex; align-items: center; gap: 6px; }
 .btn-add:hover { background: rgba(34,197,94,0.2); border-color: rgba(34,197,94,0.4); }
-/* 通知カード：オープンモード時は非表示 */
 .notify-card { display: none; }
 .notify-card.visible { display: block; }
 .submit-area { margin-top: 32px; animation: fadeInUp 0.4s 0.3s ease both; }
@@ -216,7 +188,6 @@ a { color: var(--accent); text-decoration: none; }
     <p>招待・回答・集計・確定・通知まで、すべてSchedlyで完結。</p>
   </div>
 
-  <!-- 基本情報 -->
   <div class="card">
     <div class="card-header">
       <div class="card-title"><div class="card-icon">📋</div>基本情報</div>
@@ -241,7 +212,6 @@ a { color: var(--accent); text-decoration: none; }
     </div>
   </div>
 
-  <!-- 候補日時 -->
   <div class="card">
     <div class="card-header">
       <div class="card-title"><div class="card-icon">📅</div>候補日時</div>
@@ -266,115 +236,79 @@ a { color: var(--accent); text-decoration: none; }
         </select>
       </div>
       <div style="padding-top:21px">
-        <button class="btn-add" onclick="addCandidate()">＋ 追加</button>
+        <button class="btn-add" id="addCandidateBtn">＋ 追加</button>
       </div>
     </div>
     <div class="hint mt-2">💡 複数の候補日時を追加してください（最低1つ必要）</div>
   </div>
 
-  <!-- モード選択 -->
   <div class="card">
     <div class="card-header">
       <div class="card-title"><div class="card-icon">🔐</div>参加モード</div>
     </div>
     <div class="mode-grid">
       <label class="mode-option">
-        <input type="radio" name="mode" value="open" id="modeOpen" checked onchange="onModeChange()">
+        <input type="radio" name="mode" value="open" id="modeOpen" checked>
         <div class="mode-label">
           <div class="mode-title">🌐 オープン</div>
           <div class="mode-desc">URLを知っている人なら誰でも回答可能</div>
         </div>
       </label>
       <label class="mode-option">
-        <input type="radio" name="mode" value="closed" id="modeClosed" onchange="onModeChange()">
+        <input type="radio" name="mode" value="closed" id="modeClosed">
         <div class="mode-label">
           <div class="mode-title">🔒 クローズド</div>
           <div class="mode-desc">招待した参加者のみ回答可能</div>
         </div>
       </label>
     </div>
-
-    <!-- クローズドモード用 参加者設定 -->
     <div class="participants-section" id="participantsSection" style="margin-top:20px">
       <div class="section-label">招待する参加者</div>
       <div class="participant-chips" id="participantChips"></div>
       <div class="add-email-row">
-        <input type="email" class="form-input" id="newParticipantEmail" placeholder="例：taro@example.com" onkeydown="if(event.key==='Enter')addParticipant()">
-        <button class="btn-add" onclick="addParticipant()">＋ 追加</button>
+        <input type="email" class="form-input" id="newParticipantEmail" placeholder="例：taro@example.com">
+        <button class="btn-add" id="addParticipantBtn">＋ 追加</button>
       </div>
       <div class="hint mt-2">📧 追加されたメールアドレスへ招待メールが送信されます</div>
     </div>
   </div>
 
-  <!-- 通知設定（クローズドモード時のみ表示） -->
   <div class="card notify-card" id="notifyCard">
     <div class="card-header">
       <div class="card-title"><div class="card-icon">🔔</div>通知設定</div>
     </div>
     <div class="toggle-group">
       <div class="toggle-item">
-        <div class="toggle-info">
-          <div class="toggle-name">未回答リマインド</div>
-          <div class="toggle-hint">未回答の参加者へ自動でリマインドを送信</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notifyReminder" checked>
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="toggle-info"><div class="toggle-name">未回答リマインド</div><div class="toggle-hint">未回答の参加者へ自動でリマインドを送信</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="notifyReminder" checked><span class="toggle-slider"></span></label>
       </div>
       <div class="toggle-item">
-        <div class="toggle-info">
-          <div class="toggle-name">締切前通知</div>
-          <div class="toggle-hint">締切24時間前に参加者へ通知</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notifyDeadline" checked>
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="toggle-info"><div class="toggle-name">締切前通知</div><div class="toggle-hint">締切24時間前に参加者へ通知</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="notifyDeadline" checked><span class="toggle-slider"></span></label>
       </div>
       <div class="toggle-item">
-        <div class="toggle-info">
-          <div class="toggle-name">日程確定通知</div>
-          <div class="toggle-hint">日程確定時に全参加者へ通知</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notifyConfirm" checked>
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="toggle-info"><div class="toggle-name">日程確定通知</div><div class="toggle-hint">日程確定時に全参加者へ通知</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="notifyConfirm" checked><span class="toggle-slider"></span></label>
       </div>
       <div class="toggle-item">
-        <div class="toggle-info">
-          <div class="toggle-name">前日通知</div>
-          <div class="toggle-hint">開催前日に参加者へリマインド</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notifyDayBefore">
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="toggle-info"><div class="toggle-name">前日通知</div><div class="toggle-hint">開催前日に参加者へリマインド</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="notifyDayBefore"><span class="toggle-slider"></span></label>
       </div>
       <div class="toggle-item">
-        <div class="toggle-info">
-          <div class="toggle-name">当日通知</div>
-          <div class="toggle-hint">開催当日の朝に参加者へリマインド</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notifyDayOf">
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="toggle-info"><div class="toggle-name">当日通知</div><div class="toggle-hint">開催当日の朝に参加者へリマインド</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="notifyDayOf"><span class="toggle-slider"></span></label>
       </div>
     </div>
   </div>
 
-  <!-- Submit -->
   <div class="submit-area">
-    <button class="submit-btn" id="submitBtn" onclick="createEvent()">
+    <button class="submit-btn" id="submitBtn">
       <span id="submitBtnText">🚀 イベントを作成する</span>
     </button>
     <p class="submit-note">作成後、管理URLと回答URLが発行されます</p>
   </div>
 </main>
 
-<!-- Success Overlay -->
 <div class="success-overlay card" id="successOverlay" style="display:none;">
   <div class="success-icon">✓</div>
   <div class="success-title">イベントを作成しました！</div>
@@ -383,14 +317,14 @@ a { color: var(--accent); text-decoration: none; }
     <div class="url-label">🔗 回答ページURL</div>
     <div class="url-copy-row">
       <input type="text" class="url-input" id="eventUrl" readonly>
-      <button class="btn-copy" onclick="copyUrl('eventUrl', this)">📋 コピー</button>
+      <button class="btn-copy" id="copyEventBtn">📋 コピー</button>
     </div>
   </div>
   <div class="url-box">
     <div class="url-label">⚙️ 管理ページURL</div>
     <div class="url-copy-row">
       <input type="text" class="url-input" id="adminUrl" readonly>
-      <button class="btn-copy" onclick="copyUrl('adminUrl', this)">📋 コピー</button>
+      <button class="btn-copy" id="copyAdminBtn">📋 コピー</button>
     </div>
   </div>
   <div style="display:flex;gap:10px;margin-top:12px">
@@ -401,10 +335,13 @@ a { color: var(--accent); text-decoration: none; }
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- Firebase SDK -->
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- Firebase SDK (module) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",
@@ -417,38 +354,43 @@ const firebaseConfig = {
 
 try {
   const app = initializeApp(firebaseConfig);
-  window._db = getFirestore(app);
+  const db  = getFirestore(app);
+
+  // Firestore の書き込み関数を window に公開
+  window._saveEvent = async (eventId, eventData, participantData) => {
+    await setDoc(doc(db, 'events', eventId), {
+      ...eventData,
+      createdAt: serverTimestamp()
+    });
+    for (const p of participantData) {
+      const key = p.email.replace(/[^a-zA-Z0-9]/g, '_');
+      await setDoc(doc(db, 'events', eventId, 'participants', key), p);
+    }
+  };
+
+  window._firebaseReady = true;
 } catch(e) {
-  console.warn('Firebase init error:', e);
+  window._firebaseReady = false;
+  window._firebaseError = e.message;
 }
 </script>
 
-<!-- EmailJS アカウントA（招待・回答完了） -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- メインロジック（通常script） -->
 <script>
-// ======================================================
-// EmailJS アカウントA設定
-// ======================================================
 const EMAILJS_A = {
-  publicKey:          'JHdTPggzMXFZmBifV',
-  serviceId:          'service_ybx173k',
-  inviteTemplateId:   'template_sgao7e2',
-  replyTemplateId:    'template_yv9pvc2'
+  publicKey:        'JHdTPggzMXFZmBifV',
+  serviceId:        'service_ybx173k',
+  inviteTemplateId: 'template_sgao7e2',
+  replyTemplateId:  'template_yv9pvc2'
 };
-// EmailJS アカウントB設定（確定・リマインド）※明日差し替え
-const EMAILJS_B = {
-  publicKey:          'YOUR_ACCOUNTB_PUBLIC_KEY',
-  serviceId:          'YOUR_ACCOUNTB_SERVICE_ID',
-  confirmTemplateId:  'YOUR_CONFIRM_TEMPLATE_ID',
-  reminderTemplateId: 'YOUR_REMINDER_TEMPLATE_ID'
-};
-// ======================================================
 
-// EmailJS初期化（アカウントA）
-try { emailjs.init(EMAILJS_A.publicKey); } catch(e) { console.warn('EmailJS init error:', e); }
+// EmailJS 初期化
+window.addEventListener('load', function() {
+  try { emailjs.init(EMAILJS_A.publicKey); } catch(e) {}
+});
 
 // ─── State ───
-let candidates = [];
+let candidates   = [];
 let participants = [];
 
 // ─── Theme ───
@@ -457,7 +399,7 @@ const html = document.documentElement;
 const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener('click', function() {
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('schedlyTheme', next);
@@ -470,6 +412,8 @@ defaultDeadline.setMinutes(0, 0, 0);
 document.getElementById('eventDeadline').value = defaultDeadline.toISOString().slice(0, 16);
 
 // ─── Mode Change ───
+document.getElementById('modeOpen').addEventListener('change', onModeChange);
+document.getElementById('modeClosed').addEventListener('change', onModeChange);
 function onModeChange() {
   const isClosed = document.getElementById('modeClosed').checked;
   document.getElementById('participantsSection').classList.toggle('visible', isClosed);
@@ -477,18 +421,25 @@ function onModeChange() {
 }
 
 // ─── Candidates ───
+document.getElementById('addCandidateBtn').addEventListener('click', addCandidate);
+document.getElementById('newParticipantEmail').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') addParticipant();
+});
+
 function addCandidate() {
   const dateInput = document.getElementById('newCandidateDate');
   const durInput  = document.getElementById('newCandidateDuration');
   const val = dateInput.value;
   if (!val) { showToast('日時を選択してください', 'error'); return; }
-  if (candidates.some(c => c.datetime === val)) { showToast('同じ日時が既に追加されています', 'error'); return; }
+  if (candidates.some(function(c) { return c.datetime === val; })) {
+    showToast('同じ日時が既に追加されています', 'error'); return;
+  }
   const d = new Date(val);
   const label = d.toLocaleDateString('ja-JP', { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' });
-  candidates.push({ datetime: val, label, duration: durInput.value });
+  candidates.push({ datetime: val, label: label, duration: durInput.value });
   renderCandidates();
   dateInput.value = '';
-  durInput.value = '';
+  durInput.value  = '';
 }
 
 function removeCandidate(idx) {
@@ -502,30 +453,41 @@ function renderCandidates() {
     list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text3);font-size:13px;">候補日時がまだ追加されていません</div>';
     return;
   }
-  list.innerHTML = candidates.map((c, i) => `
-    <div class="candidate-item">
-      <span class="candidate-datetime">${c.label}</span>
-      ${c.duration ? `<span class="candidate-duration">${c.duration}</span>` : ''}
-      <button class="btn-icon danger" onclick="removeCandidate(${i})" title="削除">✕</button>
-    </div>
-  `).join('');
+  list.innerHTML = candidates.map(function(c, i) {
+    return '<div class="candidate-item">' +
+      '<span class="candidate-datetime">' + c.label + '</span>' +
+      (c.duration ? '<span class="candidate-duration">' + c.duration + '</span>' : '') +
+      '<button class="btn-icon danger" data-idx="' + i + '" title="削除">✕</button>' +
+      '</div>';
+  }).join('');
+  list.querySelectorAll('.btn-icon.danger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      removeCandidate(parseInt(this.getAttribute('data-idx')));
+    });
+  });
 }
 renderCandidates();
 
 // ─── Participants ───
+document.getElementById('addParticipantBtn').addEventListener('click', addParticipant);
+
 function addParticipant() {
   const input = document.getElementById('newParticipantEmail');
   const email = input.value.trim().toLowerCase();
   if (!email) return;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('有効なメールアドレスを入力してください', 'error'); return; }
-  if (participants.includes(email)) { showToast('既に追加されています', 'error'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('有効なメールアドレスを入力してください', 'error'); return;
+  }
+  if (participants.indexOf(email) !== -1) {
+    showToast('既に追加されています', 'error'); return;
+  }
   participants.push(email);
   renderParticipants();
   input.value = '';
 }
 
 function removeParticipant(email) {
-  participants = participants.filter(e => e !== email);
+  participants = participants.filter(function(e) { return e !== email; });
   renderParticipants();
 }
 
@@ -535,109 +497,136 @@ function renderParticipants() {
     container.innerHTML = '<span style="font-size:12px;color:var(--text3)">まだ追加されていません</span>';
     return;
   }
-  container.innerHTML = participants.map(e => `
-    <span class="chip">
-      ${e}
-      <button class="chip-remove" onclick="removeParticipant('${e}')">×</button>
-    </span>
-  `).join('');
+  container.innerHTML = participants.map(function(e) {
+    return '<span class="chip">' + e +
+      '<button class="chip-remove" data-email="' + e + '">×</button>' +
+      '</span>';
+  }).join('');
+  container.querySelectorAll('.chip-remove').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      removeParticipant(this.getAttribute('data-email'));
+    });
+  });
 }
 renderParticipants();
 
 // ─── Generate ID ───
-function generateId(len = 20) {
+function generateId(len) {
+  len = len || 20;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  var result = '';
+  for (var i = 0; i < len; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
 }
+
+// ─── Submit Button ───
+document.getElementById('submitBtn').addEventListener('click', createEvent);
 
 // ─── Create Event ───
 async function createEvent() {
-  // ── デバッグ表示 ──
-  const showDebug = (msg, color='white') => {
-    let dbg = document.getElementById('debugBox');
-    if (!dbg) {
-      dbg = document.createElement('div');
-      dbg.id = 'debugBox';
-      dbg.style.cssText = 'position:fixed;top:10px;left:10px;right:10px;background:#111;color:white;padding:12px;border-radius:8px;font-size:12px;font-family:monospace;z-index:9999;white-space:pre-wrap;max-height:60vh;overflow:auto;border:1px solid #444';
-      document.body.appendChild(dbg);
-    }
-    dbg.innerHTML += `<span style="color:${color}">[${new Date().toLocaleTimeString()}] ${msg}</span>\n`;
-  };
-
-  showDebug('createEvent 開始');
-  showDebug('db = ' + (window._db ? 'OK' : 'NULL/UNDEFINED'), window._db ? 'lime' : 'red');
-
   const title    = document.getElementById('eventTitle').value.trim();
+  const desc     = document.getElementById('eventDesc').value.trim();
+  const location = document.getElementById('eventLocation').value.trim();
   const deadline = document.getElementById('eventDeadline').value;
   const mode     = document.querySelector('input[name="mode"]:checked').value;
 
-  showDebug('title = "' + title + '"');
-  showDebug('deadline = "' + deadline + '"');
-  showDebug('candidates = ' + candidates.length + '件');
-
-  if (!title)    { showToast('タイトルを入力してください', 'error'); return; }
+  if (!title)    { showToast('タイトルを入力してください', 'error'); document.getElementById('eventTitle').focus(); return; }
   if (!deadline) { showToast('締切日時を設定してください', 'error'); return; }
   if (candidates.length === 0) { showToast('候補日時を1つ以上追加してください', 'error'); return; }
+  if (mode === 'closed' && participants.length === 0) { showToast('クローズドモードでは参加者を追加してください', 'error'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 作成中...';
 
+  const eventId    = generateId(20);
+  const adminToken = generateId(32);
+
+  const eventData = {
+    title:       title,
+    description: desc,
+    location:    location,
+    deadline:    new Date(deadline).toISOString(),
+    mode:        mode,
+    status:      'open',
+    adminToken:  adminToken,
+    settings: {
+      notifyReminder:  mode === 'closed' ? document.getElementById('notifyReminder').checked  : false,
+      notifyDeadline:  mode === 'closed' ? document.getElementById('notifyDeadline').checked  : false,
+      notifyConfirm:   mode === 'closed' ? document.getElementById('notifyConfirm').checked   : false,
+      notifyDayBefore: mode === 'closed' ? document.getElementById('notifyDayBefore').checked : false,
+      notifyDayOf:     mode === 'closed' ? document.getElementById('notifyDayOf').checked     : false,
+    },
+    dates:     candidates,
+    createdAt: new Date().toISOString()
+  };
+
+  const participantData = mode === 'closed' ? participants.map(function(email) {
+    return { email: email, token: generateId(24), replied: false };
+  }) : [];
+
   try {
-    showDebug('Firestore import 開始...');
-    const { doc, setDoc, serverTimestamp } =
-      await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    showDebug('Firestore import 完了', 'lime');
-
-    const eventId    = generateId(20);
-    const adminToken = generateId(32);
-    showDebug('eventId = ' + eventId);
-
-    const eventData = {
-      title,
-      description: document.getElementById('eventDesc').value.trim(),
-      location:    document.getElementById('eventLocation').value.trim(),
-      deadline:    new Date(deadline).toISOString(),
-      mode, status: 'open', adminToken,
-      settings: {
-        notifyReminder:  mode==='closed' ? document.getElementById('notifyReminder').checked  : false,
-        notifyDeadline:  mode==='closed' ? document.getElementById('notifyDeadline').checked  : false,
-        notifyConfirm:   mode==='closed' ? document.getElementById('notifyConfirm').checked   : false,
-        notifyDayBefore: mode==='closed' ? document.getElementById('notifyDayBefore').checked : false,
-        notifyDayOf:     mode==='closed' ? document.getElementById('notifyDayOf').checked     : false,
-      },
-      dates: candidates,
-      createdAt: new Date().toISOString()
-    };
-
-    if (window._db) {
-      showDebug('Firestore 書き込み開始...');
-      await setDoc(doc(window._db, 'events', eventId), {
-        ...eventData, createdAt: serverTimestamp()
-      });
-      showDebug('Firestore 書き込み完了！', 'lime');
-    } else {
-      showDebug('db が null のため localStorage に保存', 'orange');
-      localStorage.setItem(`schedly_event_${eventId}`, JSON.stringify({ ...eventData, id: eventId }));
+    // Firebase が準備できるまで最大3秒待つ
+    let waited = 0;
+    while (!window._firebaseReady && !window._firebaseError && waited < 3000) {
+      await new Promise(function(r) { setTimeout(r, 100); });
+      waited += 100;
     }
 
-    const baseUrl      = window.location.origin + window.location.pathname.replace('index.html','');
-    const eventPageUrl = `${baseUrl}event.html?id=${eventId}`;
-    const adminPageUrl = `${baseUrl}admin.html?id=${eventId}&token=${adminToken}`;
+    if (window._firebaseError) {
+      throw new Error('Firebase エラー: ' + window._firebaseError);
+    }
+
+    if (window._saveEvent) {
+      await window._saveEvent(eventId, eventData, participantData);
+    } else {
+      // fallback: localStorage
+      localStorage.setItem('schedly_event_' + eventId, JSON.stringify(Object.assign({}, eventData, { id: eventId })));
+      localStorage.setItem('schedly_participants_' + eventId, JSON.stringify(participantData));
+    }
+
+    // 招待メール送信（クローズドモードのみ）
+    if (mode === 'closed') {
+      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+      for (var i = 0; i < participantData.length; i++) {
+        var p = participantData[i];
+        var answerUrl = baseUrl + 'event.html?id=' + eventId + '&token=' + p.token;
+        try {
+          await emailjs.send(EMAILJS_A.serviceId, EMAILJS_A.inviteTemplateId, {
+            to_email:          p.email,
+            event_title:       title,
+            event_description: desc     || '—',
+            event_location:    location || '未定',
+            deadline:          new Date(deadline).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }),
+            answer_url:        answerUrl,
+            from_name:         'Schedly'
+          }, EMAILJS_A.publicKey);
+        } catch(mailErr) {
+          console.warn('招待メール送信失敗:', p.email, mailErr);
+        }
+      }
+    }
+
+    // 成功表示
+    const baseUrl      = window.location.origin + window.location.pathname.replace('index.html', '');
+    const eventPageUrl = baseUrl + 'event.html?id=' + eventId;
+    const adminPageUrl = baseUrl + 'admin.html?id=' + eventId + '&token=' + adminToken;
 
     document.getElementById('mainContent').style.display = 'none';
-    const overlay = document.getElementById('successOverlay');
-    overlay.style.display = 'flex';
-    document.getElementById('eventUrl').value   = eventPageUrl;
-    document.getElementById('adminUrl').value   = adminPageUrl;
+    document.getElementById('successOverlay').style.display = 'flex';
+    document.getElementById('eventUrl').value    = eventPageUrl;
+    document.getElementById('adminUrl').value    = adminPageUrl;
     document.getElementById('goEventLink').href  = eventPageUrl;
     document.getElementById('goAdminLink').href  = adminPageUrl;
 
-    showDebug('完了！成功画面を表示', 'lime');
+    if (mode === 'closed') {
+      document.getElementById('successDesc').textContent =
+        participants.length + '名の参加者へ招待メールを送信しました。管理URLを大切に保管してください。';
+    }
 
   } catch(e) {
-    showDebug('エラー発生: ' + e.message, 'red');
-    showDebug('スタック: ' + e.stack, 'red');
     showToast('作成に失敗しました: ' + e.message, 'error');
     btn.disabled = false;
     document.getElementById('submitBtnText').textContent = '🚀 イベントを作成する';
@@ -645,35 +634,33 @@ async function createEvent() {
 }
 
 // ─── Copy URL ───
+document.getElementById('copyEventBtn').addEventListener('click', function() { copyUrl('eventUrl', this); });
+document.getElementById('copyAdminBtn').addEventListener('click', function() { copyUrl('adminUrl', this); });
+
 function copyUrl(inputId, btn) {
   const input = document.getElementById(inputId);
   input.select();
-  navigator.clipboard.writeText(input.value).then(() => {
+  navigator.clipboard.writeText(input.value).then(function() {
     btn.innerHTML = '✓ コピー済';
     btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = '📋 コピー'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(function() { btn.innerHTML = '📋 コピー'; btn.classList.remove('copied'); }, 2000);
   });
 }
 
 // ─── Toast ───
-function showToast(msg, type = 'info') {
+function showToast(msg, type) {
+  type = type || 'info';
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
+  toast.className = 'toast ' + type;
   const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  toast.innerHTML = `<span class="toast-icon">${icons[type] || '•'}</span><span>${msg}</span>`;
+  toast.innerHTML = '<span>' + (icons[type] || '•') + '</span><span>' + msg + '</span>';
   container.appendChild(toast);
-  setTimeout(() => { toast.classList.add('toast-out'); setTimeout(() => toast.remove(), 300); }, 3500);
+  setTimeout(function() {
+    toast.classList.add('toast-out');
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 3500);
 }
-
-// Expose globals
-window.addCandidate      = addCandidate;
-window.removeCandidate   = removeCandidate;
-window.addParticipant    = addParticipant;
-window.removeParticipant = removeParticipant;
-window.createEvent       = createEvent;
-window.copyUrl           = copyUrl;
-window.onModeChange      = onModeChange;
 </script>
 </body>
 </html>
