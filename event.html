@@ -291,7 +291,7 @@ function renderPage(){
     // イベントヘッダー
     '<div class="event-header-card">'+
       '<span class="event-status-badge '+(statusClass[eventData.status]||'status-open')+'">'+
-        (eventData.status==='open'?'● ':'')+（statusLabel[eventData.status]||'受付中')+
+        (eventData.status==='open'?'● ':'')+(statusLabel[eventData.status]||'受付中')+
       '</span>'+
       '<div class="event-title">'+escHtml(eventData.title)+'</div>'+
       '<div class="event-meta">'+
