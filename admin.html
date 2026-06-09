@@ -394,9 +394,14 @@ function renderPage(){
   });
   const closeBtn=document.getElementById('closeEventBtn');
   if(closeBtn)closeBtn.addEventListener('click',closeEvent);
-  document.getElementById('cancelConfirmBtn').addEventListener('click',closeModal);
-  document.getElementById('doConfirmBtn').addEventListener('click',doConfirm);
+  // モーダルボタンは重複防止のため初回のみバインド
+  if(!window._modalBound){
+    document.getElementById('cancelConfirmBtn').addEventListener('click',closeModal);
+    document.getElementById('doConfirmBtn').addEventListener('click',doConfirm);
+    window._modalBound=true;
+  }
   startCountdown();
+  bindTabEvents();
 }
 
 function renderTabContent(){
@@ -632,7 +637,7 @@ async function doConfirm(){
     }
     eventData=Object.assign({},eventData,upd);
     if(eventData.settings&&eventData.settings.notifyConfirm)await sendConfirmEmails();
-    closeModal();showToast('日程を確定しました！ 🎉','success');renderPage();bindTabEvents();
+    closeModal();showToast('日程を確定しました！ 🎉','success');renderPage();
   }catch(e){
     showToast('確定に失敗しました: '+e.message,'error');
     btn.disabled=false;document.getElementById('doConfirmText').textContent='✓ 確定する';
@@ -663,7 +668,7 @@ async function closeEvent(){
   try{
     if(window._db){await window._fsOps.updateDoc(window._fsOps.doc(window._db,'events',eventId),{status:'closed'});}
     else{const s=JSON.parse(localStorage.getItem('schedly_event_'+eventId)||'{}');s.status='closed';localStorage.setItem('schedly_event_'+eventId,JSON.stringify(s));}
-    eventData.status='closed';showToast('受付を終了しました','success');renderPage();bindTabEvents();
+    eventData.status='closed';showToast('受付を終了しました','success');renderPage();
   }catch(e){showToast('エラー: '+e.message,'error');}
 }
 
@@ -724,7 +729,7 @@ async function handleProposal(pid,action){
       }catch(e){console.warn('対案結果メール失敗:',e);}
     }
     showToast(isAccept?'対案を受理しました。候補日時に追加しました。':'対案を却下しました。',isAccept?'success':'info');
-    renderPage();bindTabEvents();
+    renderPage();
   }catch(e){showToast('エラー: '+e.message,'error');}
 }
 
