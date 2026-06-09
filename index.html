@@ -7,180 +7,141 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0b0d;
-  --bg2: #111318;
-  --bg3: #181c22;
-  --surface: #1e232c;
-  --surface2: #252b36;
-  --border: #2a3040;
-  --border2: #333d4f;
-  --text: #e8eaf0;
-  --text2: #9aa3b2;
-  --text3: #5c6a80;
-  --accent: #f0a500;
-  --accent2: #e8920a;
-  --accent-dim: rgba(240,165,0,0.12);
-  --accent-dim2: rgba(240,165,0,0.06);
-  --green: #22c55e;
-  --green-dim: rgba(34,197,94,0.12);
-  --red: #ef4444;
-  --red-dim: rgba(239,68,68,0.12);
-  --blue: #3b82f6;
-  --blue-dim: rgba(59,130,246,0.12);
-  --radius: 10px;
-  --radius2: 14px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
-  --font: 'DM Sans', system-ui, sans-serif;
-  --mono: 'DM Mono', monospace;
-  --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
-}
-[data-theme="light"] {
-  --bg: #f4f5f7; --bg2: #ffffff; --bg3: #f0f1f4;
-  --surface: #ffffff; --surface2: #f8f9fb;
-  --border: #e2e5ea; --border2: #cdd0d8;
-  --text: #0f1117; --text2: #4a5468; --text3: #8a94a6;
-  --accent: #d4890a; --accent2: #b87209;
-  --accent-dim: rgba(212,137,10,0.1); --accent-dim2: rgba(212,137,10,0.05);
-  --shadow: 0 2px 16px rgba(0,0,0,0.08);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-input, textarea, select, button { font-family: var(--font); }
-button { cursor: pointer; }
-a { color: var(--accent); text-decoration: none; }
-.app-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
-.header { position: sticky; top: 0; z-index: 100; background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-[data-theme="light"] .header { background: rgba(244,245,247,0.9); }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--text); }
-.logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0a0b0d; flex-shrink: 0; }
-.header-actions { display: flex; align-items: center; gap: 8px; }
-.theme-toggle { background: none; border: 1px solid var(--border2); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition); }
-.theme-toggle:hover { background: var(--surface); color: var(--text); }
-.main { flex: 1; max-width: 760px; width: 100%; margin: 0 auto; padding: 40px 20px 80px; }
-.page-hero { text-align: center; margin-bottom: 48px; animation: fadeInDown 0.5s ease both; }
-.page-hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,165,0,0.2); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 16px; text-transform: uppercase; }
-.page-hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
-.page-hero h1 span { color: var(--accent); }
-.page-hero p { color: var(--text2); font-size: 16px; max-width: 480px; margin: 0 auto; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 28px; margin-bottom: 16px; animation: fadeInUp 0.4s ease both; }
-.card:nth-child(2) { animation-delay: 0.05s; }
-.card:nth-child(3) { animation-delay: 0.1s; }
-.card:nth-child(4) { animation-delay: 0.15s; }
-.card:nth-child(5) { animation-delay: 0.2s; }
-.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.card-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--text); }
-.card-icon { width: 28px; height: 28px; background: var(--accent-dim); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-.form-group { margin-bottom: 18px; }
-.form-group:last-child { margin-bottom: 0; }
-.form-label { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 7px; }
-.form-label .required { color: var(--accent); font-size: 11px; }
-.form-label .optional { color: var(--text3); font-size: 11px; font-weight: 400; }
-.form-input, .form-textarea, .form-select { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 14px; padding: 10px 14px; transition: border-color var(--transition), box-shadow var(--transition), background var(--transition); outline: none; -webkit-appearance: none; appearance: none; }
-.form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: var(--bg2); }
-.form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
-.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
-.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.mode-option { position: relative; }
-.mode-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-.mode-label { display: flex; flex-direction: column; gap: 4px; padding: 16px; background: var(--bg3); border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: var(--transition); }
-.mode-option input:checked + .mode-label { border-color: var(--accent); background: var(--accent-dim2); box-shadow: 0 0 0 3px var(--accent-dim); }
-.mode-label:hover { border-color: var(--border2); background: var(--surface2); }
-.mode-title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.mode-desc { font-size: 12px; color: var(--text3); }
-.candidates-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-.candidate-item { display: flex; align-items: center; gap: 8px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; animation: slideIn 0.2s ease both; }
-.candidate-datetime { flex: 1; font-size: 13px; font-family: var(--mono); color: var(--text); }
-.candidate-duration { font-size: 11px; color: var(--text3); background: var(--surface); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); }
-.btn-icon { width: 28px; height: 28px; border-radius: 7px; border: none; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: var(--transition); flex-shrink: 0; }
-.btn-icon.danger { background: var(--red-dim); color: var(--red); }
-.btn-icon.danger:hover { background: rgba(239,68,68,0.25); }
-.add-candidate-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: end; }
-@media (max-width: 540px) { .add-candidate-row { grid-template-columns: 1fr 1fr; } .add-candidate-row .btn-add { grid-column: 1/-1; } }
-.participants-section { display: none; }
-.participants-section.visible { display: block; }
-.participant-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; min-height: 32px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2); color: var(--blue); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; animation: chipIn 0.15s ease both; }
-.chip-remove { background: none; border: none; color: inherit; font-size: 14px; line-height: 1; padding: 0; opacity: 0.6; transition: opacity var(--transition); }
-.chip-remove:hover { opacity: 1; }
-.add-email-row { display: flex; gap: 8px; }
-.toggle-group { display: flex; flex-direction: column; gap: 2px; }
-.toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); transition: background var(--transition); }
-.toggle-item:hover { background: var(--surface2); }
-.toggle-info { display: flex; flex-direction: column; gap: 2px; }
-.toggle-name { font-size: 13px; font-weight: 500; color: var(--text); }
-.toggle-hint { font-size: 11px; color: var(--text3); }
-.toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
-.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-.toggle-slider { position: absolute; inset: 0; background: var(--border2); border-radius: 11px; cursor: pointer; transition: var(--transition); }
-.toggle-slider::after { content: ''; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: var(--transition); }
-.toggle-switch input:checked + .toggle-slider { background: var(--accent); }
-.toggle-switch input:checked + .toggle-slider::after { transform: translateX(18px); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: var(--radius); border: none; transition: var(--transition); white-space: nowrap; }
-.btn-primary { background: var(--accent); color: #0a0b0d; }
-.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(240,165,0,0.3); }
-.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-.btn-secondary:hover { background: var(--surface); border-color: var(--border2); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-.btn-add { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); padding: 10px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; white-space: nowrap; transition: var(--transition); display: flex; align-items: center; gap: 6px; }
-.btn-add:hover { background: rgba(34,197,94,0.2); border-color: rgba(34,197,94,0.4); }
-.notify-card { display: none; }
-.notify-card.visible { display: block; }
-.submit-area { margin-top: 32px; animation: fadeInUp 0.4s 0.3s ease both; }
-.submit-btn { width: 100%; padding: 15px; font-size: 16px; border-radius: var(--radius2); background: var(--accent); color: #0a0b0d; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
-.submit-btn:hover:not(:disabled) { background: var(--accent2); box-shadow: 0 8px 24px rgba(240,165,0,0.35); transform: translateY(-2px); }
-.submit-btn:active { transform: none; box-shadow: none; }
-.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.submit-note { text-align: center; font-size: 12px; color: var(--text3); margin-top: 12px; }
-.spinner { width: 16px; height: 16px; border: 2px solid rgba(10,11,13,0.3); border-top-color: #0a0b0d; border-radius: 50%; animation: spin 0.7s linear infinite; }
-.success-overlay { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 24px; animation: fadeIn 0.4s ease; }
-.success-overlay.visible { display: flex; }
-.success-icon { width: 72px; height: 72px; background: var(--green-dim); border: 2px solid var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 24px; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
-.success-title { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
-.success-desc { color: var(--text2); font-size: 14px; max-width: 380px; margin-bottom: 32px; line-height: 1.6; }
-.url-box { width: 100%; max-width: 520px; margin-bottom: 8px; }
-.url-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 6px; text-align: left; }
-.url-copy-row { display: flex; gap: 8px; }
-.url-input { flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 13px; font-family: var(--mono); padding: 9px 12px; outline: none; }
-.btn-copy { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 9px 14px; border-radius: var(--radius); font-size: 13px; cursor: pointer; transition: var(--transition); white-space: nowrap; display: flex; align-items: center; gap: 5px; }
-.btn-copy:hover { border-color: var(--accent); color: var(--accent); }
-.btn-copy.copied { border-color: var(--green); color: var(--green); }
-.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-.toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); animation: toastIn 0.3s ease both; pointer-events: all; max-width: 320px; }
-.toast.success { border-color: var(--green); }
-.toast.error { border-color: var(--red); }
-.toast-out { animation: toastOut 0.3s ease forwards; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes slideIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
-@keyframes chipIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
-@keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
-@keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
-.hidden { display: none !important; }
-.mt-2 { margin-top: 8px; }
-.hint { font-size: 12px; color: var(--text3); margin-top: 5px; display: flex; align-items: flex-start; gap: 4px; }
+:root{--bg:#0a0b0d;--bg2:#111318;--bg3:#181c22;--surface:#1e232c;--surface2:#252b36;--border:#2a3040;--border2:#333d4f;--text:#e8eaf0;--text2:#9aa3b2;--text3:#5c6a80;--accent:#f0a500;--accent2:#e8920a;--accent-dim:rgba(240,165,0,0.12);--accent-dim2:rgba(240,165,0,0.06);--green:#22c55e;--green-dim:rgba(34,197,94,0.12);--red:#ef4444;--red-dim:rgba(239,68,68,0.12);--blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);--purple:#a855f7;--purple-dim:rgba(168,85,247,0.12);--radius:10px;--radius2:14px;--shadow:0 4px 24px rgba(0,0,0,0.4);--font:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--transition:0.18s cubic-bezier(0.4,0,0.2,1);}
+[data-theme="light"]{--bg:#f4f5f7;--bg2:#ffffff;--bg3:#f0f1f4;--surface:#ffffff;--surface2:#f8f9fb;--border:#e2e5ea;--border2:#cdd0d8;--text:#0f1117;--text2:#4a5468;--text3:#8a94a6;--accent:#d4890a;--accent2:#b87209;--accent-dim:rgba(212,137,10,0.1);--accent-dim2:rgba(212,137,10,0.05);--shadow:0 2px 16px rgba(0,0,0,0.08);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:var(--font);}
+button{cursor:pointer;}
+a{color:var(--accent);text-decoration:none;}
+.app-wrapper{display:flex;flex-direction:column;min-height:100vh;}
+.header{position:sticky;top:0;z-index:100;background:rgba(10,11,13,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+[data-theme="light"] .header{background:rgba(244,245,247,0.9);}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:20px;letter-spacing:-0.02em;color:var(--text);}
+.logo-mark{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#0a0b0d;flex-shrink:0;}
+.header-actions{display:flex;align-items:center;gap:8px;}
+.theme-toggle{background:none;border:1px solid var(--border2);color:var(--text2);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--transition);}
+.theme-toggle:hover{background:var(--surface);color:var(--text);}
+.main{flex:1;max-width:760px;width:100%;margin:0 auto;padding:40px 20px 80px;}
+.page-hero{text-align:center;margin-bottom:48px;animation:fadeInDown 0.5s ease both;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(240,165,0,0.2);padding:4px 12px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.04em;margin-bottom:16px;text-transform:uppercase;}
+.page-hero h1{font-size:clamp(28px,5vw,42px);font-weight:600;letter-spacing:-0.03em;line-height:1.2;margin-bottom:12px;}
+.page-hero h1 span{color:var(--accent);}
+.page-hero p{color:var(--text2);font-size:16px;max-width:480px;margin:0 auto;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:28px;margin-bottom:16px;animation:fadeInUp 0.4s ease both;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.card-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--text);}
+.card-icon{width:28px;height:28px;background:var(--accent-dim);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.form-group{margin-bottom:18px;}
+.form-group:last-child{margin-bottom:0;}
+.form-label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--text2);margin-bottom:7px;}
+.form-label .required{color:var(--accent);font-size:11px;}
+.form-label .optional{color:var(--text3);font-size:11px;font-weight:400;}
+.form-input,.form-textarea,.form-select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:10px 14px;transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);outline:none;-webkit-appearance:none;appearance:none;}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);background:var(--bg2);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3);}
+.form-textarea{resize:vertical;min-height:80px;line-height:1.5;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.mode-option{position:relative;}
+.mode-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0;}
+.mode-label{display:flex;flex-direction:column;gap:4px;padding:16px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition);}
+.mode-option input:checked+.mode-label{border-color:var(--accent);background:var(--accent-dim2);box-shadow:0 0 0 3px var(--accent-dim);}
+.mode-label:hover{border-color:var(--border2);background:var(--surface2);}
+.mode-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.mode-desc{font-size:12px;color:var(--text3);}
+.candidates-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.candidate-item{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;animation:slideIn 0.2s ease both;}
+.candidate-datetime{flex:1;font-size:13px;font-family:var(--mono);color:var(--text);}
+.candidate-duration{font-size:11px;color:var(--text3);background:var(--surface);padding:2px 8px;border-radius:4px;border:1px solid var(--border);}
+.btn-icon{width:28px;height:28px;border-radius:7px;border:none;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--transition);flex-shrink:0;}
+.btn-icon.danger{background:var(--red-dim);color:var(--red);}
+.btn-icon.danger:hover{background:rgba(239,68,68,0.25);}
+.add-candidate-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;}
+@media(max-width:540px){.add-candidate-row{grid-template-columns:1fr 1fr;}.add-candidate-row .btn-add{grid-column:1/-1;}}
+.participants-section{display:none;}
+.participants-section.visible{display:block;}
+.participant-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:32px;}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.2);color:var(--blue);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:500;animation:chipIn 0.15s ease both;}
+.chip-remove{background:none;border:none;color:inherit;font-size:14px;line-height:1;padding:0;opacity:0.6;transition:opacity var(--transition);}
+.chip-remove:hover{opacity:1;}
+.add-email-row{display:flex;gap:8px;}
+.toggle-group{display:flex;flex-direction:column;gap:2px;}
+.toggle-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);transition:background var(--transition);}
+.toggle-item:hover{background:var(--surface2);}
+.toggle-info{display:flex;flex-direction:column;gap:2px;}
+.toggle-name{font-size:13px;font-weight:500;color:var(--text);}
+.toggle-hint{font-size:11px;color:var(--text3);}
+.toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0;}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-slider{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:var(--transition);}
+.toggle-slider::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;background:white;border-radius:50%;transition:var(--transition);}
+.toggle-switch input:checked+.toggle-slider{background:var(--accent);}
+.toggle-switch input:checked+.toggle-slider::after{transform:translateX(18px);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:500;padding:10px 18px;border-radius:var(--radius);border:none;transition:var(--transition);white-space:nowrap;}
+.btn-primary{background:var(--accent);color:#0a0b0d;}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(240,165,0,0.3);}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface);border-color:var(--border2);}
+.btn-ghost{background:none;color:var(--text2);border:1px dashed var(--border2);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim2);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important;}
+.btn-add{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,0.2);padding:10px 14px;border-radius:var(--radius);font-size:13px;font-weight:500;white-space:nowrap;transition:var(--transition);display:flex;align-items:center;gap:6px;}
+.btn-add:hover{background:rgba(34,197,94,0.2);border-color:rgba(34,197,94,0.4);}
+.btn-sm{padding:7px 12px;font-size:13px;border-radius:8px;}
+.notify-card{display:none;}
+.notify-card.visible{display:block;}
+.template-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.template-chip{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(168,85,247,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;transition:var(--transition);}
+.template-chip:hover{background:rgba(168,85,247,0.2);}
+.submit-area{margin-top:32px;animation:fadeInUp 0.4s 0.3s ease both;}
+.submit-btn{width:100%;padding:15px;font-size:16px;border-radius:var(--radius2);background:var(--accent);color:#0a0b0d;font-weight:600;border:none;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover:not(:disabled){background:var(--accent2);box-shadow:0 8px 24px rgba(240,165,0,0.35);transform:translateY(-2px);}
+.submit-btn:active{transform:none;box-shadow:none;}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.submit-note{text-align:center;font-size:12px;color:var(--text3);margin-top:12px;}
+.spinner{width:16px;height:16px;border:2px solid rgba(10,11,13,0.3);border-top-color:#0a0b0d;border-radius:50%;animation:spin 0.7s linear infinite;}
+.success-overlay{display:none;flex-direction:column;align-items:center;text-align:center;padding:60px 24px;}
+.success-overlay.visible{display:flex;}
+.success-icon{width:72px;height:72px;background:var(--green-dim);border:2px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:24px;animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both;}
+.success-title{font-size:24px;font-weight:600;letter-spacing:-0.02em;margin-bottom:10px;}
+.success-desc{color:var(--text2);font-size:14px;max-width:380px;margin-bottom:32px;line-height:1.6;}
+.url-box{width:100%;max-width:520px;margin-bottom:8px;}
+.url-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;text-align:left;}
+.url-copy-row{display:flex;gap:8px;}
+.url-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:13px;font-family:var(--mono);padding:9px 12px;outline:none;}
+.btn-copy{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:var(--radius);font-size:13px;cursor:pointer;transition:var(--transition);white-space:nowrap;display:flex;align-items:center;gap:5px;}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent);}
+.btn-copy.copied{border-color:var(--green);color:var(--green);}
+.qr-box{margin-top:16px;text-align:center;}
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);animation:toastIn 0.3s ease both;pointer-events:all;max-width:320px;}
+.toast.success{border-color:var(--green);}
+.toast.error{border-color:var(--red);}
+.toast-out{animation:toastOut 0.3s ease forwards;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:none;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:none;}}
+@keyframes chipIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:none;}}
+@keyframes popIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:none;}}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px);}}
+.hidden{display:none!important;}
+.mt-2{margin-top:8px;}
+.hint{font-size:12px;color:var(--text3);margin-top:5px;display:flex;align-items:flex-start;gap:4px;}
 </style>
 </head>
 <body>
 <div class="app-wrapper">
-
 <header class="header">
-  <div class="logo">
-    <div class="logo-mark">S</div>
-    Schedly
-  </div>
-  <div class="header-actions">
-    <button class="theme-toggle" id="themeToggle" title="テーマ切替">🌙</button>
-  </div>
+  <div class="logo"><div class="logo-mark">S</div>Schedly</div>
+  <div class="header-actions"><button class="theme-toggle" id="themeToggle">🌙</button></div>
 </header>
-
 <main class="main" id="mainContent">
   <div class="page-hero">
     <div class="page-hero-badge">✦ 日程調整</div>
@@ -188,17 +149,29 @@ a { color: var(--accent); text-decoration: none; }
     <p>招待・回答・集計・確定・通知まで、すべてSchedlyで完結。</p>
   </div>
 
+  <!-- テンプレート -->
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><div class="card-icon">📋</div>基本情報</div>
+      <div class="card-title"><div class="card-icon">📁</div>テンプレート</div>
+      <button class="btn btn-secondary btn-sm" id="saveTemplateBtn">💾 保存</button>
     </div>
+    <div id="templateBar" class="template-bar"><span style="font-size:13px;color:var(--text3)">保存済みテンプレートなし</span></div>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="card">
+    <div class="card-header"><div class="card-title"><div class="card-icon">📋</div>基本情報</div></div>
     <div class="form-group">
       <label class="form-label">タイトル <span class="required">必須</span></label>
       <input type="text" class="form-input" id="eventTitle" placeholder="例：チームキックオフミーティング" maxlength="100">
     </div>
     <div class="form-group">
       <label class="form-label">説明 <span class="optional">任意</span></label>
-      <textarea class="form-textarea" id="eventDesc" placeholder="アジェンダや事前準備など、参加者へのメッセージを入力"></textarea>
+      <textarea class="form-textarea" id="eventDesc" placeholder="アジェンダや事前準備など"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">備考 <span class="optional">任意</span></label>
+      <textarea class="form-textarea" id="eventNote" placeholder="参加者への補足事項など" style="min-height:60px;"></textarea>
     </div>
     <div class="form-row">
       <div class="form-group" style="margin-bottom:0">
@@ -212,10 +185,9 @@ a { color: var(--accent); text-decoration: none; }
     </div>
   </div>
 
+  <!-- 候補日時 -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><div class="card-icon">📅</div>候補日時</div>
-    </div>
+    <div class="card-header"><div class="card-title"><div class="card-icon">📅</div>候補日時</div></div>
     <div class="candidates-list" id="candidatesList"></div>
     <div class="add-candidate-row">
       <div class="form-group" style="margin-bottom:0">
@@ -225,41 +197,53 @@ a { color: var(--accent); text-decoration: none; }
       <div class="form-group" style="margin-bottom:0">
         <label class="form-label">所要時間</label>
         <select class="form-select form-input" id="newCandidateDuration">
-          <option value="">未設定</option>
-          <option value="30分">30分</option>
-          <option value="1時間">1時間</option>
-          <option value="1.5時間">1.5時間</option>
-          <option value="2時間">2時間</option>
-          <option value="3時間">3時間</option>
-          <option value="半日">半日</option>
-          <option value="終日">終日</option>
+          <option value="">未設定</option><option value="30分">30分</option><option value="1時間">1時間</option>
+          <option value="1.5時間">1.5時間</option><option value="2時間">2時間</option><option value="3時間">3時間</option>
+          <option value="半日">半日</option><option value="終日">終日</option>
         </select>
       </div>
-      <div style="padding-top:21px">
-        <button class="btn-add" id="addCandidateBtn">＋ 追加</button>
+      <div style="padding-top:21px"><button class="btn-add" id="addCandidateBtn">＋ 追加</button></div>
+    </div>
+    <div style="margin-top:10px;">
+      <button class="btn btn-ghost btn-sm" id="toggleRepeatBtn">🔄 繰り返し生成</button>
+    </div>
+    <div id="repeatSection" style="display:none;margin-top:10px;padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">開始日時</label>
+          <input type="datetime-local" class="form-input" id="repeatStart">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">繰り返し</label>
+          <select class="form-select form-input" id="repeatType">
+            <option value="weekly">毎週</option><option value="biweekly">隔週</option>
+            <option value="monthly_dow">第○曜日</option><option value="monthly_end">月末</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">回数</label>
+          <select class="form-select form-input" id="repeatCount">
+            <option value="2">2回</option><option value="3">3回</option><option value="4" selected>4回</option>
+            <option value="5">5回</option><option value="6">6回</option>
+          </select>
+        </div>
+        <div style="padding-top:21px"><button class="btn-add" id="generateRepeatBtn">生成</button></div>
       </div>
     </div>
-    <div class="hint mt-2">💡 複数の候補日時を追加してください（最低1つ必要）</div>
+    <div class="hint mt-2">💡 候補日時を1つ以上追加してください</div>
   </div>
 
+  <!-- モード -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><div class="card-icon">🔐</div>参加モード</div>
-    </div>
+    <div class="card-header"><div class="card-title"><div class="card-icon">🔐</div>参加モード</div></div>
     <div class="mode-grid">
       <label class="mode-option">
         <input type="radio" name="mode" value="open" id="modeOpen" checked>
-        <div class="mode-label">
-          <div class="mode-title">🌐 オープン</div>
-          <div class="mode-desc">URLを知っている人なら誰でも回答可能</div>
-        </div>
+        <div class="mode-label"><div class="mode-title">🌐 オープン</div><div class="mode-desc">URLを知っている人なら誰でも回答可能</div></div>
       </label>
       <label class="mode-option">
         <input type="radio" name="mode" value="closed" id="modeClosed">
-        <div class="mode-label">
-          <div class="mode-title">🔒 クローズド</div>
-          <div class="mode-desc">招待した参加者のみ回答可能</div>
-        </div>
+        <div class="mode-label"><div class="mode-title">🔒 クローズド</div><div class="mode-desc">招待した参加者のみ回答可能</div></div>
       </label>
     </div>
     <div class="participants-section" id="participantsSection" style="margin-top:20px">
@@ -269,42 +253,80 @@ a { color: var(--accent); text-decoration: none; }
         <input type="email" class="form-input" id="newParticipantEmail" placeholder="例：taro@example.com">
         <button class="btn-add" id="addParticipantBtn">＋ 追加</button>
       </div>
-      <div class="hint mt-2">📧 追加されたメールアドレスへ招待メールが送信されます</div>
+      <div class="hint mt-2">📧 招待メールが送信されます</div>
     </div>
   </div>
 
-  <div class="card notify-card" id="notifyCard">
-    <div class="card-header">
-      <div class="card-title"><div class="card-icon">🔔</div>通知設定</div>
+  <!-- 回答オプション -->
+  <div class="card">
+    <div class="card-header"><div class="card-title"><div class="card-icon">⚙️</div>回答オプション</div></div>
+    <div class="form-row" style="margin-bottom:14px;">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">回答編集</label>
+        <select class="form-select form-input" id="answerEdit">
+          <option value="always">常に許可</option>
+          <option value="until_deadline">締切まで許可</option>
+          <option value="never">不許可</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">回答公開設定</label>
+        <select class="form-select form-input" id="answerVisibility">
+          <option value="public">名前公開</option>
+          <option value="count_only">人数のみ</option>
+          <option value="hidden">非公開</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row" style="margin-bottom:14px;">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">回答上限 <span class="optional">任意</span></label>
+        <input type="number" class="form-input" id="maxAnswers" placeholder="例：20（空欄で無制限）" min="1">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">メールアドレス収集</label>
+        <select class="form-select form-input" id="emailCollection">
+          <option value="none">なし</option>
+          <option value="optional">任意</option>
+          <option value="required">必須</option>
+        </select>
+      </div>
     </div>
     <div class="toggle-group">
       <div class="toggle-item">
-        <div class="toggle-info"><div class="toggle-name">未回答リマインド</div><div class="toggle-hint">未回答の参加者へ自動でリマインドを送信</div></div>
-        <label class="toggle-switch"><input type="checkbox" id="notifyReminder" checked><span class="toggle-slider"></span></label>
+        <div class="toggle-info"><div class="toggle-name">匿名モード</div><div class="toggle-hint">回答者の名前を全員に非表示</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="anonymousMode"><span class="toggle-slider"></span></label>
       </div>
       <div class="toggle-item">
-        <div class="toggle-info"><div class="toggle-name">締切前通知</div><div class="toggle-hint">締切24時間前に参加者へ通知</div></div>
-        <label class="toggle-switch"><input type="checkbox" id="notifyDeadline" checked><span class="toggle-slider"></span></label>
+        <div class="toggle-info"><div class="toggle-name">対案提案を許可</div><div class="toggle-hint">参加者が別日程を提案できる</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="allowProposal" checked><span class="toggle-slider"></span></label>
       </div>
-      <div class="toggle-item">
-        <div class="toggle-info"><div class="toggle-name">日程確定通知</div><div class="toggle-hint">日程確定時に全参加者へ通知</div></div>
-        <label class="toggle-switch"><input type="checkbox" id="notifyConfirm" checked><span class="toggle-slider"></span></label>
-      </div>
-      <div class="toggle-item">
-        <div class="toggle-info"><div class="toggle-name">前日通知</div><div class="toggle-hint">開催前日に参加者へリマインド</div></div>
-        <label class="toggle-switch"><input type="checkbox" id="notifyDayBefore"><span class="toggle-slider"></span></label>
-      </div>
-      <div class="toggle-item">
-        <div class="toggle-info"><div class="toggle-name">当日通知</div><div class="toggle-hint">開催当日の朝に参加者へリマインド</div></div>
-        <label class="toggle-switch"><input type="checkbox" id="notifyDayOf"><span class="toggle-slider"></span></label>
-      </div>
+    </div>
+  </div>
+
+  <!-- 追加質問 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><div class="card-icon">❓</div>追加質問</div>
+      <button class="btn btn-ghost btn-sm" id="addQuestionBtn">＋ 追加</button>
+    </div>
+    <div id="questionsList"><div style="font-size:13px;color:var(--text3);text-align:center;padding:16px;">質問がまだ追加されていません</div></div>
+  </div>
+
+  <!-- 通知設定 -->
+  <div class="card notify-card" id="notifyCard">
+    <div class="card-header"><div class="card-title"><div class="card-icon">🔔</div>通知設定</div></div>
+    <div class="toggle-group">
+      <div class="toggle-item"><div class="toggle-info"><div class="toggle-name">未回答リマインド</div><div class="toggle-hint">未回答者へ自動リマインド</div></div><label class="toggle-switch"><input type="checkbox" id="notifyReminder" checked><span class="toggle-slider"></span></label></div>
+      <div class="toggle-item"><div class="toggle-info"><div class="toggle-name">締切前通知</div><div class="toggle-hint">締切24時間前に通知</div></div><label class="toggle-switch"><input type="checkbox" id="notifyDeadline" checked><span class="toggle-slider"></span></label></div>
+      <div class="toggle-item"><div class="toggle-info"><div class="toggle-name">日程確定通知</div><div class="toggle-hint">確定時に全参加者へ通知</div></div><label class="toggle-switch"><input type="checkbox" id="notifyConfirm" checked><span class="toggle-slider"></span></label></div>
+      <div class="toggle-item"><div class="toggle-info"><div class="toggle-name">前日通知</div><div class="toggle-hint">開催前日にリマインド</div></div><label class="toggle-switch"><input type="checkbox" id="notifyDayBefore"><span class="toggle-slider"></span></label></div>
+      <div class="toggle-item"><div class="toggle-info"><div class="toggle-name">当日通知</div><div class="toggle-hint">開催当日の朝にリマインド</div></div><label class="toggle-switch"><input type="checkbox" id="notifyDayOf"><span class="toggle-slider"></span></label></div>
     </div>
   </div>
 
   <div class="submit-area">
-    <button class="submit-btn" id="submitBtn">
-      <span id="submitBtnText">🚀 イベントを作成する</span>
-    </button>
+    <button class="submit-btn" id="submitBtn"><span id="submitBtnText">🚀 イベントを作成する</span></button>
     <p class="submit-note">作成後、管理URLと回答URLが発行されます</p>
   </div>
 </main>
@@ -315,19 +337,17 @@ a { color: var(--accent); text-decoration: none; }
   <div class="success-desc" id="successDesc">以下のURLを参加者へ共有してください。</div>
   <div class="url-box">
     <div class="url-label">🔗 回答ページURL</div>
-    <div class="url-copy-row">
-      <input type="text" class="url-input" id="eventUrl" readonly>
-      <button class="btn-copy" id="copyEventBtn">📋 コピー</button>
-    </div>
+    <div class="url-copy-row"><input type="text" class="url-input" id="eventUrl" readonly><button class="btn-copy" id="copyEventBtn">📋 コピー</button></div>
   </div>
   <div class="url-box">
     <div class="url-label">⚙️ 管理ページURL</div>
-    <div class="url-copy-row">
-      <input type="text" class="url-input" id="adminUrl" readonly>
-      <button class="btn-copy" id="copyAdminBtn">📋 コピー</button>
-    </div>
+    <div class="url-copy-row"><input type="text" class="url-input" id="adminUrl" readonly><button class="btn-copy" id="copyAdminBtn">📋 コピー</button></div>
   </div>
-  <div style="display:flex;gap:10px;margin-top:12px">
+  <div class="qr-box">
+    <div class="url-label" style="text-align:center;margin-bottom:8px;">📱 回答ページ QRコード</div>
+    <canvas id="qrCanvas"></canvas>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;">
     <a id="goEventLink" href="#" class="btn btn-secondary">回答ページを開く</a>
     <a id="goAdminLink" href="#" class="btn btn-primary">管理ページを開く</a>
   </div>
@@ -335,332 +355,230 @@ a { color: var(--accent); text-decoration: none; }
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<!-- Firebase SDK (module) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",
-  authDomain: "schedly-2d50c.firebaseapp.com",
-  projectId: "schedly-2d50c",
-  storageBucket: "schedly-2d50c.firebasestorage.app",
-  messagingSenderId: "703737030595",
-  appId: "1:703737030595:web:a7e350361aa790e749ff76"
-};
-
-try {
-  const app = initializeApp(firebaseConfig);
-  const db  = getFirestore(app);
-
-  // Firestore の書き込み関数を window に公開
-  window._saveEvent = async (eventId, eventData, participantData) => {
-    await setDoc(doc(db, 'events', eventId), {
-      ...eventData,
-      createdAt: serverTimestamp()
-    });
-    for (const p of participantData) {
-      const key = p.email.replace(/[^a-zA-Z0-9]/g, '_');
-      await setDoc(doc(db, 'events', eventId, 'participants', key), p);
-    }
+const firebaseConfig={apiKey:"AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",authDomain:"schedly-2d50c.firebaseapp.com",projectId:"schedly-2d50c",storageBucket:"schedly-2d50c.firebasestorage.app",messagingSenderId:"703737030595",appId:"1:703737030595:web:a7e350361aa790e749ff76"};
+try{
+  const app=initializeApp(firebaseConfig);const db=getFirestore(app);
+  window._saveEvent=async(eventId,eventData,participantData)=>{
+    await setDoc(doc(db,'events',eventId),{...eventData,createdAt:serverTimestamp()});
+    for(const p of participantData){await setDoc(doc(db,'events',eventId,'participants',p.email.replace(/[^a-zA-Z0-9]/g,'_')),p);}
   };
-
-  window._firebaseReady = true;
-} catch(e) {
-  window._firebaseReady = false;
-  window._firebaseError = e.message;
-}
+  window._firebaseReady=true;
+}catch(e){window._firebaseReady=false;window._firebaseError=e.message;}
 </script>
-
-<!-- メインロジック（通常script） -->
 <script>
-const EMAILJS_A = {
-  publicKey:        'JHdTPggzMXFZmBifV',
-  serviceId:        'service_ybx173k',
-  inviteTemplateId: 'template_sgao7e2',
-  replyTemplateId:  'template_yv9pvc2'
-};
+const EMAILJS_A={publicKey:'JHdTPggzMXFZmBifV',serviceId:'service_ybx173k',inviteTemplateId:'template_sgao7e2',replyTemplateId:'template_yv9pvc2'};
+window.addEventListener('load',function(){try{emailjs.init(EMAILJS_A.publicKey);}catch(e){}});
 
-// EmailJS 初期化
-window.addEventListener('load', function() {
-  try { emailjs.init(EMAILJS_A.publicKey); } catch(e) {}
+let candidates=[],participants=[],questions=[];
+
+// Theme
+const html=document.documentElement;
+const themeToggle=document.getElementById('themeToggle');
+const savedTheme=localStorage.getItem('schedlyTheme')||'dark';
+html.setAttribute('data-theme',savedTheme);
+themeToggle.textContent=savedTheme==='dark'?'☀️':'🌙';
+themeToggle.addEventListener('click',function(){
+  const n=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',n);localStorage.setItem('schedlyTheme',n);
+  themeToggle.textContent=n==='dark'?'☀️':'🌙';
 });
 
-// ─── State ───
-let candidates   = [];
-let participants = [];
+// Default deadline
+const dl=new Date(Date.now()+7*24*60*60*1000);dl.setMinutes(0,0,0);
+document.getElementById('eventDeadline').value=dl.toISOString().slice(0,16);
 
-// ─── Theme ───
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
-html.setAttribute('data-theme', savedTheme);
-themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-themeToggle.addEventListener('click', function() {
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('schedlyTheme', next);
-  themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
-});
-
-// ─── Default Deadline ───
-const defaultDeadline = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-defaultDeadline.setMinutes(0, 0, 0);
-document.getElementById('eventDeadline').value = defaultDeadline.toISOString().slice(0, 16);
-
-// ─── Mode Change ───
-document.getElementById('modeOpen').addEventListener('change', onModeChange);
-document.getElementById('modeClosed').addEventListener('change', onModeChange);
-function onModeChange() {
-  const isClosed = document.getElementById('modeClosed').checked;
-  document.getElementById('participantsSection').classList.toggle('visible', isClosed);
-  document.getElementById('notifyCard').classList.toggle('visible', isClosed);
+// Mode
+document.getElementById('modeOpen').addEventListener('change',onModeChange);
+document.getElementById('modeClosed').addEventListener('change',onModeChange);
+function onModeChange(){
+  const c=document.getElementById('modeClosed').checked;
+  document.getElementById('participantsSection').classList.toggle('visible',c);
+  document.getElementById('notifyCard').classList.toggle('visible',c);
 }
 
-// ─── Candidates ───
-document.getElementById('addCandidateBtn').addEventListener('click', addCandidate);
-document.getElementById('newParticipantEmail').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') addParticipant();
-});
-
-function addCandidate() {
-  const dateInput = document.getElementById('newCandidateDate');
-  const durInput  = document.getElementById('newCandidateDuration');
-  const val = dateInput.value;
-  if (!val) { showToast('日時を選択してください', 'error'); return; }
-  if (candidates.some(function(c) { return c.datetime === val; })) {
-    showToast('同じ日時が既に追加されています', 'error'); return;
-  }
-  const d = new Date(val);
-  const label = d.toLocaleDateString('ja-JP', { year:'numeric', month:'short', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' });
-  candidates.push({ datetime: val, label: label, duration: durInput.value });
-  renderCandidates();
-  dateInput.value = '';
-  durInput.value  = '';
+// Candidates
+document.getElementById('addCandidateBtn').addEventListener('click',addCandidate);
+function addCandidate(){
+  const di=document.getElementById('newCandidateDate'),du=document.getElementById('newCandidateDuration'),val=di.value;
+  if(!val){showToast('日時を選択してください','error');return;}
+  if(candidates.some(function(c){return c.datetime===val;})){showToast('同じ日時が既に追加されています','error');return;}
+  const d=new Date(val);
+  candidates.push({datetime:val,label:d.toLocaleDateString('ja-JP',{year:'numeric',month:'short',day:'numeric',weekday:'short',hour:'2-digit',minute:'2-digit'}),duration:du.value});
+  renderCandidates();di.value='';du.value='';
 }
-
-function removeCandidate(idx) {
-  candidates.splice(idx, 1);
-  renderCandidates();
-}
-
-function renderCandidates() {
-  const list = document.getElementById('candidatesList');
-  if (candidates.length === 0) {
-    list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text3);font-size:13px;">候補日時がまだ追加されていません</div>';
-    return;
-  }
-  list.innerHTML = candidates.map(function(c, i) {
-    return '<div class="candidate-item">' +
-      '<span class="candidate-datetime">' + c.label + '</span>' +
-      (c.duration ? '<span class="candidate-duration">' + c.duration + '</span>' : '') +
-      '<button class="btn-icon danger" data-idx="' + i + '" title="削除">✕</button>' +
-      '</div>';
-  }).join('');
-  list.querySelectorAll('.btn-icon.danger').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      removeCandidate(parseInt(this.getAttribute('data-idx')));
-    });
-  });
+function removeCandidate(i){candidates.splice(i,1);renderCandidates();}
+function renderCandidates(){
+  const l=document.getElementById('candidatesList');
+  if(!candidates.length){l.innerHTML='<div style="padding:16px;text-align:center;color:var(--text3);font-size:13px;">候補日時がまだ追加されていません</div>';return;}
+  l.innerHTML=candidates.map(function(c,i){return '<div class="candidate-item"><span class="candidate-datetime">'+c.label+'</span>'+(c.duration?'<span class="candidate-duration">'+c.duration+'</span>':'')+'<button class="btn-icon danger" data-idx="'+i+'">✕</button></div>';}).join('');
+  l.querySelectorAll('.btn-icon.danger').forEach(function(b){b.addEventListener('click',function(){removeCandidate(parseInt(this.getAttribute('data-idx')));});});
 }
 renderCandidates();
 
-// ─── Participants ───
-document.getElementById('addParticipantBtn').addEventListener('click', addParticipant);
+// 繰り返し生成
+document.getElementById('toggleRepeatBtn').addEventListener('click',function(){
+  const s=document.getElementById('repeatSection');s.style.display=s.style.display==='none'?'block':'none';
+});
+document.getElementById('generateRepeatBtn').addEventListener('click',function(){
+  const sv=document.getElementById('repeatStart').value;
+  if(!sv){showToast('開始日時を選択してください','error');return;}
+  const type=document.getElementById('repeatType').value,count=parseInt(document.getElementById('repeatCount').value),start=new Date(sv);
+  let added=0;
+  for(let i=0;i<count;i++){
+    let d=new Date(start);
+    if(type==='weekly') d.setDate(start.getDate()+i*7);
+    else if(type==='biweekly') d.setDate(start.getDate()+i*14);
+    else if(type==='monthly_dow'){
+      d=new Date(start.getFullYear(),start.getMonth()+i,1,start.getHours(),start.getMinutes());
+      const tDow=start.getDay(),tWeek=Math.floor((start.getDate()-1)/7);let cnt=0;
+      while(true){if(d.getDay()===tDow){if(cnt===tWeek)break;cnt++;}d.setDate(d.getDate()+1);}
+    } else if(type==='monthly_end'){
+      d=new Date(start.getFullYear(),start.getMonth()+i+1,0,start.getHours(),start.getMinutes());
+    }
+    const iso=d.toISOString().slice(0,16);
+    if(!candidates.some(function(c){return c.datetime===iso;})){
+      candidates.push({datetime:iso,label:d.toLocaleDateString('ja-JP',{year:'numeric',month:'short',day:'numeric',weekday:'short',hour:'2-digit',minute:'2-digit'}),duration:''});added++;
+    }
+  }
+  renderCandidates();showToast(added+'件を生成しました','success');
+});
 
-function addParticipant() {
-  const input = document.getElementById('newParticipantEmail');
-  const email = input.value.trim().toLowerCase();
-  if (!email) return;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast('有効なメールアドレスを入力してください', 'error'); return;
-  }
-  if (participants.indexOf(email) !== -1) {
-    showToast('既に追加されています', 'error'); return;
-  }
-  participants.push(email);
-  renderParticipants();
-  input.value = '';
+// Participants
+document.getElementById('addParticipantBtn').addEventListener('click',addParticipant);
+document.getElementById('newParticipantEmail').addEventListener('keydown',function(e){if(e.key==='Enter')addParticipant();});
+function addParticipant(){
+  const input=document.getElementById('newParticipantEmail'),email=input.value.trim().toLowerCase();
+  if(!email)return;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('有効なメールアドレスを入力してください','error');return;}
+  if(participants.indexOf(email)!==-1){showToast('既に追加されています','error');return;}
+  participants.push(email);renderParticipants();input.value='';
 }
-
-function removeParticipant(email) {
-  participants = participants.filter(function(e) { return e !== email; });
-  renderParticipants();
-}
-
-function renderParticipants() {
-  const container = document.getElementById('participantChips');
-  if (participants.length === 0) {
-    container.innerHTML = '<span style="font-size:12px;color:var(--text3)">まだ追加されていません</span>';
-    return;
-  }
-  container.innerHTML = participants.map(function(e) {
-    return '<span class="chip">' + e +
-      '<button class="chip-remove" data-email="' + e + '">×</button>' +
-      '</span>';
-  }).join('');
-  container.querySelectorAll('.chip-remove').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      removeParticipant(this.getAttribute('data-email'));
-    });
-  });
+function removeParticipant(e){participants=participants.filter(function(x){return x!==e;});renderParticipants();}
+function renderParticipants(){
+  const c=document.getElementById('participantChips');
+  if(!participants.length){c.innerHTML='<span style="font-size:12px;color:var(--text3)">まだ追加されていません</span>';return;}
+  c.innerHTML=participants.map(function(e){return '<span class="chip">'+e+'<button class="chip-remove" data-email="'+e+'">×</button></span>';}).join('');
+  c.querySelectorAll('.chip-remove').forEach(function(b){b.addEventListener('click',function(){removeParticipant(this.getAttribute('data-email'));});});
 }
 renderParticipants();
 
-// ─── Generate ID ───
-function generateId(len) {
-  len = len || 20;
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var result = '';
-  for (var i = 0; i < len; i++) {
-    result += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return result;
+// 追加質問
+document.getElementById('addQuestionBtn').addEventListener('click',function(){questions.push({id:Date.now(),type:'single',text:'',options:['']});renderQuestions();});
+function removeQuestion(id){questions=questions.filter(function(q){return q.id!==id;});renderQuestions();}
+function renderQuestions(){
+  const c=document.getElementById('questionsList');
+  if(!questions.length){c.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:16px;">質問がまだ追加されていません</div>';return;}
+  c.innerHTML=questions.map(function(q){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:8px;">'+
+      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">'+
+        '<input type="text" class="form-input" style="flex:1;" placeholder="質問文" value="'+escHtml(q.text)+'" data-qid="'+q.id+'" data-field="text">'+
+        '<select class="form-select form-input" style="width:130px;" data-qid="'+q.id+'" data-field="type">'+
+          '<option value="single"'+(q.type==='single'?' selected':'')+'>単一選択</option>'+
+          '<option value="multi"'+(q.type==='multi'?' selected':'')+'>複数選択</option>'+
+          '<option value="text"'+(q.type==='text'?' selected':'')+'>自由記述</option>'+
+        '</select>'+
+        '<button class="btn-icon danger" data-qid="'+q.id+'" data-action="removeQ">✕</button>'+
+      '</div>'+
+      (q.type!=='text'?'<div>'+q.options.map(function(opt,oi){
+        return '<div style="display:flex;gap:6px;margin-bottom:6px;">'+
+          '<input type="text" class="form-input" placeholder="選択肢'+(oi+1)+'" value="'+escHtml(opt)+'" data-qid="'+q.id+'" data-oidx="'+oi+'" data-field="option">'+
+          '<button class="btn-icon danger" data-qid="'+q.id+'" data-oidx="'+oi+'" data-action="removeOpt">✕</button>'+
+        '</div>';
+      }).join('')+'<button class="btn-ghost btn-sm" data-qid="'+q.id+'" data-action="addOpt" style="margin-top:4px;">＋ 選択肢追加</button></div>':'')+'</div>';
+  }).join('');
+  c.querySelectorAll('[data-field="text"]').forEach(function(el){el.addEventListener('input',function(){var q=questions.find(function(q){return q.id==el.getAttribute('data-qid');});if(q)q.text=el.value;});});
+  c.querySelectorAll('[data-field="type"]').forEach(function(el){el.addEventListener('change',function(){var q=questions.find(function(q){return q.id==el.getAttribute('data-qid');});if(q){q.type=el.value;renderQuestions();}});});
+  c.querySelectorAll('[data-field="option"]').forEach(function(el){el.addEventListener('input',function(){var q=questions.find(function(q){return q.id==el.getAttribute('data-qid');});if(q)q.options[parseInt(el.getAttribute('data-oidx'))]=el.value;});});
+  c.querySelectorAll('[data-action="removeQ"]').forEach(function(el){el.addEventListener('click',function(){removeQuestion(parseInt(el.getAttribute('data-qid')));});});
+  c.querySelectorAll('[data-action="addOpt"]').forEach(function(el){el.addEventListener('click',function(){var q=questions.find(function(q){return q.id==el.getAttribute('data-qid');});if(q){q.options.push('');renderQuestions();}});});
+  c.querySelectorAll('[data-action="removeOpt"]').forEach(function(el){el.addEventListener('click',function(){var q=questions.find(function(q){return q.id==el.getAttribute('data-qid');});if(q&&q.options.length>1){q.options.splice(parseInt(el.getAttribute('data-oidx')),1);renderQuestions();}});});
 }
+renderQuestions();
 
-// ─── Submit Button ───
-document.getElementById('submitBtn').addEventListener('click', createEvent);
+// テンプレート
+document.getElementById('saveTemplateBtn').addEventListener('click',function(){
+  const name=prompt('テンプレート名を入力してください');if(!name)return;
+  const ts=JSON.parse(localStorage.getItem('schedlyTemplates')||'[]');
+  ts.push({name,title:document.getElementById('eventTitle').value,desc:document.getElementById('eventDesc').value,note:document.getElementById('eventNote').value,location:document.getElementById('eventLocation').value,answerEdit:document.getElementById('answerEdit').value,answerVisibility:document.getElementById('answerVisibility').value,maxAnswers:document.getElementById('maxAnswers').value,emailCollection:document.getElementById('emailCollection').value,anonymous:document.getElementById('anonymousMode').checked,allowProposal:document.getElementById('allowProposal').checked,questions,candidates});
+  localStorage.setItem('schedlyTemplates',JSON.stringify(ts));renderTemplates();showToast('テンプレートを保存しました','success');
+});
+function renderTemplates(){
+  const bar=document.getElementById('templateBar'),ts=JSON.parse(localStorage.getItem('schedlyTemplates')||'[]');
+  if(!ts.length){bar.innerHTML='<span style="font-size:13px;color:var(--text3)">保存済みテンプレートなし</span>';return;}
+  bar.innerHTML=ts.map(function(t,i){return '<span class="template-chip" data-idx="'+i+'">'+escHtml(t.name)+'</span><button class="btn-icon danger" data-tidx="'+i+'" style="width:22px;height:22px;font-size:11px;">✕</button>';}).join('');
+  bar.querySelectorAll('.template-chip').forEach(function(c){c.addEventListener('click',function(){loadTemplate(parseInt(c.getAttribute('data-idx')));});});
+  bar.querySelectorAll('.btn-icon.danger').forEach(function(b){b.addEventListener('click',function(){const ts2=JSON.parse(localStorage.getItem('schedlyTemplates')||'[]');ts2.splice(parseInt(b.getAttribute('data-tidx')),1);localStorage.setItem('schedlyTemplates',JSON.stringify(ts2));renderTemplates();});});
+}
+function loadTemplate(idx){
+  const ts=JSON.parse(localStorage.getItem('schedlyTemplates')||'[]'),t=ts[idx];if(!t)return;
+  document.getElementById('eventTitle').value=t.title||'';document.getElementById('eventDesc').value=t.desc||'';document.getElementById('eventNote').value=t.note||'';document.getElementById('eventLocation').value=t.location||'';document.getElementById('answerEdit').value=t.answerEdit||'always';document.getElementById('answerVisibility').value=t.answerVisibility||'public';document.getElementById('maxAnswers').value=t.maxAnswers||'';document.getElementById('emailCollection').value=t.emailCollection||'none';document.getElementById('anonymousMode').checked=!!t.anonymous;document.getElementById('allowProposal').checked=t.allowProposal!==false;
+  candidates=t.candidates||[];questions=t.questions||[];renderCandidates();renderQuestions();showToast('テンプレートを読み込みました','success');
+}
+renderTemplates();
 
-// ─── Create Event ───
-async function createEvent() {
-  const title    = document.getElementById('eventTitle').value.trim();
-  const desc     = document.getElementById('eventDesc').value.trim();
-  const location = document.getElementById('eventLocation').value.trim();
-  const deadline = document.getElementById('eventDeadline').value;
-  const mode     = document.querySelector('input[name="mode"]:checked').value;
+// Generate ID
+function generateId(len){len=len||20;var c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',r='';for(var i=0;i<len;i++)r+=c[Math.floor(Math.random()*c.length)];return r;}
 
-  if (!title)    { showToast('タイトルを入力してください', 'error'); document.getElementById('eventTitle').focus(); return; }
-  if (!deadline) { showToast('締切日時を設定してください', 'error'); return; }
-  if (candidates.length === 0) { showToast('候補日時を1つ以上追加してください', 'error'); return; }
-  if (mode === 'closed' && participants.length === 0) { showToast('クローズドモードでは参加者を追加してください', 'error'); return; }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 作成中...';
-
-  const eventId    = generateId(20);
-  const adminToken = generateId(32);
-
-  const eventData = {
-    title:       title,
-    description: desc,
-    location:    location,
-    deadline:    new Date(deadline).toISOString(),
-    mode:        mode,
-    status:      'open',
-    adminToken:  adminToken,
-    settings: {
-      notifyReminder:  mode === 'closed' ? document.getElementById('notifyReminder').checked  : false,
-      notifyDeadline:  mode === 'closed' ? document.getElementById('notifyDeadline').checked  : false,
-      notifyConfirm:   mode === 'closed' ? document.getElementById('notifyConfirm').checked   : false,
-      notifyDayBefore: mode === 'closed' ? document.getElementById('notifyDayBefore').checked : false,
-      notifyDayOf:     mode === 'closed' ? document.getElementById('notifyDayOf').checked     : false,
-    },
-    dates:     candidates,
-    createdAt: new Date().toISOString()
+// Submit
+document.getElementById('submitBtn').addEventListener('click',createEvent);
+async function createEvent(){
+  const title=document.getElementById('eventTitle').value.trim(),desc=document.getElementById('eventDesc').value.trim(),note=document.getElementById('eventNote').value.trim(),location=document.getElementById('eventLocation').value.trim(),deadline=document.getElementById('eventDeadline').value,mode=document.querySelector('input[name="mode"]:checked').value;
+  if(!title){showToast('タイトルを入力してください','error');return;}
+  if(!deadline){showToast('締切日時を設定してください','error');return;}
+  if(!candidates.length){showToast('候補日時を1つ以上追加してください','error');return;}
+  if(mode==='closed'&&!participants.length){showToast('クローズドモードでは参加者を追加してください','error');return;}
+  const btn=document.getElementById('submitBtn');btn.disabled=true;
+  document.getElementById('submitBtnText').innerHTML='<div class="spinner"></div> 作成中...';
+  const eventId=generateId(20),adminToken=generateId(32);
+  const eventData={
+    title,description:desc,note,location,deadline:new Date(deadline).toISOString(),mode,status:'open',adminToken,
+    answerEdit:document.getElementById('answerEdit').value,
+    answerVisibility:document.getElementById('answerVisibility').value,
+    maxAnswers:document.getElementById('maxAnswers').value?parseInt(document.getElementById('maxAnswers').value):null,
+    emailCollection:document.getElementById('emailCollection').value,
+    anonymous:document.getElementById('anonymousMode').checked,
+    allowProposal:document.getElementById('allowProposal').checked,
+    questions,viewCount:0,
+    settings:{notifyReminder:mode==='closed'?document.getElementById('notifyReminder').checked:false,notifyDeadline:mode==='closed'?document.getElementById('notifyDeadline').checked:false,notifyConfirm:mode==='closed'?document.getElementById('notifyConfirm').checked:false,notifyDayBefore:mode==='closed'?document.getElementById('notifyDayBefore').checked:false,notifyDayOf:mode==='closed'?document.getElementById('notifyDayOf').checked:false},
+    dates:candidates,createdAt:new Date().toISOString()
   };
-
-  const participantData = mode === 'closed' ? participants.map(function(email) {
-    return { email: email, token: generateId(24), replied: false };
-  }) : [];
-
-  try {
-    // Firebase が準備できるまで最大3秒待つ
-    let waited = 0;
-    while (!window._firebaseReady && !window._firebaseError && waited < 3000) {
-      await new Promise(function(r) { setTimeout(r, 100); });
-      waited += 100;
-    }
-
-    if (window._firebaseError) {
-      throw new Error('Firebase エラー: ' + window._firebaseError);
-    }
-
-    if (window._saveEvent) {
-      await window._saveEvent(eventId, eventData, participantData);
-    } else {
-      // fallback: localStorage
-      localStorage.setItem('schedly_event_' + eventId, JSON.stringify(Object.assign({}, eventData, { id: eventId })));
-      localStorage.setItem('schedly_participants_' + eventId, JSON.stringify(participantData));
-    }
-
-    // 招待メール送信（クローズドモードのみ）
-    if (mode === 'closed') {
-      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
-      for (var i = 0; i < participantData.length; i++) {
-        var p = participantData[i];
-        var answerUrl = baseUrl + 'event.html?id=' + eventId + '&token=' + p.token;
-        try {
-          await emailjs.send(EMAILJS_A.serviceId, EMAILJS_A.inviteTemplateId, {
-            to_email:          p.email,
-            event_title:       title,
-            event_description: desc     || '—',
-            event_location:    location || '未定',
-            deadline:          new Date(deadline).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }),
-            answer_url:        answerUrl,
-            from_name:         'Schedly'
-          }, EMAILJS_A.publicKey);
-        } catch(mailErr) {
-          console.warn('招待メール送信失敗:', p.email, mailErr);
-        }
+  const participantData=mode==='closed'?participants.map(function(e){return{email:e,token:generateId(24),replied:false};}):[];
+  try{
+    let w=0;while(!window._firebaseReady&&!window._firebaseError&&w<3000){await new Promise(function(r){setTimeout(r,100);});w+=100;}
+    if(window._firebaseError)throw new Error('Firebase: '+window._firebaseError);
+    if(window._saveEvent){await window._saveEvent(eventId,eventData,participantData);}
+    else{localStorage.setItem('schedly_event_'+eventId,JSON.stringify(Object.assign({},eventData,{id:eventId})));localStorage.setItem('schedly_participants_'+eventId,JSON.stringify(participantData));}
+    if(mode==='closed'){
+      const base=window.location.origin+window.location.pathname.replace('index.html','');
+      for(let i=0;i<participantData.length;i++){
+        const p=participantData[i],aUrl=base+'event.html?id='+eventId+'&token='+p.token;
+        try{await emailjs.send(EMAILJS_A.serviceId,EMAILJS_A.inviteTemplateId,{to_email:p.email,event_title:title,event_description:desc||'—',event_location:location||'未定',deadline:new Date(deadline).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}),answer_url:aUrl,from_name:'Schedly'},EMAILJS_A.publicKey);}catch(me){console.warn('招待メール失敗:',p.email,me);}
       }
     }
-
-    // 成功表示
-    const baseUrl      = window.location.origin + window.location.pathname.replace('index.html', '');
-    const eventPageUrl = baseUrl + 'event.html?id=' + eventId;
-    const adminPageUrl = baseUrl + 'admin.html?id=' + eventId + '&token=' + adminToken;
-
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('successOverlay').style.display = 'flex';
-    document.getElementById('eventUrl').value    = eventPageUrl;
-    document.getElementById('adminUrl').value    = adminPageUrl;
-    document.getElementById('goEventLink').href  = eventPageUrl;
-    document.getElementById('goAdminLink').href  = adminPageUrl;
-
-    if (mode === 'closed') {
-      document.getElementById('successDesc').textContent =
-        participants.length + '名の参加者へ招待メールを送信しました。管理URLを大切に保管してください。';
-    }
-
-  } catch(e) {
-    showToast('作成に失敗しました: ' + e.message, 'error');
-    btn.disabled = false;
-    document.getElementById('submitBtnText').textContent = '🚀 イベントを作成する';
+    const base2=window.location.origin+window.location.pathname.replace('index.html','');
+    const epUrl=base2+'event.html?id='+eventId,apUrl=base2+'admin.html?id='+eventId+'&token='+adminToken;
+    document.getElementById('mainContent').style.display='none';
+    document.getElementById('successOverlay').style.display='flex';
+    document.getElementById('eventUrl').value=epUrl;document.getElementById('adminUrl').value=apUrl;
+    document.getElementById('goEventLink').href=epUrl;document.getElementById('goAdminLink').href=apUrl;
+    if(mode==='closed')document.getElementById('successDesc').textContent=participants.length+'名へ招待メールを送信しました。管理URLを大切に保管してください。';
+    try{QRCode.toCanvas(document.getElementById('qrCanvas'),epUrl,{width:160,margin:2},function(){});}catch(e){}
+  }catch(e){
+    showToast('作成に失敗しました: '+e.message,'error');btn.disabled=false;
+    document.getElementById('submitBtnText').textContent='🚀 イベントを作成する';
   }
 }
 
-// ─── Copy URL ───
-document.getElementById('copyEventBtn').addEventListener('click', function() { copyUrl('eventUrl', this); });
-document.getElementById('copyAdminBtn').addEventListener('click', function() { copyUrl('adminUrl', this); });
-
-function copyUrl(inputId, btn) {
-  const input = document.getElementById(inputId);
-  input.select();
-  navigator.clipboard.writeText(input.value).then(function() {
-    btn.innerHTML = '✓ コピー済';
-    btn.classList.add('copied');
-    setTimeout(function() { btn.innerHTML = '📋 コピー'; btn.classList.remove('copied'); }, 2000);
-  });
-}
-
-// ─── Toast ───
-function showToast(msg, type) {
-  type = type || 'info';
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = 'toast ' + type;
-  const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  toast.innerHTML = '<span>' + (icons[type] || '•') + '</span><span>' + msg + '</span>';
-  container.appendChild(toast);
-  setTimeout(function() {
-    toast.classList.add('toast-out');
-    setTimeout(function() { toast.remove(); }, 300);
-  }, 3500);
-}
+document.getElementById('copyEventBtn').addEventListener('click',function(){copyUrl('eventUrl',this);});
+document.getElementById('copyAdminBtn').addEventListener('click',function(){copyUrl('adminUrl',this);});
+function copyUrl(id,btn){var input=document.getElementById(id);input.select();navigator.clipboard.writeText(input.value).then(function(){btn.innerHTML='✓ コピー済';btn.classList.add('copied');setTimeout(function(){btn.innerHTML='📋 コピー';btn.classList.remove('copied');},2000);});}
+function showToast(msg,type){type=type||'info';var c=document.getElementById('toastContainer'),t=document.createElement('div');t.className='toast '+type;var ic={success:'✓',error:'✕',info:'ℹ'};t.innerHTML='<span>'+(ic[type]||'•')+'</span><span>'+msg+'</span>';c.appendChild(t);setTimeout(function(){t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},3500);}
+function escHtml(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
 </html>
