@@ -7,559 +7,762 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0b0d; --bg2: #111318; --bg3: #181c22;
-  --surface: #1e232c; --surface2: #252b36;
-  --border: #2a3040; --border2: #333d4f;
-  --text: #e8eaf0; --text2: #9aa3b2; --text3: #5c6a80;
-  --accent: #f0a500; --accent2: #e8920a;
-  --accent-dim: rgba(240,165,0,0.12); --accent-dim2: rgba(240,165,0,0.06);
-  --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
-  --yellow: #eab308; --yellow-dim: rgba(234,179,8,0.12);
-  --red: #ef4444; --red-dim: rgba(239,68,68,0.12);
-  --blue: #3b82f6; --blue-dim: rgba(59,130,246,0.12);
-  --radius: 10px; --radius2: 14px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
-  --font: 'DM Sans', system-ui, sans-serif;
-  --mono: 'DM Mono', monospace;
-  --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
-}
-[data-theme="light"] {
-  --bg: #f4f5f7; --bg2: #ffffff; --bg3: #f0f1f4;
-  --surface: #ffffff; --surface2: #f8f9fb;
-  --border: #e2e5ea; --border2: #cdd0d8;
-  --text: #0f1117; --text2: #4a5468; --text3: #8a94a6;
-  --accent: #d4890a; --accent2: #b87209;
-  --accent-dim: rgba(212,137,10,0.1); --accent-dim2: rgba(212,137,10,0.05);
-  --shadow: 0 2px 16px rgba(0,0,0,0.08);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-input, textarea, select, button { font-family: var(--font); }
-button { cursor: pointer; }
-.header { position: sticky; top: 0; z-index: 100; background: rgba(10,11,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-[data-theme="light"] .header { background: rgba(244,245,247,0.9); }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-.logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0a0b0d; flex-shrink: 0; }
-.theme-toggle { background: none; border: 1px solid var(--border2); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition); }
-.theme-toggle:hover { background: var(--surface); color: var(--text); }
-.main { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
-.event-header-card { background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%); border: 1px solid var(--border); border-radius: var(--radius2); padding: 28px; margin-bottom: 20px; position: relative; overflow: hidden; animation: fadeInDown 0.4s ease both; }
-.event-header-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-.event-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
-.status-open { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
-.status-closed { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
-.status-confirmed { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(240,165,0,0.2); }
-.event-title { font-size: clamp(20px, 4vw, 28px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-.event-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
-.event-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text2); }
-.event-description { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text2); line-height: 1.7; white-space: pre-wrap; }
-.confirmed-notice { background: var(--accent-dim); border: 1px solid rgba(240,165,0,0.25); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 20px; display: none; animation: fadeInDown 0.4s ease both; }
-.confirmed-notice.visible { display: block; }
-.confirmed-title { font-size: 16px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
-.confirmed-date { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; }
-.gcal-link { display: inline-flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 9px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; text-decoration: none; transition: var(--transition); }
-.gcal-link:hover { border-color: var(--accent); color: var(--accent); }
-.answer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 24px; margin-bottom: 16px; animation: fadeInUp 0.4s 0.1s ease both; }
-.name-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-.form-label { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 7px; display: block; }
-.form-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 14px; padding: 10px 14px; transition: border-color var(--transition), box-shadow var(--transition); outline: none; }
-.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: var(--bg2); }
-.form-input::placeholder { color: var(--text3); }
-.votes-header { display: grid; grid-template-columns: 1fr 44px 44px 44px; gap: 8px; padding: 10px 12px; border-radius: var(--radius); background: var(--bg3); margin-bottom: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); }
-.vote-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg3); margin-bottom: 6px; transition: var(--transition); animation: slideIn 0.2s ease both; }
-.vote-row:hover { border-color: var(--border2); background: var(--surface2); }
-.vote-date { display: flex; flex-direction: column; gap: 2px; font-size: 14px; font-weight: 500; color: var(--text); }
-.vote-date-label { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-.vote-btns { display: flex; gap: 4px; align-items: center; }
-.vote-btn { width: 44px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--bg); color: var(--text2); font-size: 16px; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.vote-btn:hover { transform: translateY(-2px); }
-.vote-btn.circle-active   { background: var(--green-dim);  border-color: var(--green);  color: var(--green);  box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
-.vote-btn.triangle-active { background: var(--yellow-dim); border-color: var(--yellow); color: var(--yellow); box-shadow: 0 0 0 3px rgba(234,179,8,0.15); }
-.vote-btn.cross-active    { background: var(--red-dim);    border-color: var(--red);    color: var(--red);    box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
-.condition-row { display: none; grid-column: 1 / -1; margin-top: 6px; animation: slideIn 0.2s ease both; }
-.condition-row.visible { display: block; }
-.condition-input { width: 100%; background: var(--bg); border: 1px solid var(--yellow); border-radius: var(--radius); color: var(--text); font-size: 13px; padding: 8px 12px; outline: none; box-shadow: 0 0 0 3px var(--yellow-dim); transition: var(--transition); }
-.condition-input:focus { box-shadow: 0 0 0 4px rgba(234,179,8,0.2); }
-.condition-input::placeholder { color: var(--text3); }
-.submit-area { margin-top: 20px; }
-.submit-btn { width: 100%; padding: 14px; font-size: 15px; border-radius: var(--radius2); background: var(--accent); color: #0a0b0d; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
-.submit-btn:hover:not(:disabled) { background: var(--accent2); box-shadow: 0 6px 20px rgba(240,165,0,0.35); transform: translateY(-1px); }
-.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.spinner { width: 16px; height: 16px; border: 2px solid rgba(10,11,13,0.3); border-top-color: #0a0b0d; border-radius: 50%; animation: spin 0.7s linear infinite; }
-.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 16px; animation: fadeInUp 0.4s 0.2s ease both; }
-.summary-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.summary-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-.summary-row:last-child { border-bottom: none; }
-.summary-name { font-weight: 500; flex: 1; }
-.success-banner { background: var(--green-dim); border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius2); padding: 20px 24px; margin-bottom: 20px; display: none; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both; }
-.success-banner.visible { display: flex; align-items: flex-start; gap: 14px; }
-.success-banner-icon { font-size: 28px; flex-shrink: 0; }
-.success-banner-title { font-size: 16px; font-weight: 600; color: var(--green); margin-bottom: 4px; }
-.success-banner-desc { font-size: 13px; color: var(--text2); }
-.edit-link-row { margin-top: 12px; }
-.edit-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-dim2); border: 1px solid rgba(240,165,0,0.2); padding: 7px 12px; border-radius: var(--radius); text-decoration: none; transition: var(--transition); }
-.edit-link:hover { background: var(--accent-dim); }
-.loading-state { text-align: center; padding: 80px 20px; }
-.loading-spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-.error-state { text-align: center; padding: 80px 20px; }
-.closed-mode-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(59,130,246,0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; margin-bottom: 16px; }
-.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-.toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); animation: toastIn 0.3s ease both; pointer-events: all; max-width: 320px; }
-.toast.success { border-color: var(--green); }
-.toast.error { border-color: var(--red); }
-.toast-out { animation: toastOut 0.3s ease forwards; }
-.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 14px; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-@keyframes slideIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
-@keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
-@keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
+:root{--bg:#0a0b0d;--bg2:#111318;--bg3:#181c22;--surface:#1e232c;--surface2:#252b36;--border:#2a3040;--border2:#333d4f;--text:#e8eaf0;--text2:#9aa3b2;--text3:#5c6a80;--accent:#f0a500;--accent2:#e8920a;--accent-dim:rgba(240,165,0,0.12);--accent-dim2:rgba(240,165,0,0.06);--green:#22c55e;--green-dim:rgba(34,197,94,0.12);--yellow:#eab308;--yellow-dim:rgba(234,179,8,0.12);--red:#ef4444;--red-dim:rgba(239,68,68,0.12);--blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);--radius:10px;--radius2:14px;--shadow:0 4px 24px rgba(0,0,0,0.4);--font:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--transition:0.18s cubic-bezier(0.4,0,0.2,1);}
+[data-theme="light"]{--bg:#f4f5f7;--bg2:#ffffff;--bg3:#f0f1f4;--surface:#ffffff;--surface2:#f8f9fb;--border:#e2e5ea;--border2:#cdd0d8;--text:#0f1117;--text2:#4a5468;--text3:#8a94a6;--accent:#d4890a;--accent2:#b87209;--accent-dim:rgba(212,137,10,0.1);--accent-dim2:rgba(212,137,10,0.05);--shadow:0 2px 16px rgba(0,0,0,0.08);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:var(--font);}button{cursor:pointer;}
+.header{position:sticky;top:0;z-index:100;background:rgba(10,11,13,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+[data-theme="light"] .header{background:rgba(244,245,247,0.9);}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:20px;letter-spacing:-0.02em;color:var(--text);text-decoration:none;}
+.logo-mark{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#0a0b0d;flex-shrink:0;}
+.theme-toggle{background:none;border:1px solid var(--border2);color:var(--text2);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--transition);}
+.theme-toggle:hover{background:var(--surface);color:var(--text);}
+.main{max-width:720px;margin:0 auto;padding:40px 20px 80px;}
+/* event header */
+.event-header-card{background:linear-gradient(135deg,var(--surface) 0%,var(--bg3) 100%);border:1px solid var(--border);border-radius:var(--radius2);padding:28px;margin-bottom:20px;position:relative;overflow:hidden;animation:fadeInDown 0.4s ease both;}
+.event-header-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.event-status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:14px;}
+.status-open{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,0.2);}
+.status-closed{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);}
+.status-confirmed{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(240,165,0,0.2);}
+.event-title{font-size:clamp(20px,4vw,28px);font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;}
+.event-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;}
+.event-meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text2);}
+.event-description{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;color:var(--text2);line-height:1.7;white-space:pre-wrap;}
+.event-note{margin-top:10px;padding:10px 14px;background:var(--bg3);border-radius:var(--radius);font-size:13px;color:var(--text2);border-left:3px solid var(--accent);}
+/* countdown */
+.countdown-badge{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(240,165,0,0.2);}
+.countdown-badge.urgent{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,0.2);}
+/* confirmed */
+.confirmed-notice{background:var(--accent-dim);border:1px solid rgba(240,165,0,0.25);border-radius:var(--radius2);padding:20px 24px;margin-bottom:20px;display:none;animation:fadeInDown 0.4s ease both;}
+.confirmed-notice.visible{display:block;}
+.confirmed-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:8px;}
+.confirmed-date{font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:14px;}
+.gcal-link{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:var(--radius);font-size:13px;font-weight:500;text-decoration:none;transition:var(--transition);margin-right:8px;}
+.gcal-link:hover{border-color:var(--accent);color:var(--accent);}
+/* cards */
+.answer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:24px;margin-bottom:16px;animation:fadeInUp 0.4s 0.1s ease both;}
+.form-label{font-size:13px;font-weight:500;color:var(--text2);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.form-label .required{color:var(--accent);font-size:11px;}
+.form-label .optional{color:var(--text3);font-size:11px;}
+.form-input,.form-textarea,.form-select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:10px 14px;transition:border-color var(--transition),box-shadow var(--transition);outline:none;-webkit-appearance:none;appearance:none;}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);background:var(--bg2);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3);}
+.form-textarea{resize:vertical;min-height:72px;line-height:1.5;}
+.form-group{margin-bottom:16px;}
+.form-group:last-child{margin-bottom:0;}
+/* name section */
+.name-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+/* votes */
+.votes-header{display:grid;grid-template-columns:1fr 44px 44px 44px;gap:8px;padding:10px 12px;border-radius:var(--radius);background:var(--bg3);margin-bottom:8px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);}
+.vote-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);margin-bottom:6px;transition:var(--transition);animation:slideIn 0.2s ease both;}
+.vote-row:hover{border-color:var(--border2);background:var(--surface2);}
+.vote-date{display:flex;flex-direction:column;gap:2px;font-size:14px;font-weight:500;color:var(--text);}
+.vote-date-label{font-size:11px;color:var(--text3);font-family:var(--mono);}
+.vote-btns{display:flex;gap:4px;align-items:center;}
+.vote-btn{width:44px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);font-size:16px;font-weight:600;transition:var(--transition);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vote-btn:hover:not(:disabled){transform:translateY(-2px);}
+.vote-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important;}
+.vote-btn.circle-active{background:var(--green-dim);border-color:var(--green);color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,0.15);}
+.vote-btn.triangle-active{background:var(--yellow-dim);border-color:var(--yellow);color:var(--yellow);box-shadow:0 0 0 3px rgba(234,179,8,0.15);}
+.vote-btn.cross-active{background:var(--red-dim);border-color:var(--red);color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,0.15);}
+/* readonly vote display */
+.vote-readonly{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;}
+.readonly-circle{background:var(--green-dim);color:var(--green);}
+.readonly-triangle{background:var(--yellow-dim);color:var(--yellow);}
+.readonly-cross{background:var(--red-dim);color:var(--red);}
+/* condition */
+.condition-row{display:none;grid-column:1/-1;margin-top:6px;animation:slideIn 0.2s ease both;}
+.condition-row.visible{display:block;}
+.condition-input{width:100%;background:var(--bg);border:1px solid var(--yellow);border-radius:var(--radius);color:var(--text);font-size:13px;padding:8px 12px;outline:none;box-shadow:0 0 0 3px var(--yellow-dim);transition:var(--transition);}
+.condition-input:focus{box-shadow:0 0 0 4px rgba(234,179,8,0.2);}
+.condition-input::placeholder{color:var(--text3);}
+/* question */
+.question-block{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
+.question-title{font-size:14px;font-weight:600;margin-bottom:10px;}
+.q-option{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:var(--transition);margin-bottom:6px;font-size:14px;}
+.q-option:hover{border-color:var(--border2);background:var(--surface2);}
+.q-option.selected{border-color:var(--accent);background:var(--accent-dim2);}
+.q-option input{accent-color:var(--accent);}
+/* proposal */
+.proposal-form{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;}
+.proposal-form-title{font-size:14px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+/* submit */
+.submit-area{margin-top:20px;}
+.submit-btn{width:100%;padding:14px;font-size:15px;border-radius:var(--radius2);background:var(--accent);color:#0a0b0d;font-weight:600;border:none;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover:not(:disabled){background:var(--accent2);box-shadow:0 6px 20px rgba(240,165,0,0.35);transform:translateY(-1px);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.spinner{width:16px;height:16px;border:2px solid rgba(10,11,13,0.3);border-top-color:#0a0b0d;border-radius:50%;animation:spin 0.7s linear infinite;}
+/* summary */
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:20px 24px;margin-bottom:16px;animation:fadeInUp 0.4s 0.2s ease both;}
+.summary-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.summary-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.summary-row:last-child{border-bottom:none;}
+.summary-name{font-weight:500;flex:1;}
+/* success banner */
+.success-banner{background:var(--green-dim);border:1px solid rgba(34,197,94,0.25);border-radius:var(--radius2);padding:20px 24px;margin-bottom:20px;display:none;animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both;}
+.success-banner.visible{display:flex;align-items:flex-start;gap:14px;}
+.success-banner-icon{font-size:28px;flex-shrink:0;}
+.success-banner-title{font-size:16px;font-weight:600;color:var(--green);margin-bottom:4px;}
+.success-banner-desc{font-size:13px;color:var(--text2);}
+.edit-link-row{margin-top:12px;}
+.edit-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--accent);background:var(--accent-dim2);border:1px solid rgba(240,165,0,0.2);padding:7px 12px;border-radius:var(--radius);text-decoration:none;transition:var(--transition);}
+.edit-link:hover{background:var(--accent-dim);}
+/* closed badge */
+.closed-mode-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(59,130,246,0.2);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:500;margin-bottom:16px;}
+/* limit badge */
+.limit-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:500;margin-bottom:12px;}
+/* loading/error */
+.loading-state{text-align:center;padding:80px 20px;}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+.error-state{text-align:center;padding:80px 20px;}
+/* toast */
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);animation:toastIn 0.3s ease both;pointer-events:all;max-width:320px;}
+.toast.success{border-color:var(--green);}
+.toast.error{border-color:var(--red);}
+.toast-out{animation:toastOut 0.3s ease forwards;}
+.section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:14px;}
+.hint{font-size:12px;color:var(--text3);margin-top:5px;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:none;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:none;}}
+@keyframes popIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:none;}}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px);}}
 </style>
 </head>
 <body>
-
 <header class="header">
-  <a class="logo" href="index.html">
-    <div class="logo-mark">S</div>
-    Schedly
-  </a>
+  <a class="logo" href="index.html"><div class="logo-mark">S</div>Schedly</a>
   <button class="theme-toggle" id="themeToggle">🌙</button>
 </header>
-
 <main class="main" id="mainContent">
   <div class="loading-state">
     <div class="loading-spinner"></div>
     <div style="color:var(--text3);font-size:14px;">読み込み中...</div>
   </div>
 </main>
-
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- Firebase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",
-  authDomain: "schedly-2d50c.firebaseapp.com",
-  projectId: "schedly-2d50c",
-  storageBucket: "schedly-2d50c.firebasestorage.app",
-  messagingSenderId: "703737030595",
-  appId: "1:703737030595:web:a7e350361aa790e749ff76"
-};
-
-try {
-  const app = initializeApp(firebaseConfig);
-  window._db = getFirestore(app);
-} catch(e) { console.warn('Firebase init error:', e); }
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, serverTimestamp, updateDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyBF7wMidu7J83xK4Cn3RJINyz0MWdOBs0I",authDomain:"schedly-2d50c.firebaseapp.com",projectId:"schedly-2d50c",storageBucket:"schedly-2d50c.firebasestorage.app",messagingSenderId:"703737030595",appId:"1:703737030595:web:a7e350361aa790e749ff76"};
+try{
+  const app=initializeApp(firebaseConfig);const db=getFirestore(app);
+  window._db=db;
+  window._fsOps={doc,getDoc,setDoc,collection,getDocs,serverTimestamp,updateDoc,addDoc};
+  window._firebaseReady=true;
+}catch(e){window._firebaseReady=false;window._firebaseError=e.message;}
 </script>
 
-<!-- EmailJS アカウントA（回答完了メール） -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-const EMAILJS_A = {
-  publicKey:       'JHdTPggzMXFZmBifV',
-  serviceId:       'service_ybx173k',
-  replyTemplateId: 'template_yv9pvc2'
-};
-try { emailjs.init(EMAILJS_A.publicKey); } catch(e) {}
+const EMAILJS_A={publicKey:'JHdTPggzMXFZmBifV',serviceId:'service_ybx173k',replyTemplateId:'template_yv9pvc2'};
+window.addEventListener('load',function(){try{emailjs.init(EMAILJS_A.publicKey);}catch(e){}});
 
-// ─── State ───
-const params   = new URLSearchParams(location.search);
-const eventId  = params.get('id');
-const token    = params.get('token');
-const editMode = params.get('edit') === '1';
-let eventData      = null;
-let participantData = null;
-let existingVote   = null;
-let answers    = {};
-let conditions = {};
+const params=new URLSearchParams(location.search);
+const eventId=params.get('id');
+const token=params.get('token');
+const editMode=params.get('edit')==='1';
+let eventData=null,participantData=null,existingVote=null;
+let answers={},conditions={},questionAnswers={};
+let isEditActive=false; // 読み取り専用 → 編集モード切替フラグ
+let countdownTimer=null;
 
-// ─── Theme ───
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('schedlyTheme') || 'dark';
-html.setAttribute('data-theme', savedTheme);
-themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-themeToggle.onclick = () => {
-  const n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', n);
-  localStorage.setItem('schedlyTheme', n);
-  themeToggle.textContent = n === 'dark' ? '☀️' : '🌙';
-};
+// Theme
+const html=document.documentElement;
+const themeToggle=document.getElementById('themeToggle');
+const savedTheme=localStorage.getItem('schedlyTheme')||'dark';
+html.setAttribute('data-theme',savedTheme);
+themeToggle.textContent=savedTheme==='dark'?'☀️':'🌙';
+themeToggle.addEventListener('click',function(){
+  const n=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',n);localStorage.setItem('schedlyTheme',n);
+  themeToggle.textContent=n==='dark'?'☀️':'🌙';
+});
 
-// ─── Init ───
-window.addEventListener('DOMContentLoaded', async () => {
-  if (!eventId) { showError('イベントIDが指定されていません', 'URLを確認してください'); return; }
+// Init
+window.addEventListener('DOMContentLoaded',async function(){
+  if(!eventId){showError('イベントIDが指定されていません','URLを確認してください');return;}
+  let w=0;while(!window._firebaseReady&&!window._firebaseError&&w<3000){await sleep(100);w+=100;}
   await loadEvent();
 });
 
-async function loadEvent() {
-  try {
-    const db = window._db;
-    if (db) {
-      const { doc, getDoc, collection, getDocs } =
-        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-
-      const snap = await getDoc(doc(db, 'events', eventId));
-      if (!snap.exists()) { showError('イベントが見つかりません', 'URLを確認するか、主催者にお問い合わせください'); return; }
-      eventData = { id: eventId, ...snap.data() };
-
-      const votesSnap = await getDocs(collection(db, 'events', eventId, 'votes'));
-      const votes = {};
-      votesSnap.forEach(d => { votes[d.id] = d.data(); });
-      window._votes = votes;
-
-      if (eventData.mode === 'closed') {
-        const partSnap = await getDocs(collection(db, 'events', eventId, 'participants'));
-        partSnap.forEach(d => {
-          const p = d.data();
-          if (p.token === token) participantData = p;
-        });
+async function loadEvent(){
+  try{
+    const{doc,getDoc,collection,getDocs}=window._fsOps||{};
+    if(window._db&&doc){
+      const snap=await getDoc(doc(window._db,'events',eventId));
+      if(!snap.exists()){showError('イベントが見つかりません','URLを確認するか、主催者にお問い合わせください');return;}
+      eventData={id:eventId,...snap.data()};
+      const vSnap=await getDocs(collection(window._db,'events',eventId,'votes'));
+      const votes={};vSnap.forEach(function(d){votes[d.id]=d.data();});window._votes=votes;
+      if(eventData.mode==='closed'){
+        const pSnap=await getDocs(collection(window._db,'events',eventId,'participants'));
+        pSnap.forEach(function(d){const p=d.data();if(p.token===token)participantData=p;});
       }
-
-      if (token) {
-        Object.values(votes).forEach(v => { if (v.token === token) existingVote = v; });
+      if(token){Object.values(votes).forEach(function(v){if(v.token===token)existingVote=v;});}
+      // 閲覧数カウント
+      try{await window._fsOps.updateDoc(doc(window._db,'events',eventId),{viewCount:(eventData.viewCount||0)+1});}catch(e){}
+    }else{
+      const stored=localStorage.getItem('schedly_event_'+eventId);
+      if(!stored){showError('イベントが見つかりません');return;}
+      eventData=JSON.parse(stored);
+      window._votes=JSON.parse(localStorage.getItem('schedly_votes_'+eventId)||'{}');
+      if(eventData.mode==='closed'){
+        const parts=JSON.parse(localStorage.getItem('schedly_participants_'+eventId)||'[]');
+        participantData=parts.find(function(p){return p.token===token;})||null;
       }
-    } else {
-      const stored = localStorage.getItem(`schedly_event_${eventId}`);
-      if (!stored) { showError('イベントが見つかりません'); return; }
-      eventData = JSON.parse(stored);
-      window._votes = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`) || '{}');
-      if (eventData.mode === 'closed') {
-        const parts = JSON.parse(localStorage.getItem(`schedly_participants_${eventId}`) || '[]');
-        participantData = parts.find(p => p.token === token) || null;
-      }
-      if (token) {
-        Object.values(window._votes).forEach(v => { if (v.token === token) existingVote = v; });
-      }
+      if(token){Object.values(window._votes).forEach(function(v){if(v.token===token)existingVote=v;});}
     }
+    // 既存回答をプリロード
+    if(existingVote){
+      answers={...existingVote.answers};
+      conditions={...(existingVote.comments||{})};
+      questionAnswers={...(existingVote.questionAnswers||{})};
+    }
+    // editModeの場合は最初から編集可能
+    if(editMode)isEditActive=true;
     renderPage();
-  } catch(e) {
-    console.error(e);
-    showError('読み込みに失敗しました', e.message);
-  }
+    startCountdown();
+  }catch(e){showError('読み込みに失敗しました',e.message);}
 }
 
-function renderPage() {
-  const main = document.getElementById('mainContent');
-  const isDeadlinePassed = eventData.deadline && new Date(eventData.deadline) < new Date();
-  const isClosed    = eventData.status === 'confirmed' || eventData.status === 'closed';
-  const isClosedMode = eventData.mode === 'closed';
+// ─── Countdown ───
+function startCountdown(){
+  if(countdownTimer)clearInterval(countdownTimer);
+  updateCountdown();
+  countdownTimer=setInterval(updateCountdown,1000);
+}
+function updateCountdown(){
+  const el=document.getElementById('countdownBadge');if(!el||!eventData.deadline)return;
+  const diff=new Date(eventData.deadline)-new Date();
+  if(diff<=0){el.textContent='締切済';el.classList.add('urgent');clearInterval(countdownTimer);return;}
+  const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  el.classList.toggle('urgent',diff<3600000);
+  let txt='';
+  if(d===0&&h===0&&m===0) txt='⚠️ あと'+s+'秒！';
+  else if(d===0&&h===0) txt='⚠️ あと'+m+'分'+s+'秒';
+  else if(d===0) txt='今日締切 あと'+h+'時間'+pad(m)+'分';
+  else if(d===1) txt='明日締切 あと'+h+'時間'+pad(m)+'分';
+  else txt='締切まで '+d+'日 '+pad(h)+'時間'+pad(m)+'分';
+  el.textContent=txt;
+}
+function pad(n){return String(n).padStart(2,'0');}
 
-  if (isClosedMode && !token) { showError('🔒 このイベントは招待制です', '主催者から送られた招待リンクからアクセスしてください'); return; }
-  if (isClosedMode && token && !participantData) { showError('🔒 アクセスできません', 'このリンクは無効か、招待リストに含まれていません'); return; }
+// ─── Render Page ───
+function renderPage(){
+  const main=document.getElementById('mainContent');
+  const isDeadlinePassed=eventData.deadline&&new Date(eventData.deadline)<new Date();
+  const isStatusClosed=eventData.status==='confirmed'||eventData.status==='closed';
+  const isClosedMode=eventData.mode==='closed';
+  const vArr=Object.values(window._votes||{});
+  const answerCount=vArr.length;
+  const maxAnswers=eventData.maxAnswers;
+  const isLimitReached=maxAnswers&&answerCount>=maxAnswers&&!existingVote;
+  const canAnswer=!isStatusClosed&&!isDeadlinePassed&&!isLimitReached;
 
-  const deadline    = eventData.deadline ? new Date(eventData.deadline) : null;
-  const deadlineStr = deadline ? deadline.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '設定なし';
-  const answererName = isClosedMode && participantData ? participantData.email : (existingVote ? existingVote.name : '');
+  // 回答編集設定チェック
+  const editSetting=eventData.answerEdit||'always';
+  let canEdit=true;
+  if(editSetting==='never') canEdit=false;
+  if(editSetting==='until_deadline'&&isDeadlinePassed) canEdit=false;
 
-  if (existingVote) { answers = { ...existingVote.answers }; conditions = { ...(existingVote.comments || {}) }; }
+  // クローズドモード認証
+  if(isClosedMode&&!token){showError('🔒 このイベントは招待制です','主催者から送られた招待リンクからアクセスしてください');return;}
+  if(isClosedMode&&token&&!participantData){showError('🔒 アクセスできません','このリンクは無効か、招待リストに含まれていません');return;}
 
-  const statusLabel = { open:'受付中', confirmed:'日程確定済', closed:'締切済' };
-  const statusClass = { open:'status-open', confirmed:'status-confirmed', closed:'status-closed' };
+  const deadline=eventData.deadline?new Date(eventData.deadline):null;
+  const deadlineStr=deadline?deadline.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}):'設定なし';
+  const statusLabel={open:'受付中',confirmed:'日程確定済',closed:'締切済'};
+  const statusClass={open:'status-open',confirmed:'status-confirmed',closed:'status-closed'};
+  const answererName=isClosedMode&&participantData?participantData.email:(existingVote?existingVote.name:'');
 
-  main.innerHTML = `
-    ${existingVote && !editMode ? renderSuccessBanner() : ''}
-    ${eventData.status === 'confirmed' ? renderConfirmedNotice() : ''}
-    <div class="event-header-card">
-      <span class="event-status-badge ${statusClass[eventData.status] || 'status-open'}">
-        ${eventData.status === 'open' ? '● ' : ''}${statusLabel[eventData.status] || '受付中'}
-      </span>
-      <div class="event-title">${escHtml(eventData.title)}</div>
-      <div class="event-meta">
-        ${eventData.location ? `<div class="event-meta-item">📍 ${escHtml(eventData.location)}</div>` : ''}
-        <div class="event-meta-item">⏰ 締切: ${deadlineStr}</div>
-        <div class="event-meta-item">${isClosedMode ? '🔒 クローズドモード' : '🌐 オープンモード'}</div>
-      </div>
-      ${eventData.description ? `<div class="event-description">${escHtml(eventData.description)}</div>` : ''}
-    </div>
-    ${renderAnswerSummary()}
-    ${!isClosed && !isDeadlinePassed ? renderAnswerForm(isClosedMode, answererName) : renderClosedMessage(isDeadlinePassed)}
-  `;
+  main.innerHTML=
+    // 回答済みバナー（読み取り専用時）
+    (existingVote&&!isEditActive?renderSuccessBanner(canEdit):'') +
+    // 確定通知
+    (eventData.status==='confirmed'?renderConfirmedNotice():'') +
+    // イベントヘッダー
+    '<div class="event-header-card">'+
+      '<span class="event-status-badge '+(statusClass[eventData.status]||'status-open')+'">'+
+        (eventData.status==='open'?'● ':'')+（statusLabel[eventData.status]||'受付中')+
+      '</span>'+
+      '<div class="event-title">'+escHtml(eventData.title)+'</div>'+
+      '<div class="event-meta">'+
+        (eventData.location?'<div class="event-meta-item">📍 '+escHtml(eventData.location)+'</div>':'')+
+        '<div class="event-meta-item">⏰ 締切: '+deadlineStr+'</div>'+
+        '<div class="event-meta-item">'+(isClosedMode?'🔒 クローズドモード':'🌐 オープンモード')+'</div>'+
+        (maxAnswers?'<div class="event-meta-item">👥 '+answerCount+'/'+maxAnswers+'名</div>':'')+
+      '</div>'+
+      (eventData.description?'<div class="event-description">'+escHtml(eventData.description)+'</div>':'')+
+      (eventData.note?'<div class="event-note">📝 '+escHtml(eventData.note)+'</div>':'')+
+      '<div><span class="countdown-badge" id="countdownBadge">—</span></div>'+
+    '</div>'+
+    // 回答状況サマリー
+    renderAnswerSummary()+
+    // フォームor閉鎖メッセージ
+    (canAnswer?renderAnswerForm(isClosedMode,answererName,canEdit):renderClosedMessage(isDeadlinePassed,isLimitReached,isStatusClosed));
 
-  if (existingVote) {
-    Object.entries(answers).forEach(([dateKey, val]) => {
-      const idx = (eventData.dates || []).findIndex(d => d.datetime === dateKey);
-      if (idx !== -1) selectVote(dateKey, val, idx);
+  bindEvents();
+  startCountdown();
+  // 既存回答を反映（編集時）
+  if(isEditActive&&existingVote){
+    Object.entries(answers).forEach(function(e){
+      const k=e[0],v=e[1];
+      const idx=(eventData.dates||[]).findIndex(function(d){return d.datetime===k;});
+      if(idx!==-1)applyVoteUI(k,v,idx);
     });
   }
 }
 
-function renderSuccessBanner() {
-  const editUrl = `${location.origin}${location.pathname}?id=${eventId}&token=${token}&edit=1`;
-  return `
-    <div class="success-banner visible">
-      <div class="success-banner-icon">✅</div>
-      <div>
-        <div class="success-banner-title">回答済みです</div>
-        <div class="success-banner-desc">あなたの回答は受け付けられています。変更は以下のリンクから行えます。</div>
-        <div class="edit-link-row"><a class="edit-link" href="${editUrl}">✏️ 回答を編集する</a></div>
-      </div>
-    </div>`;
+function renderSuccessBanner(canEdit){
+  const editUrl=location.origin+location.pathname+'?id='+eventId+'&token='+(token||'')+'&edit=1';
+  return'<div class="success-banner visible">'+
+    '<div class="success-banner-icon">✅</div>'+
+    '<div>'+
+      '<div class="success-banner-title">回答済みです</div>'+
+      '<div class="success-banner-desc">あなたの回答は受け付けられています。</div>'+
+      (canEdit?'<div class="edit-link-row"><a class="edit-link" href="'+editUrl+'">✏️ 回答を編集する</a></div>':
+               '<div style="font-size:12px;color:var(--text3);margin-top:8px;">※ 編集は許可されていません</div>')+
+    '</div>'+
+  '</div>';
 }
 
-function renderConfirmedNotice() {
-  const confirmed = eventData.confirmedDate;
-  if (!confirmed) return '';
-  const d = new Date(confirmed.datetime || confirmed);
-  const dateStr = d.toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric', weekday:'long', hour:'2-digit', minute:'2-digit' });
-  const gcalUrl = makeGCalUrl();
-  return `
-    <div class="confirmed-notice visible">
-      <div class="confirmed-title">🎉 日程が確定しました！</div>
-      <div class="confirmed-date">${dateStr}${confirmed.duration ? ' (' + confirmed.duration + ')' : ''}</div>
-      ${eventData.location ? `<div style="font-size:13px;color:var(--text2);margin-bottom:12px">📍 ${escHtml(eventData.location)}</div>` : ''}
-      ${gcalUrl ? `<a class="gcal-link" href="${gcalUrl}" target="_blank">📅 Googleカレンダーに追加</a>` : ''}
-    </div>`;
+function renderConfirmedNotice(){
+  const confirmed=eventData.confirmedDate;if(!confirmed)return'';
+  const d=new Date(confirmed.datetime||confirmed);
+  const dateStr=d.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long',hour:'2-digit',minute:'2-digit'});
+  const gcalUrl=makeGCalUrl();
+  const icsUrl=makeICSUrl();
+  return'<div class="confirmed-notice visible">'+
+    '<div class="confirmed-title">🎉 日程が確定しました！</div>'+
+    '<div class="confirmed-date">'+dateStr+(confirmed.duration?' ('+confirmed.duration+')':'')+'</div>'+
+    (eventData.location?'<div style="font-size:13px;color:var(--text2);margin-bottom:12px">📍 '+escHtml(eventData.location)+'</div>':'')+
+    (gcalUrl?'<a class="gcal-link" href="'+gcalUrl+'" target="_blank">📅 Googleカレンダーに追加</a>':'')+
+    (icsUrl?'<a class="gcal-link" href="'+icsUrl+'" download="event.ics">📥 ICSダウンロード</a>':'')+
+  '</div>';
 }
 
-function makeGCalUrl() {
-  if (!eventData.confirmedDate) return '';
-  try {
-    const cd = eventData.confirmedDate;
-    const start = new Date(cd.datetime || cd);
-    const end   = new Date(start.getTime() + 60 * 60 * 1000);
-    const fmt = d => d.toISOString().replace(/[-:]/g,'').replace('.000','');
-    return `https://calendar.google.com/calendar/render?` + new URLSearchParams({ action:'TEMPLATE', text:eventData.title, dates:`${fmt(start)}/${fmt(end)}`, details:eventData.description||'', location:eventData.location||'' });
-  } catch(e) { return ''; }
+function renderAnswerSummary(){
+  const vis=eventData.answerVisibility||'public';
+  const vArr=Object.values(window._votes||{});
+  if(vis==='hidden'||!vArr.length)return'';
+  if(vis==='count_only'){
+    return'<div class="summary-card">'+
+      '<div class="summary-title">📊 回答状況</div>'+
+      '<div style="font-size:24px;font-weight:700;color:var(--accent)">'+vArr.length+'<span style="font-size:14px;color:var(--text3);font-weight:400"> 名が回答済</span></div>'+
+    '</div>';
+  }
+  // public
+  const isAnon=eventData.anonymous;
+  return'<div class="summary-card">'+
+    '<div class="summary-title">📊 回答状況 <span style="font-size:12px;color:var(--text3);font-weight:400">'+vArr.length+'名が回答済</span></div>'+
+    vArr.slice(0,6).map(function(v){
+      return'<div class="summary-row">'+
+        '<span class="summary-name">'+escHtml(isAnon?'匿名':(v.name||'匿名'))+'</span>'+
+        '<span style="font-size:12px;color:var(--text3)">'+
+          '◎'+Object.values(v.answers||{}).filter(function(a){return a==='circle';}).length+
+          ' △'+Object.values(v.answers||{}).filter(function(a){return a==='triangle';}).length+
+          ' ✕'+Object.values(v.answers||{}).filter(function(a){return a==='cross';}).length+
+        '</span>'+
+      '</div>';
+    }).join('')+
+    (vArr.length>6?'<div style="font-size:12px;color:var(--text3);text-align:center;padding-top:8px">他 '+(vArr.length-6)+' 名</div>':'')+
+  '</div>';
 }
 
-function renderAnswerSummary() {
-  const voteArr = Object.values(window._votes || {});
-  if (voteArr.length === 0) return '';
-  return `
-    <div class="summary-card">
-      <div class="summary-title">📊 回答状況 <span style="font-size:12px;color:var(--text3);font-weight:400">${voteArr.length}名が回答済</span></div>
-      ${voteArr.slice(0, 5).map(v => `
-        <div class="summary-row">
-          <span class="summary-name">${escHtml(v.name || '匿名')}</span>
-          <span style="font-size:12px;color:var(--text3)">
-            ◎${Object.values(v.answers||{}).filter(a=>a==='circle').length}
-            △${Object.values(v.answers||{}).filter(a=>a==='triangle').length}
-            ✕${Object.values(v.answers||{}).filter(a=>a==='cross').length}
-          </span>
-        </div>`).join('')}
-      ${voteArr.length > 5 ? `<div style="font-size:12px;color:var(--text3);text-align:center;padding-top:8px">他 ${voteArr.length - 5} 名</div>` : ''}
-    </div>`;
+function renderAnswerForm(isClosedMode,answererName,canEdit){
+  const isReadOnly=existingVote&&!isEditActive;
+  return'<div class="answer-card">'+
+    '<div class="section-label">'+(isReadOnly?'あなたの回答':(existingVote&&isEditActive?'回答を編集':'回答する'))+'</div>'+
+    // 上限警告
+    (eventData.maxAnswers?'<div class="limit-badge">👥 残り '+(eventData.maxAnswers-Object.values(window._votes||{}).length)+'名分</div>':'')+
+    // クローズドバッジ or 名前入力
+    (isClosedMode?
+      '<div class="closed-mode-badge">🔒 '+escHtml(answererName)+' として回答</div>':
+      '<div class="name-section">'+
+        '<label class="form-label">お名前 <span class="required">必須</span></label>'+
+        '<input type="text" class="form-input" id="answerName" placeholder="例：山田太郎" value="'+escHtml(answererName)+'" maxlength="50"'+(isReadOnly?' disabled':'')+'>'+
+      '</div>')+
+    // メールアドレス収集
+    (renderEmailCollection(isReadOnly))+
+    // 候補日時
+    '<div class="votes-header"><div>候補日時</div><div style="text-align:center">◎</div><div style="text-align:center">△</div><div style="text-align:center">✕</div></div>'+
+    '<div id="voteRows">'+
+      (eventData.dates||[]).map(function(d,i){return renderVoteRow(d,i,isReadOnly);}).join('')+
+    '</div>'+
+    // コメント欄
+    '<div class="form-group" style="margin-top:16px;">'+
+      '<label class="form-label">コメント <span class="optional">任意</span></label>'+
+      '<textarea class="form-textarea" id="answerComment" placeholder="一言メモや補足があれば入力してください" style="min-height:60px;"'+(isReadOnly?' disabled':'')+'>'+
+        (existingVote&&existingVote.comment?escHtml(existingVote.comment):'')+
+      '</textarea>'+
+    '</div>'+
+    // 追加質問
+    renderQuestions(isReadOnly)+
+    // 対案提案
+    (!isReadOnly&&eventData.allowProposal?renderProposalForm():'') +
+    // 送信ボタン
+    (!isReadOnly?
+      '<div class="submit-area">'+
+        '<button class="submit-btn" id="submitBtn">'+
+          '<span id="submitBtnText">'+(existingVote&&isEditActive?'✏️ 回答を更新する':'📨 回答を送信する')+'</span>'+
+        '</button>'+
+      '</div>':'')+
+  '</div>';
 }
 
-function renderAnswerForm(isClosedMode, answererName) {
-  return `
-    <div class="answer-card">
-      <div class="section-label">${existingVote && editMode ? '回答を編集' : '回答する'}</div>
-      ${isClosedMode ? `
-        <div class="closed-mode-badge">🔒 ${escHtml(answererName)} として回答</div>
-      ` : `
-        <div class="name-section">
-          <label class="form-label">お名前 <span style="color:var(--accent);font-size:11px">必須</span></label>
-          <input type="text" class="form-input" id="answerName" placeholder="例：山田太郎" value="${escHtml(answererName)}" maxlength="50">
-        </div>
-      `}
-      <div class="votes-header">
-        <div>候補日時</div>
-        <div style="text-align:center">◎</div>
-        <div style="text-align:center">△</div>
-        <div style="text-align:center">✕</div>
-      </div>
-      <div id="voteRows">
-        ${(eventData.dates || []).map((d, i) => renderVoteRow(d, i)).join('')}
-      </div>
-      <div class="submit-area">
-        <button class="submit-btn" id="submitBtn" onclick="submitVote()">
-          <span id="submitBtnText">${existingVote && editMode ? '✏️ 回答を更新する' : '📨 回答を送信する'}</span>
-        </button>
-      </div>
-    </div>`;
+function renderEmailCollection(isReadOnly){
+  const ec=eventData.emailCollection||'none';
+  if(ec==='none')return'';
+  const required=ec==='required';
+  const existing=existingVote&&existingVote.email?existingVote.email:'';
+  return'<div class="form-group">'+
+    '<label class="form-label">メールアドレス '+(required?'<span class="required">必須</span>':'<span class="optional">任意</span>')+'</label>'+
+    '<input type="email" class="form-input" id="answerEmail" placeholder="例：taro@example.com" value="'+escHtml(existing)+'"'+(isReadOnly?' disabled':'')+'>'+
+    '<div class="hint">📧 回答完了メールが送信されます</div>'+
+  '</div>';
 }
 
-function renderVoteRow(candidate, index) {
-  const d = new Date(candidate.datetime);
-  const dateStr = d.toLocaleDateString('ja-JP', { month:'short', day:'numeric', weekday:'short' });
-  const timeStr = d.toLocaleTimeString('ja-JP', { hour:'2-digit', minute:'2-digit' });
-  return `
-    <div class="vote-row" id="vrow_${index}">
-      <div>
-        <div class="vote-date">
-          <div>${dateStr} ${timeStr}</div>
-          ${candidate.duration ? `<div class="vote-date-label">${candidate.duration}</div>` : ''}
-        </div>
-        <div class="condition-row" id="cond_${index}">
-          <input type="text" class="condition-input" id="condInput_${index}" data-date="${escHtml(candidate.datetime)}" placeholder="例：18時以降なら参加可能" maxlength="100" oninput="updateCondition(this)">
-        </div>
-      </div>
-      <div class="vote-btns">
-        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="circle"   onclick="selectVote('${escHtml(candidate.datetime)}','circle',${index})"   title="参加可能">◎</button>
-        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="triangle" onclick="selectVote('${escHtml(candidate.datetime)}','triangle',${index})" title="条件付き">△</button>
-        <button class="vote-btn" data-date="${escHtml(candidate.datetime)}" data-type="cross"    onclick="selectVote('${escHtml(candidate.datetime)}','cross',${index})"    title="参加不可">✕</button>
-      </div>
-    </div>`;
+function renderVoteRow(candidate,index,isReadOnly){
+  const dateKey=candidate.datetime;
+  const d=new Date(candidate.datetime);
+  const dateStr=d.toLocaleDateString('ja-JP',{month:'short',day:'numeric',weekday:'short'});
+  const timeStr=d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  const currentAnswer=answers[dateKey];
+  const sym={circle:'◎',triangle:'△',cross:'✕'};
+  const cls={circle:'readonly-circle',triangle:'readonly-triangle',cross:'readonly-cross'};
+
+  if(isReadOnly){
+    return'<div class="vote-row">'+
+      '<div class="vote-date">'+
+        '<div>'+dateStr+' '+timeStr+'</div>'+
+        (candidate.duration?'<div class="vote-date-label">'+candidate.duration+'</div>':'')+
+        (conditions[dateKey]?'<div style="font-size:12px;color:var(--yellow);margin-top:4px;">条件: '+escHtml(conditions[dateKey])+'</div>':'')+
+      '</div>'+
+      '<div>'+
+        (currentAnswer?'<span class="vote-readonly '+cls[currentAnswer]+'">'+sym[currentAnswer]+'</span>':
+          '<span style="font-size:12px;color:var(--text3);">未回答</span>')+
+      '</div>'+
+    '</div>';
+  }
+
+  return'<div class="vote-row" id="vrow_'+index+'">'+
+    '<div>'+
+      '<div class="vote-date">'+
+        '<div>'+dateStr+' '+timeStr+'</div>'+
+        (candidate.duration?'<div class="vote-date-label">'+candidate.duration+'</div>':'')+
+      '</div>'+
+      '<div class="condition-row" id="cond_'+index+'">'+
+        '<input type="text" class="condition-input" id="condInput_'+index+'" data-date="'+escHtml(dateKey)+'" placeholder="例：18時以降なら参加可能" maxlength="100">'+
+      '</div>'+
+    '</div>'+
+    '<div class="vote-btns">'+
+      '<button class="vote-btn" data-date="'+escHtml(dateKey)+'" data-type="circle" data-idx="'+index+'" title="参加可能">◎</button>'+
+      '<button class="vote-btn" data-date="'+escHtml(dateKey)+'" data-type="triangle" data-idx="'+index+'" title="条件付き">△</button>'+
+      '<button class="vote-btn" data-date="'+escHtml(dateKey)+'" data-type="cross" data-idx="'+index+'" title="参加不可">✕</button>'+
+    '</div>'+
+  '</div>';
 }
 
-function renderClosedMessage(isDeadlinePassed) {
-  return `
-    <div class="answer-card" style="text-align:center;padding:40px">
-      <div style="font-size:40px;margin-bottom:16px">${isDeadlinePassed ? '⏰' : '🔒'}</div>
-      <div style="font-size:18px;font-weight:600;margin-bottom:8px">${isDeadlinePassed ? '回答期限が終了しました' : '受付を終了しました'}</div>
-      <div style="font-size:14px;color:var(--text2)">${isDeadlinePassed ? 'この日程調整の回答期限が過ぎています' : '管理者が回答受付を終了しました'}</div>
-    </div>`;
+function renderQuestions(isReadOnly){
+  const qs=eventData.questions||[];
+  if(!qs.length)return'';
+  return'<div style="margin-top:16px;"><div class="section-label">追加質問</div>'+
+    qs.map(function(q){
+      const existing=questionAnswers[q.id];
+      if(q.type==='text'){
+        return'<div class="question-block">'+
+          '<div class="question-title">'+escHtml(q.text)+'</div>'+
+          '<textarea class="form-textarea" id="qa_'+q.id+'" data-qid="'+q.id+'" placeholder="回答を入力してください" style="min-height:60px;"'+(isReadOnly?' disabled':'')+'>'+
+            (existing?escHtml(String(existing)):'')+
+          '</textarea>'+
+        '</div>';
+      }
+      const isMulti=q.type==='multi';
+      return'<div class="question-block">'+
+        '<div class="question-title">'+escHtml(q.text)+(isMulti?' <span style="font-size:11px;color:var(--text3)">(複数選択可)</span>':'')+'</div>'+
+        (q.options||[]).map(function(opt){
+          const isSelected=Array.isArray(existing)?existing.indexOf(opt)!==-1:(existing===opt);
+          return'<label class="q-option'+(isSelected?' selected':'')+'" data-qid="'+q.id+'" data-opt="'+escHtml(opt)+'" data-multi="'+isMulti+'">'+
+            '<input type="'+(isMulti?'checkbox':'radio')+'" name="q_'+q.id+'" value="'+escHtml(opt)+'"'+(isSelected?' checked':'')+(!isReadOnly?'':' disabled')+'> '+
+            escHtml(opt)+
+          '</label>';
+        }).join('')+
+      '</div>';
+    }).join('')+
+  '</div>';
+}
+
+function renderProposalForm(){
+  return'<div class="proposal-form">'+
+    '<div class="proposal-form-title">💡 候補日時以外を提案する</div>'+
+    '<div class="form-group">'+
+      '<label class="form-label">提案する日時 <span class="optional">任意</span></label>'+
+      '<input type="datetime-local" class="form-input" id="proposalDate">'+
+    '</div>'+
+    '<div class="form-group">'+
+      '<label class="form-label">メッセージ <span class="optional">任意</span></label>'+
+      '<textarea class="form-textarea" id="proposalMsg" placeholder="例：この日時なら参加可能です" style="min-height:60px;"></textarea>'+
+    '</div>'+
+    '<button class="btn btn-secondary btn-sm" id="submitProposalBtn" style="margin-top:4px;">📤 対案を送信</button>'+
+  '</div>';
+}
+
+function renderClosedMessage(isDeadlinePassed,isLimitReached,isStatusClosed){
+  let icon='🔒',title='受付を終了しました',desc='管理者が回答受付を終了しました';
+  if(isDeadlinePassed){icon='⏰';title='回答期限が終了しました';desc='この日程調整の回答期限が過ぎています';}
+  if(isLimitReached){icon='👥';title='回答上限に達しました';desc='定員に達したため回答受付を終了しました';}
+  return'<div class="answer-card" style="text-align:center;padding:40px;">'+
+    '<div style="font-size:40px;margin-bottom:16px">'+icon+'</div>'+
+    '<div style="font-size:18px;font-weight:600;margin-bottom:8px">'+title+'</div>'+
+    '<div style="font-size:14px;color:var(--text2)">'+desc+'</div>'+
+  '</div>';
+}
+
+// ─── Bind Events ───
+function bindEvents(){
+  // vote buttons
+  document.querySelectorAll('.vote-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      selectVote(this.getAttribute('data-date'),this.getAttribute('data-type'),parseInt(this.getAttribute('data-idx')));
+    });
+  });
+  // condition inputs
+  document.querySelectorAll('.condition-input').forEach(function(input){
+    input.addEventListener('input',function(){
+      conditions[this.getAttribute('data-date')]=this.value;
+    });
+  });
+  // question options
+  document.querySelectorAll('.q-option').forEach(function(label){
+    label.addEventListener('click',function(){
+      const qid=this.getAttribute('data-qid');
+      const opt=this.getAttribute('data-opt');
+      const isMulti=this.getAttribute('data-multi')==='true';
+      if(isMulti){
+        if(!Array.isArray(questionAnswers[qid]))questionAnswers[qid]=[];
+        const idx=questionAnswers[qid].indexOf(opt);
+        if(idx===-1){questionAnswers[qid].push(opt);this.classList.add('selected');}
+        else{questionAnswers[qid].splice(idx,1);this.classList.remove('selected');}
+      }else{
+        questionAnswers[qid]=opt;
+        document.querySelectorAll('.q-option[data-qid="'+qid+'"]').forEach(function(l){l.classList.remove('selected');});
+        this.classList.add('selected');
+      }
+    });
+  });
+  // text question inputs
+  document.querySelectorAll('[data-qid]').forEach(function(el){
+    if(el.tagName==='TEXTAREA'){
+      el.addEventListener('input',function(){questionAnswers[this.getAttribute('data-qid')]=this.value;});
+    }
+  });
+  // submit
+  const submitBtn=document.getElementById('submitBtn');
+  if(submitBtn)submitBtn.addEventListener('click',submitVote);
+  // proposal
+  const proposalBtn=document.getElementById('submitProposalBtn');
+  if(proposalBtn)proposalBtn.addEventListener('click',submitProposal);
+  // condition inputs restore
+  if(isEditActive&&existingVote){
+    Object.entries(conditions).forEach(function(e){
+      const k=e[0],v=e[1];
+      const idx=(eventData.dates||[]).findIndex(function(d){return d.datetime===k;});
+      if(idx!==-1){
+        const ci=document.getElementById('condInput_'+idx);
+        if(ci){ci.value=v;document.getElementById('cond_'+idx).classList.add('visible');}
+      }
+    });
+  }
 }
 
 // ─── Vote Selection ───
-function selectVote(dateKey, type, index) {
-  const types = { circle:'circle-active', triangle:'triangle-active', cross:'cross-active' };
-  const row  = document.getElementById(`vrow_${index}`);
-  if (!row) return;
-  row.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('circle-active','triangle-active','cross-active'));
-
-  if (answers[dateKey] === type) {
-    delete answers[dateKey];
-    delete conditions[dateKey];
-    document.getElementById(`cond_${index}`)?.classList.remove('visible');
-  } else {
-    answers[dateKey] = type;
-    row.querySelector(`.vote-btn[data-type="${type}"]`)?.classList.add(types[type]);
-    const condRow = document.getElementById(`cond_${index}`);
-    if (type === 'triangle') {
-      condRow?.classList.add('visible');
-      document.getElementById(`condInput_${index}`)?.focus();
-    } else {
-      condRow?.classList.remove('visible');
-    }
+function selectVote(dateKey,type,index){
+  const types={circle:'circle-active',triangle:'triangle-active',cross:'cross-active'};
+  const row=document.getElementById('vrow_'+index);if(!row)return;
+  row.querySelectorAll('.vote-btn').forEach(function(b){b.classList.remove('circle-active','triangle-active','cross-active');});
+  if(answers[dateKey]===type){
+    delete answers[dateKey];delete conditions[dateKey];
+    document.getElementById('cond_'+index).classList.remove('visible');
+  }else{
+    answers[dateKey]=type;
+    applyVoteUI(dateKey,type,index);
   }
 }
-
-function updateCondition(input) {
-  conditions[input.getAttribute('data-date')] = input.value;
+function applyVoteUI(dateKey,type,index){
+  const types={circle:'circle-active',triangle:'triangle-active',cross:'cross-active'};
+  const row=document.getElementById('vrow_'+index);if(!row)return;
+  row.querySelectorAll('.vote-btn').forEach(function(b){b.classList.remove('circle-active','triangle-active','cross-active');});
+  const btn=row.querySelector('.vote-btn[data-type="'+type+'"]');
+  if(btn)btn.classList.add(types[type]);
+  const condRow=document.getElementById('cond_'+index);
+  if(type==='triangle'){condRow&&condRow.classList.add('visible');}
+  else{condRow&&condRow.classList.remove('visible');}
 }
 
 // ─── Submit Vote ───
-async function submitVote() {
-  const isClosedMode = eventData.mode === 'closed';
-  let name;
-  if (isClosedMode) {
-    name = participantData?.email || token;
-  } else {
-    name = document.getElementById('answerName')?.value.trim();
-    if (!name) { showToast('お名前を入力してください', 'error'); return; }
+async function submitVote(){
+  const isClosedMode=eventData.mode==='closed';
+  let name,email='';
+  if(isClosedMode){
+    name=participantData?participantData.email:token;
+  }else{
+    name=document.getElementById('answerName')?document.getElementById('answerName').value.trim():'';
+    if(!name){showToast('お名前を入力してください','error');return;}
   }
-  if (Object.keys(answers).length === 0) { showToast('少なくとも1つの候補に回答してください', 'error'); return; }
+  // メールアドレス収集
+  const ec=eventData.emailCollection||'none';
+  if(ec!=='none'){
+    const emailEl=document.getElementById('answerEmail');
+    if(emailEl)email=emailEl.value.trim();
+    if(ec==='required'&&!email){showToast('メールアドレスを入力してください','error');return;}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('有効なメールアドレスを入力してください','error');return;}
+  }
+  if(!Object.keys(answers).length){showToast('少なくとも1つの候補に回答してください','error');return;}
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  document.getElementById('submitBtnText').innerHTML = '<div class="spinner"></div> 送信中...';
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;document.getElementById('submitBtnText').innerHTML='<div class="spinner"></div> 送信中...';
 
-  const voteId = isClosedMode
-    ? (token || name.replace(/[^a-zA-Z0-9]/g, '_'))
-    : (existingVote?.id || generateId(16));
-
-  const voteData = {
-    id: voteId,
-    name: isClosedMode ? (participantData?.email || token) : name,
-    token: token || '',
-    answers: { ...answers },
-    comments: { ...conditions },
-    updatedAt: new Date().toISOString()
+  const commentEl=document.getElementById('answerComment');
+  const comment=commentEl?commentEl.value.trim():'';
+  const voteId=isClosedMode?(token||name.replace(/[^a-zA-Z0-9]/g,'_')):(existingVote?existingVote.id:generateId(16));
+  const voteData={
+    id:voteId,
+    name:isClosedMode?(participantData?participantData.email:token):name,
+    token:token||'',
+    email:email||'',
+    answers:{...answers},
+    comments:{...conditions},
+    questionAnswers:{...questionAnswers},
+    comment:comment,
+    updatedAt:new Date().toISOString()
   };
 
-  try {
-    const db = window._db;
-    if (db) {
-      const { doc, setDoc, serverTimestamp } =
-        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-
-      await setDoc(doc(db, 'events', eventId, 'votes', voteId), {
-        ...voteData,
-        updatedAt: serverTimestamp()
-      });
-
-      if (isClosedMode && participantData) {
-        const emailKey = participantData.email.replace(/[^a-zA-Z0-9]/g, '_');
-        await setDoc(doc(db, 'events', eventId, 'participants', emailKey), {
-          ...participantData,
-          replied: true
-        });
+  try{
+    if(window._db&&window._fsOps){
+      const{doc,setDoc,serverTimestamp,updateDoc}=window._fsOps;
+      await setDoc(doc(window._db,'events',eventId,'votes',voteId),{...voteData,updatedAt:serverTimestamp()});
+      if(isClosedMode&&participantData){
+        const emailKey=participantData.email.replace(/[^a-zA-Z0-9]/g,'_');
+        await setDoc(doc(window._db,'events',eventId,'participants',emailKey),{...participantData,replied:true});
       }
-    } else {
-      const votes = JSON.parse(localStorage.getItem(`schedly_votes_${eventId}`) || '{}');
-      votes[voteId] = voteData;
-      localStorage.setItem(`schedly_votes_${eventId}`, JSON.stringify(votes));
+    }else{
+      const votes=JSON.parse(localStorage.getItem('schedly_votes_'+eventId)||'{}');
+      votes[voteId]=voteData;
+      localStorage.setItem('schedly_votes_'+eventId,JSON.stringify(votes));
     }
 
-    // 回答完了メール送信
-    const emailTo = isClosedMode
-      ? participantData?.email
-      : (name.includes('@') ? name : null);
-
-    if (emailTo) {
-      const editUrl = `${location.origin}${location.pathname}?id=${eventId}&token=${token || voteId}&edit=1`;
-      const answerSummary = Object.entries(answers).map(([k, v]) => {
-        const d   = new Date(k);
-        const sym = { circle:'◎', triangle:'△', cross:'✕' };
-        return `${d.toLocaleDateString('ja-JP', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} : ${sym[v]}`;
+    // 回答完了メール
+    const emailTo=isClosedMode?(participantData?participantData.email:''):(email||(name.includes('@')?name:''));
+    if(emailTo){
+      const editUrl=location.origin+location.pathname+'?id='+eventId+'&token='+(token||voteId)+'&edit=1';
+      const summary=Object.entries(answers).map(function(e){
+        const k=e[0],v=e[1];
+        const d=new Date(k);const sym={circle:'◎',triangle:'△',cross:'✕'};
+        return d.toLocaleDateString('ja-JP',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})+' : '+sym[v];
       }).join('\n');
-      try {
-        await emailjs.send(EMAILJS_A.serviceId, EMAILJS_A.replyTemplateId, {
-          to_email:       emailTo,
-          event_title:    eventData.title,
-          answer_summary: answerSummary,
-          edit_url:       editUrl,
-          from_name:      'Schedly'
-        }, EMAILJS_A.publicKey);
-      } catch(e) { console.warn('回答完了メール送信失敗:', e); }
+      try{
+        await emailjs.send(EMAILJS_A.serviceId,EMAILJS_A.replyTemplateId,{
+          to_email:emailTo,event_title:eventData.title,
+          answer_summary:summary,edit_url:editUrl,from_name:'Schedly'
+        },EMAILJS_A.publicKey);
+      }catch(e){console.warn('回答完了メール失敗:',e);}
     }
 
-    showToast(editMode ? '回答を更新しました ✓' : '回答を送信しました ✓', 'success');
-    setTimeout(() => {
-      location.href = `${location.origin}${location.pathname}?id=${eventId}&token=${token || voteId}`;
-    }, 1200);
-
-  } catch(e) {
-    console.error(e);
-    showToast('送信に失敗しました: ' + e.message, 'error');
-    btn.disabled = false;
-    document.getElementById('submitBtnText').textContent = editMode ? '✏️ 回答を更新する' : '📨 回答を送信する';
+    showToast(isEditActive?'回答を更新しました ✓':'回答を送信しました ✓','success');
+    setTimeout(function(){
+      location.href=location.origin+location.pathname+'?id='+eventId+'&token='+(token||voteId);
+    },1200);
+  }catch(e){
+    showToast('送信に失敗しました: '+e.message,'error');
+    btn.disabled=false;
+    document.getElementById('submitBtnText').textContent=isEditActive?'✏️ 回答を更新する':'📨 回答を送信する';
   }
 }
 
-function showError(title, desc = '') {
-  document.getElementById('mainContent').innerHTML = `
-    <div class="error-state">
-      <div style="font-size:48px;margin-bottom:16px">❌</div>
-      <div style="font-size:20px;font-weight:600;margin-bottom:8px">${title}</div>
-      ${desc ? `<div style="color:var(--text2);font-size:14px;margin-bottom:24px">${desc}</div>` : ''}
-      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:var(--radius);font-size:14px;text-decoration:none">← 新しいイベントを作成</a>
-    </div>`;
+// ─── Submit Proposal ───
+async function submitProposal(){
+  const dateVal=document.getElementById('proposalDate').value;
+  const msg=document.getElementById('proposalMsg').value.trim();
+  if(!dateVal){showToast('提案する日時を入力してください','error');return;}
+  const isClosedMode=eventData.mode==='closed';
+  const proposerName=isClosedMode?(participantData?participantData.email:token):
+    (document.getElementById('answerName')?document.getElementById('answerName').value.trim():'匿名');
+  const proposerEmail=isClosedMode?(participantData?participantData.email:''):
+    (document.getElementById('answerEmail')?document.getElementById('answerEmail').value.trim():'');
+
+  const proposal={
+    name:proposerName,email:proposerEmail,
+    proposedDate:dateVal,message:msg,
+    status:'pending',createdAt:new Date().toISOString()
+  };
+  try{
+    if(window._db&&window._fsOps){
+      await window._fsOps.addDoc(window._fsOps.collection(window._db,'events',eventId,'proposals'),proposal);
+    }else{
+      const prs=JSON.parse(localStorage.getItem('schedly_proposals_'+eventId)||'[]');
+      prs.push({...proposal,id:'local_'+Date.now()});
+      localStorage.setItem('schedly_proposals_'+eventId,JSON.stringify(prs));
+    }
+    showToast('対案を送信しました。管理者の確認をお待ちください。','success');
+    document.getElementById('proposalDate').value='';
+    document.getElementById('proposalMsg').value='';
+  }catch(e){showToast('送信に失敗しました: '+e.message,'error');}
 }
 
-function showToast(msg, type = 'info') {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  const icons = { success:'✓', error:'✕', info:'ℹ' };
-  toast.innerHTML = `<span>${icons[type]||'•'}</span><span>${msg}</span>`;
-  container.appendChild(toast);
-  setTimeout(() => { toast.classList.add('toast-out'); setTimeout(() => toast.remove(), 300); }, 3500);
+// ─── GCal / ICS ───
+function makeGCalUrl(){
+  if(!eventData.confirmedDate)return'';
+  try{
+    const cd=eventData.confirmedDate;
+    const s=new Date(cd.datetime||cd),e=new Date(s.getTime()+60*60*1000);
+    const fmt=function(d){return d.toISOString().replace(/[-:]/g,'').replace('.000','');};
+    return'https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:eventData.title,dates:fmt(s)+'/'+fmt(e),details:eventData.description||'',location:eventData.location||''});
+  }catch(e){return'';}
+}
+function makeICSUrl(){
+  if(!eventData.confirmedDate)return'';
+  try{
+    const cd=eventData.confirmedDate;
+    const s=new Date(cd.datetime||cd),e=new Date(s.getTime()+60*60*1000);
+    const fmt=function(d){return d.toISOString().replace(/[-:]/g,'').replace('.000','');};
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','DTSTART:'+fmt(s),'DTEND:'+fmt(e),'SUMMARY:'+eventData.title,'DESCRIPTION:'+(eventData.description||''),'LOCATION:'+(eventData.location||''),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    return'data:text/calendar;charset=utf8,'+encodeURIComponent(ics);
+  }catch(e){return'';}
 }
 
-function generateId(len = 16) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+// ─── Helpers ───
+function showError(title,desc){
+  document.getElementById('mainContent').innerHTML=
+    '<div class="error-state">'+
+      '<div style="font-size:48px;margin-bottom:16px">❌</div>'+
+      '<div style="font-size:20px;font-weight:600;margin-bottom:8px">'+escHtml(title)+'</div>'+
+      (desc?'<div style="color:var(--text2);font-size:14px;margin-bottom:24px">'+escHtml(desc)+'</div>':'')+
+      '<a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:var(--radius);font-size:14px;text-decoration:none">← 新しいイベントを作成</a>'+
+    '</div>';
 }
-
-function escHtml(s) {
-  if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function showToast(msg,type){
+  type=type||'info';
+  const c=document.getElementById('toastContainer'),t=document.createElement('div');
+  t.className='toast '+type;
+  const ic={success:'✓',error:'✕',info:'ℹ'};
+  t.innerHTML='<span>'+(ic[type]||'•')+'</span><span>'+msg+'</span>';
+  c.appendChild(t);
+  setTimeout(function(){t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},3500);
 }
-
-window.selectVote     = selectVote;
-window.updateCondition = updateCondition;
-window.submitVote     = submitVote;
+function generateId(len){
+  len=len||16;var c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',r='';
+  for(var i=0;i<len;i++)r+=c[Math.floor(Math.random()*c.length)];return r;
+}
+function escHtml(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
 </script>
 </body>
 </html>
